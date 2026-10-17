@@ -1,12 +1,17 @@
 // Business facts used across all languages. Replace placeholders before launch.
+// Domain comes from `site` in astro.config.mjs.
+const origin = new URL(import.meta.env.SITE).origin;
+const host = new URL(origin).host;
+
 export const site = {
   name: 'Bez Brudu',
-  url: 'https://bezbrudu.pl',
+  url: origin,
+  host,
   // TODO: real number. Display and tel/WhatsApp formats are kept separately.
   phoneDisplay: '+48 XXX XXX XXX',
   phoneHref: 'tel:+48XXXXXXXXX',
   whatsappHref: 'https://wa.me/48XXXXXXXXX',
-  email: 'kontakt@bezbrudu.pl',
+  email: `kontakt@${host}`,
   minOrder: 150,
 };
 

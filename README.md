@@ -22,6 +22,14 @@ npm run cf:dev     # build + run the Worker locally with wrangler
 
 Manual deploy from this machine: `npx wrangler login`, then `npm run deploy`.
 
+Live at https://bezbrudu.com.pl (`www.` redirects to it, workers.dev is off).
+
+## Changing the domain (e.g. to bezbrudu.pl later)
+
+1. `site` in `astro.config.mjs`: canonical URLs, hreflang, sitemap, robots and the contact e-mail all follow it.
+2. `routes` in `wrangler.jsonc`: add the new domain (its zone must be in the same Cloudflare account).
+3. Keep the old domain in `routes` and redirect it to the new one (same idea as the `www.` redirect in `worker/index.js`).
+
 The bot token never reaches the browser (the old site kept it in client JS).
 
 ## Before launch
