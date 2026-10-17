@@ -24,7 +24,7 @@ On-site extraction cleaning in the customer's own flat in Warsaw, with a transpa
 
 ## Operating Context
 
-- Contact: phone and WhatsApp +48 453 169 250, email info@bezbrudu.com.pl, two forms (quick quote and full contact).
+- Contact: phone and WhatsApp +48 453 269 150, email info@bezbrudu.com.pl, two forms (quick quote and full contact).
 - Hours: Mon–Fri 8:00–20:00, Sat 9:00–18:00.
 - Area: Warsaw districts (Mokotów, Ursynów, Wilanów, Śródmieście, Praga Południe/Północ, Wola, Żoliborz, Bielany, Targówek, Bemowo, Ursus, Ochota, Białołęka, Rembertów) and surroundings.
 - Drying time after extraction: 2–4 hours.

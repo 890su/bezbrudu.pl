@@ -7,9 +7,9 @@ export const site = {
   name: 'Bez Brudu',
   url: origin,
   host,
-  phoneDisplay: '+48 453 169 250',
-  phoneHref: 'tel:+48453169250',
-  whatsappHref: 'https://wa.me/48453169250',
+  phoneDisplay: '+48 453 269 150',
+  phoneHref: 'tel:+48453269150',
+  whatsappHref: 'https://wa.me/48453269150',
   email: `info@${host}`,
   minOrder: 150,
 };
