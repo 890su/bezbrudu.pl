@@ -1,5 +1,6 @@
 ---
 import type { Dict } from '../data/i18n';
+import { promo } from '../data/site';
 interface Props { t: Dict }
 const { t } = Astro.props;
 
@@ -36,7 +37,7 @@ const leaders = [
   { x: 460, y: 40, sx: 412 },
 ];
 ---
-<figure class="scrub" data-scrub data-done={t.hero.done}>
+<figure class="scrub" data-scrub data-start={t.game.start} data-tap={t.game.tap} data-going={t.game.going} data-done={t.game.done}>
   <div class="scrub__stage" aria-hidden="true">
     <svg class="scrub__fill" viewBox="0 0 600 340" preserveAspectRatio="xMidYMid meet">
       {shapes.map((d) => <path d={d} />)}
@@ -59,6 +60,10 @@ const leaders = [
         </g>
       ))}
     </svg>
+    <div class="scrub__stamp" data-scrub-stamp aria-hidden="true">
+      <span class="scrub__stamp-ok">OK</span>
+      <span class="scrub__stamp-off">−{promo.percent}%</span>
+    </div>
     <svg class="scrub__tool" data-scrub-tool viewBox="-14 -150 92 162" width="92" height="162">
       <path d="M27 -150V-16M37 -150V-16M22 -16h20" />
       <path d="M0 0H64L57 -16H7Z" />
@@ -70,14 +75,16 @@ const leaders = [
       <li><span class="pins__n" aria-hidden="true">{i + 1}</span><strong>{title}</strong> <span>{text}</span></li>
     ))}
   </ol>
-  <figcaption class="scrub__bar">
-    <span class="scrub__hint" data-scrub-hint>{t.hero.scrubHint}</span>
-    <span class="scrub__meter" aria-live="polite">
-      <span data-scrub-label>{t.hero.clean}</span>
-      <output data-scrub-pct>0%</output>
+  <p class="bubble" data-scrub-bubble role="status">{t.game.start}</p>
+  <figcaption class="game">
+    <span class="game__label">{t.hero.clean}</span>
+    <span class="game__track" aria-hidden="true">
+      <span class="game__fill" data-scrub-fill></span>
+      <span class="game__goal">{t.game.goal}</span>
     </span>
-    <button type="button" class="link-btn" data-scrub-all>{t.hero.cleanAll}</button>
-    <button type="button" class="link-btn" data-scrub-reset hidden>{t.hero.reset}</button>
+    <output class="game__pct" data-scrub-pct>0%</output>
+    <a class="btn btn--ink game__use" href="#cena" data-scrub-use hidden>{t.game.use}</a>
+    <button type="button" class="game__kbd" data-scrub-all>{t.game.keyboard}</button>
   </figcaption>
   <p class="visually-hidden">{t.hero.drawingLabel}</p>
 </figure>

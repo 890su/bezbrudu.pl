@@ -1,4 +1,4 @@
-import { initScrub } from './scrub';
+import { initScrub, storedPromo } from './scrub';
 
 interface Ui {
   lang: string;
@@ -8,6 +8,9 @@ interface Ui {
   items: Record<string, string>;
   travel: string;
   free: string;
+  code: string;
+  percent: number;
+  discount: string;
   sending: string;
   error: string;
   errPhone: string;
@@ -53,6 +56,11 @@ const totalEl = document.querySelector<HTMLOutputElement>('[data-total]');
 const minEl = document.querySelector<HTMLElement>('[data-min]');
 const travelEl = document.querySelector<HTMLSelectElement>('[data-travel]');
 const travelLine = document.querySelector<HTMLElement>('[data-travel-line]');
+const discountLine = document.querySelector<HTMLElement>('[data-discount-line]');
+const sheetCode = document.querySelector<HTMLInputElement>('.sheet [data-code]');
+const codeInputs = [...document.querySelectorAll<HTMLInputElement>('[data-code]')];
+
+const codeOk = (v: string | undefined) => (v ?? '').trim().toUpperCase() === ui.code;
 
 function travelChoice() {
   const opt = travelEl?.selectedOptions[0];
@@ -77,15 +85,39 @@ function recalc() {
   }
   const applied = sum > 0 && sum < ui.min;
   const { place, fee } = travelChoice();
-  const shown = sum > 0 ? Math.max(sum, ui.min) + fee : 0;
+  const service = sum > 0 ? Math.max(sum, ui.min) : 0;
+  // The first-order discount covers the service, never the travel fee.
+  const off = codeOk(sheetCode?.value) ? Math.round((service * ui.percent) / 100) : 0;
+  const shown = sum > 0 ? service - off + fee : 0;
   if (totalEl) totalEl.textContent = `${money.format(shown)} zł`;
   if (minEl) minEl.hidden = !applied;
+  if (discountLine) {
+    discountLine.hidden = !off;
+    discountLine.textContent = `${ui.discount} −${ui.percent}%: −${money.format(off)} zł`;
+  }
   if (travelLine) {
     travelLine.hidden = !(sum > 0 && place);
     travelLine.textContent = `${ui.travel}: ${fee ? `+${fee} zł` : ui.free}`;
   }
 }
 travelEl?.addEventListener('change', recalc);
+
+// Cleaning the sofa to 100% drops the code into every form; typing it by hand works too.
+function fillCode() {
+  for (const input of codeInputs) {
+    if (!input.value.trim()) input.value = ui.code;
+    input.closest('.code-field')?.classList.add('is-filled');
+  }
+  recalc();
+}
+document.addEventListener('bb:cleaned', fillCode);
+for (const input of codeInputs) {
+  input.addEventListener('input', () => {
+    input.value = input.value.toUpperCase();
+    input.closest('.code-field')?.classList.toggle('is-filled', codeOk(input.value));
+    recalc();
+  });
+}
 
 for (const part of parts) {
   const input = part.querySelector<HTMLInputElement>('input')!;
@@ -105,6 +137,7 @@ for (const part of parts) {
   input.addEventListener('focus', () => input.select());
 }
 recalc();
+if (storedPromo()) fillCode();
 
 function listSummary() {
   const lines: string[] = [];
@@ -116,6 +149,7 @@ function listSummary() {
   }
   const { place, fee } = travelChoice();
   if (place) lines.push(`${ui.travel}: ${place}${fee ? ` (+${fee} zł)` : ''}`);
+  if (discountLine && !discountLine.hidden) lines.push(discountLine.textContent ?? '');
   return lines;
 }
 
@@ -168,6 +202,7 @@ document.querySelectorAll<HTMLFormElement>('form[data-lead]').forEach((form) => 
       message: data.message?.trim() || '',
       items: form.dataset.source === 'calculator' ? listSummary() : [],
       total: form.dataset.source === 'calculator' ? totalEl?.textContent ?? '' : '',
+      code: data.code?.trim().toUpperCase() || '',
       company: data.company || '',
     };
 

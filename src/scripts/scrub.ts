@@ -1,9 +1,13 @@
 // Halftone dirt over the line-drawn sofa. Pointer strokes erase it like an extractor pass.
+// Cleaning it to 100% unlocks the first-order discount code (see main.ts).
 
 const W = 600;
 const H = 340;
 const SPACING = 7;
-const NOZZLE = 46; // stroke width in drawing units
+const NOZZLE = 54; // stroke width in drawing units
+// Real cleaned share that already counts as 100%: the last dots along contours are fiddly to reach.
+const DONE_AT = 0.9;
+const STORE_KEY = 'bb_promo';
 
 // Same silhouette as HeroSofa.astro (fill shapes only).
 const SILHOUETTE = [
@@ -43,48 +47,75 @@ function density(x: number, y: number) {
   return Math.min(d, 0.95);
 }
 
+export function storedPromo(): boolean {
+  try {
+    return localStorage.getItem(STORE_KEY) === '1';
+  } catch {
+    return false;
+  }
+}
+
 export function initScrub(root: HTMLElement) {
+  const stage = root.querySelector<HTMLElement>('.scrub__stage');
   const canvas = root.querySelector<HTMLCanvasElement>('[data-scrub-canvas]');
   const tool = root.querySelector<SVGSVGElement>('[data-scrub-tool]');
   const pctEl = root.querySelector<HTMLOutputElement>('[data-scrub-pct]');
-  const hint = root.querySelector<HTMLElement>('[data-scrub-hint]');
+  const fill = root.querySelector<HTMLElement>('[data-scrub-fill]');
+  const bubble = root.querySelector<HTMLElement>('[data-scrub-bubble]');
+  const useLink = root.querySelector<HTMLElement>('[data-scrub-use]');
   const allBtn = root.querySelector<HTMLButtonElement>('[data-scrub-all]');
-  const resetBtn = root.querySelector<HTMLButtonElement>('[data-scrub-reset]');
-  if (!canvas || !tool || !pctEl || !hint || !allBtn || !resetBtn) return;
+  if (!stage || !canvas || !tool || !pctEl || !fill || !bubble || !useLink || !allBtn) return;
   const ctx = canvas.getContext('2d', { willReadFrequently: true });
   if (!ctx) return;
 
-  const hintText = hint.textContent ?? '';
-  const doneText = root.dataset.done ?? '';
+  const text = {
+    start: root.dataset.start ?? '',
+    tap: root.dataset.tap ?? '',
+    going: root.dataset.going ?? '',
+    done: root.dataset.done ?? '',
+  };
+  const touchFirst = window.matchMedia('(pointer: coarse)').matches;
   const clip = new Path2D();
   SILHOUETTE.forEach((d) => clip.addPath(new Path2D(d)));
 
-  let scale = 1;
   let initialInk = 1;
   let last: { x: number; y: number } | null = null;
   let drawing = false;
   let animating = false;
+  let armed = false;
+  let touched = false;
+  let done = false;
+  let toolAt = { x: 300, y: 62 };
+
+  function say(main: string, sub = '') {
+    bubble!.textContent = main;
+    if (sub) {
+      const small = document.createElement('small');
+      small.textContent = sub;
+      bubble!.append(small);
+    }
+  }
 
   function paintDirt() {
     const rect = canvas!.getBoundingClientRect();
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     canvas!.width = Math.round(rect.width * dpr);
     canvas!.height = Math.round(rect.height * dpr);
-    scale = canvas!.width / W;
+    const scale = canvas!.width / W;
     ctx!.setTransform(scale, 0, 0, scale, 0, 0);
     ctx!.globalCompositeOperation = 'source-over';
     ctx!.clearRect(0, 0, W, H);
+    if (done) return;
     ctx!.save();
     ctx!.clip(clip);
     ctx!.fillStyle = getComputedStyle(root).getPropertyValue('--dirt').trim() || '#8a6a3b';
     // Screen at 45°, like a printed halftone.
-    const step = SPACING;
-    for (let gy = -H; gy < H * 2; gy += step) {
-      for (let gx = -W; gx < W * 2; gx += step) {
+    for (let gy = -H; gy < H * 2; gy += SPACING) {
+      for (let gx = -W; gx < W * 2; gx += SPACING) {
         const x = (gx - gy) * 0.7071 + W / 2;
         const y = (gx + gy) * 0.7071;
         if (x < 0 || x > W || y < 0 || y > H) continue;
-        const r = (step / 2) * Math.sqrt(density(x, y)) * 1.05;
+        const r = (SPACING / 2) * Math.sqrt(density(x, y)) * 1.05;
         ctx!.beginPath();
         ctx!.arc(x, y, r, 0, Math.PI * 2);
         ctx!.fill();
@@ -104,16 +135,22 @@ export function initScrub(root: HTMLElement) {
     return n;
   }
 
-  function updateMeter() {
-    const left = countInk();
-    const pct = Math.max(0, Math.min(100, Math.round((1 - left / initialInk) * 100)));
+  function showPct(pct: number) {
     pctEl!.value = `${pct}%`;
     pctEl!.textContent = `${pct}%`;
-    const done = pct >= 85;
-    hint!.textContent = done ? doneText : hintText;
-    hint!.classList.toggle('is-done', done);
-    resetBtn!.hidden = pct < 3;
-    allBtn!.hidden = done;
+    fill!.style.transform = `scaleX(${pct / 100})`;
+  }
+
+  function updateMeter() {
+    if (done) {
+      showPct(100);
+      return;
+    }
+    const real = 1 - countInk() / initialInk;
+    const pct = Math.max(0, Math.min(99, Math.floor((real / DONE_AT) * 100)));
+    showPct(pct);
+    if (touched && pct > 0) say(text.going);
+    if (real >= DONE_AT && !animating) finish();
   }
 
   function erase(from: { x: number; y: number }, to: { x: number; y: number }) {
@@ -133,12 +170,27 @@ export function initScrub(root: HTMLElement) {
     return { x: ((e.clientX - rect.left) / rect.width) * W, y: ((e.clientY - rect.top) / rect.height) * H };
   }
 
+  // The bubble rides beside the extractor handle, kept inside the figure.
+  function placeBubble() {
+    const sx = stage!.offsetLeft + (toolAt.x / W) * stage!.clientWidth;
+    const sy = stage!.offsetTop + (toolAt.y / H) * stage!.clientHeight;
+    const bw = bubble!.offsetWidth;
+    const bh = bubble!.offsetHeight;
+    const right = sx + 34;
+    const left = right + bw <= root.clientWidth ? right : Math.max(0, sx - 34 - bw);
+    const top = Math.max(stage!.offsetTop - bh + 24, sy - bh - 40);
+    bubble!.style.transform = `translate(${left}px, ${top}px)`;
+    bubble!.classList.toggle('bubble--left', left < sx);
+  }
+
   function placeTool(p: { x: number; y: number }) {
+    toolAt = p;
     tool!.style.transform = `translate(${(p.x / W) * canvas!.clientWidth}px, ${(p.y / H) * canvas!.clientHeight}px) translate(-50%, -92.6%)`;
+    placeBubble();
   }
 
   canvas.addEventListener('pointerenter', (e) => {
-    if (e.pointerType === 'mouse') tool.classList.add('is-on');
+    if (e.pointerType === 'mouse' && !done) tool.classList.add('is-on');
   });
   canvas.addEventListener('pointerleave', () => {
     if (!animating) tool.classList.remove('is-on');
@@ -146,7 +198,14 @@ export function initScrub(root: HTMLElement) {
     last = null;
   });
   canvas.addEventListener('pointerdown', (e) => {
-    if (animating) return;
+    if (animating || done) return;
+    touched = true;
+    // First touch on a phone switches the drawing from scrolling to scrubbing.
+    if (e.pointerType !== 'mouse' && !armed) {
+      armed = true;
+      canvas.style.touchAction = 'none';
+      root.classList.add('is-armed');
+    }
     drawing = true;
     last = toDrawing(e);
     tool.classList.add('is-on');
@@ -154,6 +213,7 @@ export function initScrub(root: HTMLElement) {
     erase(last, last);
   });
   canvas.addEventListener('pointermove', (e) => {
+    if (done) return;
     const p = toDrawing(e);
     if (!animating) placeTool(p);
     if (!drawing || !last) return;
@@ -200,38 +260,80 @@ export function initScrub(root: HTMLElement) {
     for (const [x, y0, y1] of passes) await pass(x, y0, y1, ms);
     tool!.classList.remove('is-on');
     animating = false;
-    updateMeter();
   }
 
-  allBtn.addEventListener('click', () => {
+  const sweep = (): [number, number, number][] => {
     const passes: [number, number, number][] = [];
     for (let x = 40; x <= 560; x += 40) passes.push([x, 40, 300]);
-    run(passes, 220);
+    return passes;
+  };
+
+  // Last stretch: the tool tidies the leftovers, then the stamp lands.
+  async function finish() {
+    await run(sweep(), 70);
+    ctx!.clearRect(0, 0, W, H);
+    complete();
+  }
+
+  function complete(quiet = false) {
+    done = true;
+    armed = false;
+    canvas!.style.touchAction = '';
+    root.classList.remove('is-armed');
+    root.classList.add('is-done');
+    root.classList.toggle('is-done-quiet', quiet);
+    showPct(100);
+    say(text.done);
+    useLink!.hidden = false;
+    allBtn!.hidden = true;
+    placeBubble();
+    try {
+      localStorage.setItem(STORE_KEY, '1');
+    } catch {
+      /* private mode: the code still fills for this visit */
+    }
+    document.dispatchEvent(new CustomEvent('bb:cleaned'));
+  }
+
+  // Keyboard and switch users get the same reward without dragging.
+  allBtn.addEventListener('click', async () => {
+    touched = true;
+    await run(sweep(), 160);
+    ctx!.clearRect(0, 0, W, H);
+    complete();
   });
-  resetBtn.addEventListener('click', () => {
-    paintDirt();
-    allBtn.focus();
-  });
+
+  say(text.start, touchFirst ? text.tap : '');
 
   let width = 0;
   const ro = new ResizeObserver(() => {
     const w = Math.round(canvas.getBoundingClientRect().width);
-    if (w && w !== width) {
-      const first = width === 0;
-      width = w;
-      paintDirt();
-      if (first) startDemo();
-    }
+    if (!w || w === width) return;
+    const first = width === 0;
+    width = w;
+    paintDirt();
+    placeTool(toolAt);
+    if (!first) return;
+    if (storedPromo()) {
+      ctx!.clearRect(0, 0, W, H);
+      complete(true);
+    } else startDemo();
   });
   ro.observe(canvas);
 
   // The first stroke happens on its own once the sofa is in view: one clean stripe down the middle.
   function startDemo() {
-    const io = new IntersectionObserver((entries) => {
-      if (!entries.some((en) => en.isIntersecting)) return;
-      io.disconnect();
-      setTimeout(() => run([[300, 62, 290]], 1100), reduceMotion() ? 0 : 700);
-    }, { threshold: 0.6 });
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((en) => en.isIntersecting)) return;
+        io.disconnect();
+        setTimeout(async () => {
+          await run([[300, 62, 290]], 1100);
+          updateMeter();
+        }, reduceMotion() ? 0 : 700);
+      },
+      { threshold: 0.6 },
+    );
     io.observe(canvas!);
   }
 }

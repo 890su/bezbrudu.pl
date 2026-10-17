@@ -4,7 +4,7 @@ import Icon from './Icon.astro';
 import HeroSofa from './HeroSofa.astro';
 import Stain from './Stain.astro';
 import Steps from './Steps.astro';
-import { site, prices, travel, langs, langPath, langLabel, langName, type Lang } from '../data/site';
+import { site, prices, travel, promo, langs, langPath, langLabel, langName, type Lang } from '../data/site';
 import { dicts } from '../data/i18n';
 
 interface Props { lang: Lang }
@@ -21,6 +21,9 @@ const ui = {
   items: t.sheet.items,
   travel: t.sheet.travel,
   free: t.area.free,
+  code: promo.code,
+  percent: promo.percent,
+  discount: t.sheet.discount,
   sending: t.form.sending,
   error: t.form.error,
   errPhone: t.form.errPhone,
@@ -130,6 +133,7 @@ const ui = {
               <output class="sheet__sum" data-total aria-live="polite">0 zł</output>
               <span class="sheet__min" data-min hidden>{t.sheet.minApplied}</span>
               <span class="sheet__min" data-travel-line hidden></span>
+              <span class="sheet__min sheet__disc" data-discount-line hidden></span>
             </div>
             <p class="sheet__note">{t.sheet.note}</p>
             <div class="sheet__alt">
@@ -148,6 +152,11 @@ const ui = {
                 <input name="phone" type="tel" autocomplete="tel" inputmode="tel" required maxlength="30" />
               </label>
             </div>
+            <label class="field field--on-ink code-field">
+              <span class="field__label">{t.sheet.code}</span>
+              <input name="code" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="20" data-code aria-describedby="code-note-sheet" />
+            </label>
+            <p class="code-note" id="code-note-sheet">{t.sheet.codeNote}</p>
             <label class="hp" aria-hidden="true">Company<input name="company" tabindex="-1" autocomplete="off" /></label>
             <button class="btn btn--paper btn--block" type="submit" data-submit>
               <span>{t.sheet.submit}</span>
@@ -288,6 +297,11 @@ const ui = {
               <span class="field__label">{t.contact.message}</span>
               <textarea name="message" rows="4" maxlength="1500"></textarea>
             </label>
+            <label class="field code-field">
+              <span class="field__label">{t.sheet.code}</span>
+              <input name="code" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="20" data-code aria-describedby="code-note-contact" />
+            </label>
+            <p class="code-note" id="code-note-contact">{t.sheet.codeNote}</p>
             <label class="hp" aria-hidden="true">Company<input name="company" tabindex="-1" autocomplete="off" /></label>
             <button class="btn btn--ink btn--block" type="submit" data-submit>
               <span>{t.contact.submit}</span>

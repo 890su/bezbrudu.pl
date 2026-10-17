@@ -55,6 +55,8 @@ button, input, select, textarea { font: inherit; color: inherit; }
 button { cursor: pointer; }
 :focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; border-radius: 2px; }
 
+[hidden] { display: none !important; }
+
 .visually-hidden {
   position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
@@ -101,12 +103,6 @@ button { cursor: pointer; }
 .btn--line-paper:hover { background: var(--on-blue); color: var(--blue); border-color: var(--on-blue); }
 .btn[aria-busy='true'] { opacity: 0.7; cursor: progress; }
 
-.link-btn {
-  background: none; border: 0; padding: 0 2px; min-height: 44px;
-  font-weight: 600; font-size: 0.94rem; color: var(--ink);
-  text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 0.25em;
-}
-.link-btn:hover { color: var(--blue); }
 
 /* ---------- Header ---------- */
 .top {
@@ -191,7 +187,58 @@ button { cursor: pointer; }
 .hero__lead { margin-top: 18px; font-size: clamp(1.05rem, 1rem + 0.3vw, 1.22rem); color: var(--ink-2); max-width: 64ch; text-wrap: pretty; }
 
 /* The scrubbable sofa */
-.scrub { margin-top: clamp(20px, 2.4vw, 32px); }
+.scrub { position: relative; margin-top: clamp(20px, 2.4vw, 32px); }
+
+/* Game: bubble at the extractor, progress bar, stamp at 100% */
+.bubble {
+  position: absolute; left: 0; top: 0; z-index: 3; max-width: 250px;
+  margin: 0; padding: 10px 14px;
+  background: var(--ink); color: var(--paper); border-radius: var(--radius);
+  font-family: var(--display); font-weight: 600; font-size: 0.86rem; line-height: 1.3; letter-spacing: -0.01em;
+  pointer-events: none;
+  transition: transform 140ms linear, background-color 200ms var(--ease-out);
+}
+.bubble::after {
+  content: ''; position: absolute; left: -7px; bottom: 12px; width: 14px; height: 14px;
+  background: inherit; transform: rotate(45deg); border-radius: 2px;
+}
+.bubble--left::after { left: auto; right: -7px; }
+.bubble small { display: block; margin-top: 4px; font-family: var(--text); font-weight: 500; font-size: 0.8rem; color: rgba(245, 245, 240, 0.8); }
+.is-done .bubble { background: var(--blue); color: var(--on-blue); }
+
+.game { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-top: 16px; }
+.game__label { font-weight: 600; font-size: 0.95rem; }
+.game__track {
+  position: relative; flex: 1 1 200px; height: 30px; overflow: hidden;
+  border: var(--line) solid var(--ink); border-radius: var(--radius); background: var(--white);
+}
+.game__fill {
+  position: absolute; inset: 0; background: var(--blue);
+  transform: scaleX(0); transform-origin: left center; transition: transform 320ms var(--ease-out);
+}
+.game__goal {
+  position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+  font-family: var(--display); font-weight: 600; font-size: 0.78rem; color: var(--ink);
+  transition: color 200ms var(--ease-out);
+}
+.is-done .game__goal { color: var(--on-blue); }
+.game__pct { font-family: var(--display); font-weight: 600; font-size: 1.6rem; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; min-width: 3.4ch; text-align: right; }
+.game__use { min-height: 44px; }
+.game__kbd:not(:focus-visible) { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.game__kbd { background: var(--white); border: 1.5px solid var(--ink); border-radius: var(--radius); min-height: 44px; padding: 0 14px; font-weight: 600; }
+.is-armed .scrub__stage { outline: 2px dashed var(--blue); outline-offset: 6px; border-radius: 6px; }
+
+.scrub__stamp {
+  position: absolute; left: 50%; top: 46%; z-index: 2;
+  display: grid; place-items: center; gap: 2px; padding: 14px 26px;
+  border: 4px solid var(--blue); border-radius: 10px; color: var(--blue); background: rgba(255, 255, 255, 0.86);
+  font-family: var(--display); font-weight: 700; line-height: 1; letter-spacing: -0.03em;
+  transform: translate(-50%, -50%) rotate(-8deg) scale(1.6); opacity: 0; pointer-events: none;
+}
+.scrub__stamp-ok { font-size: clamp(1.6rem, 1rem + 2vw, 2.6rem); }
+.scrub__stamp-off { font-size: clamp(1rem, 0.8rem + 0.8vw, 1.4rem); }
+.is-done .scrub__stamp { opacity: 1; transform: translate(-50%, -50%) rotate(-8deg) scale(1); transition: transform 380ms cubic-bezier(0.2, 1.4, 0.4, 1), opacity 200ms ease-out; }
+.is-done-quiet .scrub__stamp { transition: none; }
 .scrub__stage { position: relative; aspect-ratio: 600 / 340; overflow: hidden; }
 .scrub__fill, .scrub__lines, .scrub__dirt { position: absolute; inset: 0; width: 100%; height: 100%; }
 .scrub__fill path { fill: var(--white); }
@@ -218,14 +265,6 @@ button { cursor: pointer; }
 .scrub__tool path { fill: var(--white); stroke: var(--ink); stroke-width: 2; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
 .scrub__tool path:first-child { fill: none; }
 
-.scrub__bar {
-  display: flex; flex-wrap: wrap; align-items: center; gap: 4px 18px;
-  margin-top: 14px; font-size: 0.94rem; color: var(--ink-2);
-}
-.scrub__hint { flex: 1 1 220px; }
-.scrub__hint.is-done { color: var(--ink); font-weight: 600; }
-.scrub__meter { display: inline-flex; gap: 8px; align-items: baseline; }
-.scrub__meter output { font-family: var(--display); font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; min-width: 4ch; }
 
 .pins {
   display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px 0;
@@ -294,6 +333,13 @@ button { cursor: pointer; }
 }
 .field.travel-pick select option, .field.travel-pick select optgroup { color: var(--ink); background: var(--white); }
 .field.travel-pick select:focus-visible { outline: 3px solid var(--paper); outline-offset: 3px; }
+.sheet__disc { color: var(--on-blue); font-weight: 700; }
+.sheet .code-field { margin-top: 14px; }
+.code-field input { text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
+.code-field.is-filled input { border-color: var(--blue); box-shadow: inset 0 0 0 1px var(--blue); }
+.field--on-ink.code-field.is-filled input { border-color: var(--on-blue); box-shadow: none; border-bottom-width: 3px; }
+.code-note { margin-top: 6px; font-size: 0.82rem; color: var(--ink-2); }
+.sheet .code-note { color: var(--on-blue-2); }
 .sheet__note { margin-top: 8px; font-size: 0.88rem; color: var(--on-blue-2); }
 
 .sheet__fields { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 4px; }

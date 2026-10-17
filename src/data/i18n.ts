@@ -1,4 +1,4 @@
-import { prices, site, type Lang } from './site';
+import { prices, promo, site, type Lang } from './site';
 
 const P = Object.fromEntries(prices.map((p) => [p.id, p.price])) as Record<string, number>;
 
@@ -19,14 +19,11 @@ export interface Dict {
   hero: {
     title: string;
     lead: string;
-    scrubHint: string;
     clean: string;
-    cleanAll: string;
-    reset: string;
-    done: string;
     drawingLabel: string;
     pins: [string, string][];
   };
+  game: { start: string; tap: string; going: string; done: string; goal: string; use: string; keyboard: string };
   sheet: {
     title: string;
     sub: string;
@@ -41,6 +38,9 @@ export interface Dict {
     travel: string;
     travelPick: string;
     travelOther: string;
+    code: string;
+    codeNote: string;
+    discount: string;
     note: string;
     name: string;
     phone: string;
@@ -96,17 +96,22 @@ const pl: Dict = {
   hero: {
     title: 'Pranie kanap i materacy u Ciebie w domu',
     lead: 'Przyjeżdżamy z ekstraktorem, pierzemy na miejscu, a po 2–4 godzinach siadasz na suchej kanapie. Cenę sprawdzisz obok, bez dzwonienia.',
-    scrubHint: 'Przeciągnij po kanapie, żeby ją wyprać',
     clean: 'Czysto',
-    cleanAll: 'Wypierz całą',
-    reset: 'Od nowa',
-    done: 'Tak wygląda po naszej wizycie.',
     drawingLabel: 'Rysunek kanapy z plamami, które można zetrzeć',
     pins: [
       ['Schnie 2–4 godziny', 'wieczorem siadasz na suchej kanapie'],
       ['Ekstrakcja gorącą wodą', 'brud wypłukany z pianki, a nie rozmazany po tkaninie'],
       ['Bez wynoszenia mebli', 'pierzemy tam, gdzie kanapa stoi'],
     ],
+  },
+  game: {
+    start: `Wyczyść kanapę do 100% i odbierz −${promo.percent}% na pierwsze zamówienie`,
+    tap: 'Dotknij kanapy i czyść palcem',
+    going: 'Jeszcze trochę, zostały plamy',
+    done: `Gotowe! Kod ${promo.code} jest już w formularzu`,
+    goal: `100% = −${promo.percent}%`,
+    use: 'Do wyceny',
+    keyboard: 'Wyczyść kanapę',
   },
   sheet: {
     title: 'Policz cenę',
@@ -130,6 +135,9 @@ const pl: Dict = {
     travel: 'Dojazd',
     travelPick: 'Wybierz dzielnicę',
     travelOther: 'Inna miejscowość (zapytamy)',
+    code: 'Kod rabatowy',
+    codeNote: 'Kod działa tylko przy wysłaniu formularza. Rabat na usługę, bez dojazdu.',
+    discount: 'Rabat',
     note: `Minimum ${site.minOrder} zł za usługę, plus dojazd.`,
     name: 'Imię',
     phone: 'Telefon',
@@ -227,17 +235,22 @@ const en: Dict = {
   hero: {
     title: 'Sofa and mattress cleaning at your home',
     lead: 'We come with an extractor, clean on the spot, and 2–4 hours later you sit on a dry sofa. Check the price right here, no phone call needed.',
-    scrubHint: 'Drag across the sofa to clean it',
     clean: 'Clean',
-    cleanAll: 'Clean it all',
-    reset: 'Start over',
-    done: 'This is how it looks after our visit.',
     drawingLabel: 'Drawing of a stained sofa you can wipe clean',
     pins: [
       ['Dry in 2–4 hours', 'sit on a dry sofa the same evening'],
       ['Hot-water extraction', 'dirt is rinsed out of the foam, not smeared across the fabric'],
       ['Nothing to carry out', 'we clean the sofa where it stands'],
     ],
+  },
+  game: {
+    start: `Clean the sofa to 100% and get ${promo.percent}% off your first order`,
+    tap: 'Tap the sofa and scrub with your finger',
+    going: 'Keep going, a few stains left',
+    done: `Done! Code ${promo.code} is already in the form`,
+    goal: `100% = −${promo.percent}%`,
+    use: 'To the quote',
+    keyboard: 'Clean the sofa',
   },
   sheet: {
     title: 'Get a price',
@@ -261,6 +274,9 @@ const en: Dict = {
     travel: 'Travel',
     travelPick: 'Choose your district',
     travelOther: 'Another town (we’ll quote)',
+    code: 'Discount code',
+    codeNote: 'The code only works when you send the form. Discount on the service, not travel.',
+    discount: 'Discount',
     note: `Minimum ${site.minOrder} zł for the service, plus travel.`,
     name: 'Name',
     phone: 'Phone',
@@ -358,17 +374,22 @@ const ru: Dict = {
   hero: {
     title: 'Химчистка диванов и матрасов у вас дома',
     lead: 'Приезжаем с экстрактором, чистим на месте, а через 2–4 часа вы садитесь на сухой диван. Цену можно посчитать прямо здесь, без звонка.',
-    scrubHint: 'Проведите по дивану, чтобы его почистить',
     clean: 'Чисто',
-    cleanAll: 'Почистить весь',
-    reset: 'Заново',
-    done: 'Так он выглядит после нашего визита.',
     drawingLabel: 'Рисунок дивана с пятнами, которые можно стереть',
     pins: [
       ['Сохнет 2–4 часа', 'вечером садитесь на сухой диван'],
       ['Экстракция горячей водой', 'грязь вымывается из поролона, а не размазывается по ткани'],
       ['Ничего не выносим', 'чистим там, где диван стоит'],
     ],
+  },
+  game: {
+    start: `Очистите диван до 100% и получите −${promo.percent}% на первый заказ`,
+    tap: 'Коснитесь дивана и чистите пальцем',
+    going: 'Ещё немного, остались пятна',
+    done: `Готово! Код ${promo.code} уже в форме`,
+    goal: `100% = −${promo.percent}%`,
+    use: 'К расчёту',
+    keyboard: 'Почистить диван',
   },
   sheet: {
     title: 'Посчитать цену',
@@ -392,6 +413,9 @@ const ru: Dict = {
     travel: 'Выезд',
     travelPick: 'Выберите район',
     travelOther: 'Другой город (уточним)',
+    code: 'Промокод',
+    codeNote: 'Код действует только при отправке формы. Скидка на услугу, без выезда.',
+    discount: 'Скидка',
     note: `Минимум ${site.minOrder} zł за услугу, плюс выезд.`,
     name: 'Имя',
     phone: 'Телефон',
@@ -489,17 +513,22 @@ const uk: Dict = {
   hero: {
     title: 'Хімчистка диванів і матраців у вас удома',
     lead: 'Приїжджаємо з екстрактором, чистимо на місці, а за 2–4 години ви сідаєте на сухий диван. Ціну можна порахувати просто тут, без дзвінка.',
-    scrubHint: 'Проведіть по дивану, щоб його почистити',
     clean: 'Чисто',
-    cleanAll: 'Почистити весь',
-    reset: 'Спочатку',
-    done: 'Так він виглядає після нашого візиту.',
     drawingLabel: 'Малюнок дивана з плямами, які можна стерти',
     pins: [
       ['Сохне 2–4 години', 'увечері сідаєте на сухий диван'],
       ['Екстракція гарячою водою', 'бруд вимивається з поролону, а не розмазується тканиною'],
       ['Нічого не виносимо', 'чистимо там, де диван стоїть'],
     ],
+  },
+  game: {
+    start: `Очистіть диван до 100% і отримайте −${promo.percent}% на перше замовлення`,
+    tap: 'Торкніться дивана й чистіть пальцем',
+    going: 'Ще трохи, залишилися плями',
+    done: `Готово! Код ${promo.code} вже у формі`,
+    goal: `100% = −${promo.percent}%`,
+    use: 'До розрахунку',
+    keyboard: 'Почистити диван',
   },
   sheet: {
     title: 'Порахувати ціну',
@@ -523,6 +552,9 @@ const uk: Dict = {
     travel: 'Виїзд',
     travelPick: 'Оберіть район',
     travelOther: 'Інше місто (уточнимо)',
+    code: 'Промокод',
+    codeNote: 'Код діє лише під час надсилання форми. Знижка на послугу, без виїзду.',
+    discount: 'Знижка',
     note: `Мінімум ${site.minOrder} zł за послугу, плюс виїзд.`,
     name: 'Ім’я',
     phone: 'Телефон',

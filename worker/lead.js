@@ -1,6 +1,8 @@
 // POST /api/lead → Telegram message.
 // Set TG_BOT_TOKEN and TG_CHAT_ID as secrets on the Worker (Settings → Variables and Secrets).
 
+import promo from '../src/data/promo.json' with { type: 'json' };
+
 const MAX = { name: 80, phone: 30, email: 120, service: 120, message: 1500, item: 120 };
 
 const esc = (s) => String(s).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c]);
@@ -29,6 +31,7 @@ export async function handleLead(request, env) {
     message: clean(data.message, MAX.message),
     items: Array.isArray(data.items) ? data.items.slice(0, 10).map((i) => clean(i, MAX.item)).filter(Boolean) : [],
     total: clean(data.total, 40),
+    code: clean(data.code, 20).toUpperCase(),
   };
 
   if (!lead.name || lead.phone.replace(/\D/g, '').length < 9) {
@@ -49,6 +52,13 @@ export async function handleLead(request, env) {
   if (lead.items.length) {
     lines.push('', '<b>Lista:</b>', ...lead.items.map((i) => `• ${esc(i)}`));
     if (lead.total) lines.push(`<b>Razem od:</b> ${esc(lead.total)}`);
+  }
+  if (lead.code) {
+    lines.push(
+      lead.code === promo.code
+        ? `<b>Kod rabatowy:</b> ${esc(lead.code)} (−${promo.percent}% na usługę, pierwsze zamówienie)`
+        : `<b>Kod (nieznany):</b> ${esc(lead.code)}`,
+    );
   }
   if (lead.message) lines.push('', `<b>Wiadomość:</b> ${esc(lead.message)}`);
   lines.push('', new Date().toLocaleString('pl-PL', { timeZone: 'Europe/Warsaw' }));

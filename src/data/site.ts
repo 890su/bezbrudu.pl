@@ -14,6 +14,10 @@ export const site = {
   minOrder: 150,
 };
 
+// First-order discount unlocked by cleaning the sofa on the home page. Service only, travel excluded.
+// Shared with the Worker, which marks the code in the lead.
+export { default as promo } from './promo.json';
+
 export type Unit = 'pcs' | 'm2';
 
 export interface PriceItem {
