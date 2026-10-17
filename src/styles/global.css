@@ -1,4 +1,4 @@
-/* Bez Brudu: furniture instruction sheet. Two inks (black line, ultramarine field) on paper; dirt is halftone. */
+/* Bez Brudu: furniture instruction sheet. Two inks (black line, cobalt field) on paper; dirt is halftone. */
 
 :root {
   --paper: #f5f5f0;
@@ -6,10 +6,10 @@
   --ink: #121212;
   --ink-2: #3b3b38;
   --rule: rgba(18, 18, 18, 0.2);
-  --blue: #2238d6;
-  --blue-deep: #1a2ba8;
+  --blue: #0b5fd9;
+  --blue-deep: #0a4aab;
   --on-blue: #ffffff;
-  --on-blue-2: #cfd5ff;
+  --on-blue-2: #e3eeff;
   --on-blue-rule: rgba(255, 255, 255, 0.28);
   --dirt: #8a6a3b;
   --error: #b3261e;
@@ -240,7 +240,7 @@ button { cursor: pointer; }
   background: var(--ink); color: var(--paper); font-family: var(--display); font-weight: 700; font-size: 0.8rem;
 }
 
-/* Parts list sheet: the ultramarine field bleeds to the right edge of the viewport. */
+/* Parts list sheet: the cobalt field bleeds to the right edge of the viewport. */
 .sheet {
   position: relative;
   background: var(--blue); color: var(--on-blue);

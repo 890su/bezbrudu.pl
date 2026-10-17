@@ -32,9 +32,9 @@ Live at https://bezbrudu.com.pl (`www.` redirects to it, workers.dev is off).
 
 The bot token never reaches the browser (the old site kept it in client JS).
 
-## Before launch
+## Content
 
-- Real phone and WhatsApp number in `src/data/site.ts` (`phoneDisplay`, `phoneHref`, `whatsappHref`).
+- Phone, WhatsApp and e-mail live in `src/data/site.ts`.
 - Prices live in `src/data/site.ts`; texts in `src/data/i18n.ts` (all four languages).
 - Real photos of work can be added later; no section pretends to have them.
 

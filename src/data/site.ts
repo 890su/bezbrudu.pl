@@ -1,4 +1,4 @@
-// Business facts used across all languages. Replace placeholders before launch.
+// Business facts used across all languages.
 // Domain comes from `site` in astro.config.mjs.
 const origin = new URL(import.meta.env.SITE).origin;
 const host = new URL(origin).host;
@@ -7,11 +7,10 @@ export const site = {
   name: 'Bez Brudu',
   url: origin,
   host,
-  // TODO: real number. Display and tel/WhatsApp formats are kept separately.
-  phoneDisplay: '+48 XXX XXX XXX',
-  phoneHref: 'tel:+48XXXXXXXXX',
-  whatsappHref: 'https://wa.me/48XXXXXXXXX',
-  email: `kontakt@${host}`,
+  phoneDisplay: '+48 453 169 250',
+  phoneHref: 'tel:+48453169250',
+  whatsappHref: 'https://wa.me/48453169250',
+  email: `info@${host}`,
   minOrder: 150,
 };
 
