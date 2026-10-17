@@ -1,0 +1,59 @@
+---
+import '@fontsource-variable/unbounded/wght.css';
+import '@fontsource-variable/onest/wght.css';
+import '../styles/global.css';
+import { site, langs, langPath, type Lang } from '../data/site';
+import { dicts } from '../data/i18n';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = dicts[lang];
+const canonical = new URL(langPath(lang), site.url).href;
+
+const business = {
+  '@context': 'https://schema.org',
+  '@type': 'HomeAndConstructionBusiness',
+  name: site.name,
+  description: t.metaDesc,
+  url: canonical,
+  telephone: site.phoneHref.replace('tel:', ''),
+  email: site.email,
+  areaServed: { '@type': 'City', name: 'Warszawa' },
+  openingHours: ['Mo-Fr 08:00-20:00', 'Sa 09:00-18:00'],
+  priceRange: '29–189 PLN',
+  knowsLanguage: ['pl', 'en', 'ru', 'uk'],
+};
+const faq = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: t.faq.items.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+<!doctype html>
+<html lang={t.htmlLang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{t.metaTitle}</title>
+    <meta name="description" content={t.metaDesc} />
+    <link rel="canonical" href={canonical} />
+    {langs.map((l) => <link rel="alternate" hreflang={dicts[l].htmlLang} href={new URL(langPath(l), site.url).href} />)}
+    <link rel="alternate" hreflang="x-default" href={site.url + '/'} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={t.metaTitle} />
+    <meta property="og:description" content={t.metaDesc} />
+    <meta property="og:locale" content={t.ogLocale} />
+    <meta name="theme-color" content="#F5F5F0" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script type="application/ld+json" set:html={JSON.stringify(business)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faq)} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

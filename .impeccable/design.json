@@ -1,0 +1,168 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-16T22:00:00Z",
+  "title": "Design System: Bez Brudu",
+  "extensions": {
+    "colorMeta": {
+      "paper": { "role": "neutral", "displayName": "Instruction Paper", "canonical": "oklch(96.9% 0.007 106.5)", "tonalRamp": ["oklch(15% 0.007 106.5)", "oklch(25% 0.007 106.5)", "oklch(35% 0.007 106.5)", "oklch(48% 0.007 106.5)", "oklch(60% 0.007 106.5)", "oklch(72% 0.007 106.5)", "oklch(84% 0.007 106.5)", "oklch(95% 0.007 106.5)"] },
+      "white": { "role": "neutral", "displayName": "Clean White", "canonical": "oklch(100% 0 0)", "tonalRamp": ["oklch(15% 0 0)", "oklch(25% 0 0)", "oklch(35% 0 0)", "oklch(48% 0 0)", "oklch(60% 0 0)", "oklch(72% 0 0)", "oklch(84% 0 0)", "oklch(95% 0 0)"] },
+      "ink": { "role": "neutral", "displayName": "Line Ink", "canonical": "oklch(18.2% 0 0)", "tonalRamp": ["oklch(15% 0 0)", "oklch(25% 0 0)", "oklch(35% 0 0)", "oklch(48% 0 0)", "oklch(60% 0 0)", "oklch(72% 0 0)", "oklch(84% 0 0)", "oklch(95% 0 0)"] },
+      "ink-2": { "role": "neutral", "displayName": "Soft Ink", "canonical": "oklch(35.1% 0.005 106.7)", "tonalRamp": ["oklch(15% 0.005 106.7)", "oklch(25% 0.005 106.7)", "oklch(35% 0.005 106.7)", "oklch(48% 0.005 106.7)", "oklch(60% 0.005 106.7)", "oklch(72% 0.005 106.7)", "oklch(84% 0.005 106.7)", "oklch(95% 0.005 106.7)"] },
+      "rule": { "role": "neutral", "displayName": "Pencil Rule", "canonical": "rgba(18, 18, 18, 0.2)" },
+      "blue": { "role": "primary", "displayName": "Print Ultramarine", "canonical": "oklch(45.2% 0.237 267.5)", "tonalRamp": ["oklch(15% 0.09 267.5)", "oklch(25% 0.15 267.5)", "oklch(35% 0.2 267.5)", "oklch(45.2% 0.237 267.5)", "oklch(60% 0.19 267.5)", "oklch(72% 0.13 267.5)", "oklch(84% 0.07 267.5)", "oklch(95% 0.025 267.5)"] },
+      "blue-deep": { "role": "primary", "displayName": "Deep Ultramarine", "canonical": "oklch(38% 0.196 267.8)", "tonalRamp": ["oklch(15% 0.09 267.8)", "oklch(25% 0.14 267.8)", "oklch(38% 0.196 267.8)", "oklch(48% 0.2 267.8)", "oklch(60% 0.17 267.8)", "oklch(72% 0.12 267.8)", "oklch(84% 0.065 267.8)", "oklch(95% 0.022 267.8)"] },
+      "on-blue": { "role": "neutral", "displayName": "On-Ultramarine White", "canonical": "oklch(100% 0 0)" },
+      "on-blue-2": { "role": "neutral", "displayName": "On-Ultramarine Pale", "canonical": "oklch(88.2% 0.058 278.7)", "tonalRamp": ["oklch(15% 0.04 278.7)", "oklch(25% 0.058 278.7)", "oklch(35% 0.058 278.7)", "oklch(48% 0.058 278.7)", "oklch(60% 0.058 278.7)", "oklch(72% 0.058 278.7)", "oklch(88.2% 0.058 278.7)", "oklch(95% 0.03 278.7)"] },
+      "on-blue-rule": { "role": "neutral", "displayName": "Field Rule", "canonical": "rgba(255, 255, 255, 0.28)" },
+      "dirt": { "role": "tertiary", "displayName": "Halftone Dirt", "canonical": "oklch(54.6% 0.076 75.6)", "tonalRamp": ["oklch(15% 0.03 75.6)", "oklch(25% 0.045 75.6)", "oklch(35% 0.06 75.6)", "oklch(45% 0.07 75.6)", "oklch(54.6% 0.076 75.6)", "oklch(68% 0.07 75.6)", "oklch(82% 0.05 75.6)", "oklch(95% 0.02 75.6)"] },
+      "error": { "role": "status", "displayName": "Validation Red", "canonical": "oklch(50.1% 0.178 28.7)", "tonalRamp": ["oklch(15% 0.06 28.7)", "oklch(25% 0.1 28.7)", "oklch(35% 0.14 28.7)", "oklch(50.1% 0.178 28.7)", "oklch(60% 0.17 28.7)", "oklch(72% 0.12 28.7)", "oklch(84% 0.07 28.7)", "oklch(95% 0.025 28.7)"] },
+      "error-on-blue": { "role": "status", "displayName": "Validation Red on Ultramarine", "canonical": "oklch(91.6% 0.043 26.8)" }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "The hero H1 only; max 14ch, balanced." },
+      "headline": { "displayName": "Headline", "purpose": "Section H2s; max 22ch, balanced. The guarantee headline runs one step larger (up to 3.4rem)." },
+      "title": { "displayName": "Title", "purpose": "Parts-list sheet title and form titles." },
+      "title-sm": { "displayName": "Title Small", "purpose": "Step caption leads, warning-box title, spec table title." },
+      "numeral": { "displayName": "Numeral", "purpose": "The running total; tabular figures. Stepper values, scrub meter and circled numerals share the voice." },
+      "button": { "displayName": "Button", "purpose": "Every button and the mobile action bar labels." },
+      "lead": { "displayName": "Lead", "purpose": "Intro paragraphs in Soft Ink, max 56ch (hero 64ch)." },
+      "body": { "displayName": "Body", "purpose": "Running text and FAQ answers, max 62ch." },
+      "label": { "displayName": "Label", "purpose": "Always-visible form field labels." }
+    },
+    "strokes": [
+      { "name": "contour", "value": "2px, vector-effect: non-scaling-stroke", "purpose": "Every drawing and icon contour (icons compensate stroke to render at 2px at any size)." },
+      { "name": "contour-hero", "value": "2.4px, vector-effect: non-scaling-stroke", "purpose": "The large hero sofa contour." },
+      { "name": "detail", "value": "1.4px to 1.6px", "purpose": "Secondary details inside drawings." },
+      { "name": "emphasis", "value": "3px", "purpose": "A tick or emphasis mark inside a step drawing only." },
+      { "name": "hairline", "value": "1.5px solid #121212", "purpose": "Section dividers, strip rules, FAQ items, field and control borders, leader lines." },
+      { "name": "heavy-rule", "value": "2px solid #121212 (var(--line))", "purpose": "Head of a list, warning-box frame, button border slot." },
+      { "name": "row-rule", "value": "1px solid rgba(18, 18, 18, 0.2)", "purpose": "Row dividers inside spec lists and the mobile nav." },
+      { "name": "halftone", "value": "dots at 45°, 7-unit pitch (6 in step drawings), radius ∝ sqrt(density)", "purpose": "The only way dirt is drawn." }
+    ],
+    "shadows": [],
+    "motion": [
+      { "name": "ease-out", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "All state transitions." },
+      { "name": "state-fast", "value": "140ms to 160ms", "purpose": "Button and stepper colour changes." },
+      { "name": "state", "value": "180ms to 220ms", "purpose": "Header hairline, mobile menu panel, FAQ plus rotation, arrow nudge (3px)." },
+      { "name": "hero-stroke", "value": "700ms delay, 1100ms cubic ease-out", "purpose": "The one authored moment: the automatic extractor stroke across the sofa once in view." },
+      { "name": "clean-all-pass", "value": "220ms per pass", "purpose": "Sequential passes when the visitor asks to clean everything." },
+      { "name": "reduced-motion", "value": "transitions 0.01ms; stroke applied instantly", "purpose": "prefers-reduced-motion: reduce shows a static half-cleaned state." }
+    ],
+    "breakpoints": [
+      { "name": "steps-2up", "value": "1180px" },
+      { "name": "single-column", "value": "1080px" },
+      { "name": "legend-below", "value": "720px" },
+      { "name": "steps-1up", "value": "600px" },
+      { "name": "compact-header", "value": "560px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Ink Button",
+      "kind": "button",
+      "refersTo": "button-ink",
+      "description": "Primary action on paper: header call button and contact submit.",
+      "html": "<button class=\"ds-btn ds-btn-ink\"><span>Wyślij zgłoszenie</span><svg class=\"ds-icon\" width=\"20\" height=\"20\" viewBox=\"0 0 48 48\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M8 24h32 M30 14l10 10-10 10\"/></svg></button>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 0 20px; border: 2px solid transparent; border-radius: 4px; font-family: var(--display, 'Unbounded Variable', 'Arial Narrow', sans-serif); font-weight: 600; font-size: 0.9rem; letter-spacing: -0.01em; cursor: pointer; transition: background-color 160ms cubic-bezier(0.16, 1, 0.3, 1), color 160ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn .ds-icon { transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn:hover .ds-icon { transform: translateX(3px); } .ds-btn-ink { background: var(--ink, #121212); color: var(--paper, #f5f5f0); } .ds-btn-ink:hover { background: var(--blue, #2238d6); } .ds-btn-ink:focus-visible { outline: 3px solid var(--blue, #2238d6); outline-offset: 2px; }"
+    },
+    {
+      "name": "Paper Button on Ultramarine",
+      "kind": "button",
+      "refersTo": "button-paper",
+      "description": "Primary action inside ultramarine fields: call, WhatsApp, send for quote.",
+      "html": "<div class=\"ds-field-blue\"><button class=\"ds-btn-paper\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 48 48\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"5.33\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M15 7l5 9-4 3c2 5 6 9 11 11l3-4 9 5-2 7c-15 0-29-14-29-29z\"/></svg>Zadzwoń</button></div>",
+      "css": ".ds-field-blue { background: var(--blue, #2238d6); padding: 24px; } .ds-btn-paper { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 20px; border: 2px solid transparent; border-radius: 4px; background: var(--paper, #f5f5f0); color: var(--blue, #2238d6); font-family: var(--display, 'Unbounded Variable', sans-serif); font-weight: 600; font-size: 0.9rem; letter-spacing: -0.01em; cursor: pointer; transition: background-color 160ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn-paper:hover { background: var(--white, #ffffff); } .ds-btn-paper:focus-visible { outline: 3px solid var(--paper, #f5f5f0); outline-offset: 2px; }"
+    },
+    {
+      "name": "Field on Paper",
+      "kind": "input",
+      "refersTo": "field",
+      "description": "White input well with a 1.5px ink border and a visible label above.",
+      "html": "<label class=\"ds-field\"><span class=\"ds-field__label\">Telefon</span><input class=\"ds-input\" type=\"tel\" placeholder=\"\"></label>",
+      "css": ".ds-field { display: flex; flex-direction: column; gap: 6px; background: var(--paper, #f5f5f0); padding: 16px; } .ds-field__label { font-family: var(--text, 'Onest Variable', system-ui, sans-serif); font-size: 0.85rem; font-weight: 600; color: var(--ink-2, #3b3b38); } .ds-input { min-height: 50px; padding: 12px 14px; background: var(--white, #ffffff); color: var(--ink, #121212); border: 1.5px solid var(--ink, #121212); border-radius: 4px; font: 1rem var(--text, 'Onest Variable', system-ui, sans-serif); } .ds-input:focus-visible { outline: 3px solid var(--blue, #2238d6); outline-offset: 1px; } .ds-input[aria-invalid='true'] { border-color: var(--error, #b3261e); box-shadow: inset 0 0 0 1px var(--error, #b3261e); }"
+    },
+    {
+      "name": "Underline Field on Ultramarine",
+      "kind": "input",
+      "refersTo": "field-on-blue",
+      "description": "Input inside the parts-list sheet: no well, a 2px white underline.",
+      "html": "<div class=\"ds-field-blue\"><label class=\"ds-ufield\"><span class=\"ds-ufield__label\">Imię</span><input class=\"ds-uinput\"></label></div>",
+      "css": ".ds-field-blue { background: var(--blue, #2238d6); padding: 24px; } .ds-ufield { display: flex; flex-direction: column; gap: 6px; } .ds-ufield__label { font-size: 0.85rem; font-weight: 600; color: var(--on-blue-2, #cfd5ff); font-family: var(--text, 'Onest Variable', system-ui, sans-serif); } .ds-uinput { min-height: 50px; padding: 12px 0; background: transparent; color: var(--on-blue, #ffffff); border: 0; border-bottom: 2px solid var(--on-blue, #ffffff); border-radius: 0; font: 1rem var(--text, 'Onest Variable', system-ui, sans-serif); } .ds-uinput:focus-visible { outline: 3px solid var(--paper, #f5f5f0); outline-offset: 3px; } .ds-uinput[aria-invalid='true'] { border-color: var(--error-on-blue, #ffd9d4); border-bottom-width: 3px; }"
+    },
+    {
+      "name": "Parts-List Row",
+      "kind": "custom",
+      "refersTo": "parts-sheet",
+      "description": "Signature: one price-list row on the ultramarine sheet with outline icon, from-price and a stepper; the active quantity sits on a paper chip.",
+      "html": "<div class=\"ds-field-blue\"><div class=\"ds-part ds-part--on\"><svg width=\"40\" height=\"40\" viewBox=\"0 0 48 48\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M9 25v-9a4 4 0 0 1 4-4h22a4 4 0 0 1 4 4v9 M5 25a3 3 0 0 1 6 0v10H5z M37 25a3 3 0 0 1 6 0v10h-6z M11 28h26v7H11z M24 28v7 M8 35v4 M40 35v4\"/></svg><span class=\"ds-part__label\"><span class=\"ds-part__name\">Sofa 2–3 os.</span><span class=\"ds-part__price\">od 139 zł</span></span><span class=\"ds-stepper\"><button class=\"ds-stepper__btn\" aria-label=\"Mniej\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 48 48\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"5.33\" stroke-linecap=\"round\"><path d=\"M10 24h28\"/></svg></button><span class=\"ds-stepper__qty\">1</span><button class=\"ds-stepper__btn\" aria-label=\"Więcej\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 48 48\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"5.33\" stroke-linecap=\"round\"><path d=\"M24 10v28 M10 24h28\"/></svg></button></span></div></div>",
+      "css": ".ds-field-blue { background: var(--blue, #2238d6); color: var(--on-blue, #ffffff); padding: 24px; } .ds-part { display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; align-items: center; gap: 12px; padding: 4px 0; border-block: 1px solid var(--on-blue-rule, rgba(255, 255, 255, 0.28)); font-family: var(--text, 'Onest Variable', system-ui, sans-serif); } .ds-part__label { display: flex; flex-direction: column; line-height: 1.25; } .ds-part__name { font-weight: 500; font-size: 0.97rem; } .ds-part--on .ds-part__name { font-weight: 700; } .ds-part__price { font-size: 0.84rem; color: var(--on-blue-2, #cfd5ff); font-variant-numeric: tabular-nums; } .ds-stepper { display: inline-flex; align-items: center; gap: 4px; } .ds-stepper__btn { display: grid; place-items: center; width: 40px; height: 40px; background: transparent; color: var(--on-blue, #ffffff); border: 1.5px solid rgba(255, 255, 255, 0.6); border-radius: 4px; cursor: pointer; transition: background-color 140ms cubic-bezier(0.16, 1, 0.3, 1), color 140ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-stepper__btn:hover { background: var(--on-blue, #ffffff); color: var(--blue, #2238d6); } .ds-stepper__btn:focus-visible { outline: 3px solid var(--paper, #f5f5f0); outline-offset: 2px; } .ds-stepper__qty { display: grid; place-items: center; width: 46px; height: 40px; border-radius: 4px; font-family: var(--display, 'Unbounded Variable', sans-serif); font-weight: 600; font-variant-numeric: tabular-nums; } .ds-part--on .ds-stepper__qty { background: var(--paper, #f5f5f0); color: var(--blue, #2238d6); }"
+    },
+    {
+      "name": "Instruction Strip",
+      "kind": "custom",
+      "refersTo": "numeral-step",
+      "description": "Signature: numbered panels in one strip split by ink hairlines, each with a circled ink numeral, an outline drawing (white = clean, halftone = dirt) and a caption.",
+      "html": "<ol class=\"ds-steps\"><li class=\"ds-step\"><span class=\"ds-step__n\">1</span><svg class=\"ds-step__art\" viewBox=\"0 0 220 100\" aria-hidden=\"true\"><defs><pattern id=\"ds-tone\" width=\"6\" height=\"6\" patternUnits=\"userSpaceOnUse\" patternTransform=\"rotate(45)\"><circle cx=\"3\" cy=\"3\" r=\"1.7\" fill=\"#8a6a3b\"/></pattern></defs><rect x=\"12\" y=\"14\" width=\"196\" height=\"74\" rx=\"12\" fill=\"#ffffff\"/><rect x=\"12\" y=\"14\" width=\"196\" height=\"74\" rx=\"12\" fill=\"url(#ds-tone)\"/><rect x=\"12\" y=\"14\" width=\"196\" height=\"74\" rx=\"12\" fill=\"none\" stroke=\"#121212\" stroke-width=\"2\" vector-effect=\"non-scaling-stroke\"/></svg><p class=\"ds-step__cap\"><strong>Wyślij zdjęcie.</strong> Wycenimy plamę.</p></li><li class=\"ds-step\"><span class=\"ds-step__n\">2</span><svg class=\"ds-step__art\" viewBox=\"0 0 220 100\" aria-hidden=\"true\"><rect x=\"12\" y=\"14\" width=\"196\" height=\"74\" rx=\"12\" fill=\"#ffffff\" stroke=\"#121212\" stroke-width=\"2\" vector-effect=\"non-scaling-stroke\"/></svg><p class=\"ds-step__cap\"><strong>Czysto.</strong> Schnie 2–4 h.</p></li></ol>",
+      "css": ".ds-steps { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 0; padding: 0; list-style: none; border-block: 1.5px solid var(--ink, #121212); background: var(--paper, #f5f5f0); } .ds-step { padding: 28px 20px; } .ds-step + .ds-step { border-left: 1.5px solid var(--ink, #121212); } .ds-step__n { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--ink, #121212); color: var(--paper, #f5f5f0); font-family: var(--display, 'Unbounded Variable', sans-serif); font-weight: 700; font-size: 1rem; } .ds-step__art { display: block; width: 100%; height: auto; margin: 18px 0 20px; } .ds-step__cap { margin: 0; font-family: var(--text, 'Onest Variable', system-ui, sans-serif); font-size: 0.97rem; color: var(--ink-2, #3b3b38); } .ds-step__cap strong { display: block; margin-bottom: 4px; font-family: var(--display, 'Unbounded Variable', sans-serif); font-weight: 600; font-size: 1.02rem; letter-spacing: -0.02em; color: var(--ink, #121212); }"
+    },
+    {
+      "name": "Warning Box",
+      "kind": "card",
+      "description": "The one bordered container: 2px ink frame for honest caveats.",
+      "html": "<aside class=\"ds-warn\"><svg class=\"ds-warn__icon\" width=\"44\" height=\"44\" viewBox=\"0 0 48 48\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.18\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M24 6L43 40H5z M24 18v11 M24 34v1\"/></svg><h3 class=\"ds-warn__title\">Uczciwie</h3><p class=\"ds-warn__text\">Nie każda plama zejdzie w całości. Powiemy to przed praniem.</p></aside>",
+      "css": ".ds-warn { display: grid; grid-template-columns: 44px 1fr; gap: 4px 18px; align-items: start; padding: 22px 24px; border: 2px solid var(--ink, #121212); border-radius: 4px; background: var(--paper, #f5f5f0); color: var(--ink, #121212); } .ds-warn__icon { grid-row: span 2; } .ds-warn__title { margin: 0; font-family: var(--display, 'Unbounded Variable', sans-serif); font-weight: 600; font-size: 1.05rem; letter-spacing: -0.02em; } .ds-warn__text { margin: 0; color: var(--ink-2, #3b3b38); font-family: var(--text, 'Onest Variable', system-ui, sans-serif); max-width: 62ch; }"
+    },
+    {
+      "name": "Header Navigation",
+      "kind": "nav",
+      "refersTo": "button-ink",
+      "description": "Paper sticky header: logo mark, underline-on-hover links, segmented language strip with the current language filled ink, ink call button.",
+      "html": "<header class=\"ds-top\"><a class=\"ds-logo\" href=\"#\"><svg width=\"36\" height=\"36\" viewBox=\"0 0 48 48\" aria-hidden=\"true\"><rect width=\"48\" height=\"48\" rx=\"6\" fill=\"#2238d6\"/><path d=\"M9 25v-9a4 4 0 0 1 4-4h22a4 4 0 0 1 4 4v9 M5 25a3 3 0 0 1 6 0v10H5z M37 25a3 3 0 0 1 6 0v10h-6z M11 28h26v7H11z M8 35v4 M40 35v4\" fill=\"none\" stroke=\"#fff\" stroke-width=\"2.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg><span>bez brudu</span></a><nav class=\"ds-nav\"><a href=\"#\">Cennik</a><a href=\"#\">Jak to działa</a><a href=\"#\">Pytania</a></nav><ul class=\"ds-langs\"><li><a href=\"#\" aria-current=\"true\">PL</a></li><li><a href=\"#\">EN</a></li><li><a href=\"#\">UA</a></li></ul></header>",
+      "css": ".ds-top { display: flex; align-items: center; gap: 24px; min-height: 68px; padding: 0 20px; background: var(--paper, #f5f5f0); border-bottom: 1.5px solid var(--ink, #121212); font-family: var(--text, 'Onest Variable', system-ui, sans-serif); color: var(--ink, #121212); } .ds-logo { display: inline-flex; align-items: center; gap: 10px; color: inherit; text-decoration: none; font-family: var(--display, 'Unbounded Variable', sans-serif); font-weight: 700; font-size: 1.15rem; letter-spacing: -0.04em; } .ds-nav { display: flex; gap: 22px; margin-left: auto; } .ds-nav a { color: inherit; font-weight: 500; font-size: 0.95rem; text-decoration: none; padding-block: 10px; text-underline-offset: 0.22em; text-decoration-thickness: 1.5px; } .ds-nav a:hover { text-decoration: underline; } .ds-nav a:focus-visible, .ds-langs a:focus-visible { outline: 3px solid var(--blue, #2238d6); outline-offset: 2px; } .ds-langs { display: flex; margin: 0; padding: 0; list-style: none; border: 1.5px solid var(--ink, #121212); border-radius: 4px; } .ds-langs li + li a { border-left: 1.5px solid var(--ink, #121212); } .ds-langs a { display: grid; place-items: center; min-width: 40px; min-height: 36px; padding: 0 6px; color: inherit; font-size: 0.8rem; font-weight: 600; text-decoration: none; letter-spacing: 0.02em; } .ds-langs a[aria-current] { background: var(--ink, #121212); color: var(--paper, #f5f5f0); } .ds-langs a:not([aria-current]):hover { background: var(--white, #ffffff); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Instruction Sheet",
+    "overview": "The whole site is printed like the leaflet that comes in a flat-pack box: wordless outline drawings, circled numerals, a parts list that is the price list, and a warning box where the honest caveats go. It is set in two inks on one paper. Black line ink draws every object and every rule; ultramarine is a printed field that owns whole regions of the sheet rather than decorating small things. Nothing is photographed and nothing glows, because there is nothing real to photograph yet and the system refuses to pretend otherwise.\n\nDirt is the only third colour, and it is a material, not an accent: warm-brown halftone dots on a 45° screen whose density is the amount of dirt. Clean is white. The hero sofa is drawn white under a layer of dirt dots; scrubbing removes dots and reveals white fabric, so the state of the object is carried by tone, not by labels or colour-coding. The same logic runs through the step drawings and the stain samples.\n\nDensity is calm and editorial: generous section padding, long hairline-ruled lists, content set on a 12-column feel with asymmetric splits (7/5, 4/8, 6/5). The system explicitly rejects the cleaning-category default of white and mint gradients, bubbles, sparkles and stock photos of a smiling worker.",
+    "keyCharacteristics": [
+      "Paper ground everywhere; ultramarine as whole printed fields (parts-list sheet, contact, footer), never as tinted bands.",
+      "One pen: outline drawings at a single contour weight with non-scaling strokes.",
+      "Halftone dots are the only way dirt appears; white fill is the only way clean appears.",
+      "Structure from 1.5px ink hairlines, not from cards, shadows or background changes.",
+      "Circled ink numerals for sequence and for callouts pinned to the object by leader lines.",
+      "Flat print: no gradients, no glass, no shadows of any kind."
+    ],
+    "rules": [
+      { "name": "The Paper Ground Rule", "body": "Paper is the only ground. A section never gets a tinted background band; if it needs separating, it gets a 1.5px ink hairline. The only non-paper grounds are full ultramarine fields.", "section": "colors" },
+      { "name": "The White Means Clean Rule", "body": "White is never a surface for layout. It is the colour of clean fabric in drawings, the well of an input, and the hover lift of a paper control. Anything else white is a mistake.", "section": "colors" },
+      { "name": "The Field, Not Accent Rule", "body": "Ultramarine is printed as a field that owns a region edge to edge. It is not used for chips, badges, icon tints or decorative strokes on paper; on paper it only marks interaction state.", "section": "colors" },
+      { "name": "The Dirt Is Dots Rule", "body": "The dirt colour describes dirt and only dirt, as halftone dots whose density is the state (a thin dirt stroke only where the dirt is itself a line, such as hair). It is never a background, a text colour, or a decorative accent.", "section": "colors" },
+      { "name": "The Validation-Only Red Rule", "body": "Red exists for invalid form fields and their status message. It is never used for emphasis, prices, warnings or stains (the warning box is ink).", "section": "colors" },
+      { "name": "The Two Voices Rule", "body": "Unbounded speaks for anything that is a name, a number or a command: headings, buttons, prices, totals, numerals, nav on mobile. Onest speaks for anything that is read. Never set a paragraph in Unbounded.", "section": "typography" },
+      { "name": "The Tabular Numbers Rule", "body": "Every number that can change or be compared (prices, quantities, totals, the cleaned percentage, district fees) uses tabular figures so columns and live updates do not jitter.", "section": "typography" },
+      { "name": "The Hairline, Not Band Rule", "body": "Sections, lists and strips are separated by 1.5px ink hairlines (heavy edges at 2px, row dividers at 1px Pencil Rule). Background colour changes are reserved for whole ultramarine fields.", "section": "layout" },
+      { "name": "The One Strip Rule", "body": "A sequence of instruction panels is one strip, ruled top and bottom and split by vertical hairlines. Never wrap steps in individual cards.", "section": "layout" },
+      { "name": "The Two Inks Rule", "body": "Everything is printed in black line and ultramarine field on paper, plus dirt dots. No gradients, no translucent glass, no drop or offset shadows. If something needs to stand forward, give it a heavier line or put it on an ink field.", "section": "elevation" },
+      { "name": "The One Pen Rule", "body": "Every drawing, icon and logo is outline-only at one contour weight with non-scaling strokes. Fills are only white (clean fabric) or halftone (dirt). No filled pictograms, no duotone icons, no glyph icons.", "section": "shapes" },
+      { "name": "The Pinned Label Rule", "body": "Labels about an object are pinned to it: a circled ink numeral in the legend and a leader line ending in a dot on the drawing, or a numbered pin on the drawing itself on small screens. Labels do not float in badges over the art.", "section": "shapes" }
+    ],
+    "dos": [
+      "Do keep paper (`#f5f5f0`) as the only ground and separate sections with 1.5px ink hairlines.",
+      "Do give ultramarine whole regions (the parts-list sheet, contact, deep ultramarine footer) and let the parts-list field bleed to the viewport edge.",
+      "Do draw dirt only as warm-brown halftone dots on a 45° screen, with density carrying the amount of dirt, and draw clean as white fill.",
+      "Do draw every object and icon outline-only at one contour weight (2px, 2.4px on the hero) with non-scaling strokes.",
+      "Do number sequences and callouts with circled ink numerals and pin labels to the object with leader lines ending in a dot.",
+      "Do set instruction panels in one strip split by hairlines.",
+      "Do use Unbounded with tabular figures for every price, quantity and total."
+    ],
+    "donts": [
+      "Don't use white + mint gradients, bubbles, sparkles or stock photos of a smiling worker.",
+      "Don't use gradients, glass, blur, or drop and offset shadows; the system is two inks on paper.",
+      "Don't tint section backgrounds or put content in floating cards; use hairlines and ink fields.",
+      "Don't use the dirt colour for anything that is not dirt, or white as a layout surface.",
+      "Don't use red for anything except form validation.",
+      "Don't use filled, duotone or glyph icons; draw them in the same pen as the furniture.",
+      "Don't invent photos, ratings, counts or testimonials to fill a visual slot; illustrations stay plainly drawn."
+    ]
+  }
+}

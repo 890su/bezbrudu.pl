@@ -1,0 +1,18 @@
+node_modules/
+dist/
+.astro/
+.wrangler/
+.dev.vars
+.env*
+
+# Local tooling and review artefacts
+.claude/
+.impeccable/review/
+.impeccable/decision/
+.impeccable/questions/
+
+# Previous static version, kept locally for reference only
+bezbrudu.pl/
+
+.DS_Store
+Thumbs.db

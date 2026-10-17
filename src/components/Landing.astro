@@ -1,0 +1,305 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from './Icon.astro';
+import HeroSofa from './HeroSofa.astro';
+import Stain from './Stain.astro';
+import Steps from './Steps.astro';
+import { site, prices, districts, langs, langPath, langLabel, langName, type Lang } from '../data/site';
+import { dicts } from '../data/i18n';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = dicts[lang];
+const home = langPath(lang);
+const fmt = new Intl.NumberFormat(t.htmlLang);
+
+const ui = {
+  lang,
+  pcs: t.sheet.pcs,
+  m2: t.sheet.m2,
+  min: site.minOrder,
+  items: t.sheet.items,
+  sending: t.form.sending,
+  error: t.form.error,
+  errPhone: t.form.errPhone,
+  errName: t.form.errName,
+};
+
+---
+<Base lang={lang}>
+  <a class="skip" href="#main">{t.skip}</a>
+
+  <header class="top" data-top>
+    <div class="wrap top__in">
+      <a class="logo" href={home} aria-label={site.name}>
+        <svg class="logo__mark" viewBox="0 0 48 48" aria-hidden="true">
+          <rect width="48" height="48" rx="6" />
+          <path d="M9 25v-9a4 4 0 0 1 4-4h22a4 4 0 0 1 4 4v9 M5 25a3 3 0 0 1 6 0v10H5z M37 25a3 3 0 0 1 6 0v10h-6z M11 28h26v7H11z M8 35v4 M40 35v4" />
+          <path class="logo__stripe" d="M24 12v23" />
+        </svg>
+        <span class="logo__word">bez brudu</span>
+      </a>
+
+      <button class="top__menu" type="button" aria-expanded="false" aria-controls="site-nav" data-menu>
+        <Icon name="menu" size={24} />
+        <span class="visually-hidden">{t.menu}</span>
+      </button>
+
+      <nav class="nav" id="site-nav" aria-label={t.menu} data-nav>
+        <ul class="nav__links">
+          <li><a href="#cena">{t.nav.prices}</a></li>
+          <li><a href="#jak-to-dziala">{t.nav.how}</a></li>
+          <li><a href="#plamy">{t.nav.stains}</a></li>
+          <li><a href="#pytania">{t.nav.faq}</a></li>
+          <li><a href="#kontakt">{t.nav.contact}</a></li>
+        </ul>
+        <ul class="langs" aria-label={t.langLabel}>
+          {langs.map((l) => (
+            <li>
+              <a href={langPath(l)} hreflang={dicts[l].htmlLang} lang={dicts[l].htmlLang} title={langName[l]} aria-current={l === lang ? 'true' : undefined}>{langLabel[l]}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <a class="btn btn--ink top__call" href={site.phoneHref}>
+        <Icon name="call" size={18} />
+        <span>{site.phoneDisplay}</span>
+      </a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="wrap hero__grid">
+        <div class="hero__copy">
+          <h1 class="hero__title">{t.hero.title}</h1>
+          <p class="hero__lead">{t.hero.lead}</p>
+          <HeroSofa t={t} />
+        </div>
+
+        <aside class="sheet" id="cena" aria-labelledby="sheet-title">
+          <div class="sheet__head">
+            <h2 class="sheet__title" id="sheet-title">{t.sheet.title}</h2>
+            <p class="sheet__sub">{t.sheet.sub}</p>
+          </div>
+          <form class="sheet__form" data-lead data-source="calculator" novalidate>
+            <ul class="parts">
+              {prices.map((p) => {
+                const name = t.sheet.items[p.id];
+                const unit = p.unit === 'm2' ? t.sheet.m2 : t.sheet.pcs;
+                return (
+                  <li class="part" data-part data-id={p.id} data-price={p.price} data-unit={p.unit}>
+                    <Icon name={p.icon} size={40} class="part__icon" />
+                    <span class="part__label">
+                      <span class="part__name" id={`part-${p.id}`}>{name}</span>
+                      <span class="part__price">{t.sheet.from} {fmt.format(p.price)} zł{p.unit === 'm2' ? `/${t.sheet.m2}` : ''}</span>
+                    </span>
+                    <span class="stepper">
+                      <button type="button" class="stepper__btn" data-step="-1" aria-label={`${t.sheet.less}: ${name}`} disabled>
+                        <Icon name="minus" size={18} />
+                      </button>
+                      <input class="stepper__qty" type="number" inputmode="numeric" min="0" max={p.max} step="1" value="0" name={`qty_${p.id}`} aria-labelledby={`part-${p.id}`} aria-describedby={`unit-${p.id}`} />
+                      <span class="visually-hidden" id={`unit-${p.id}`}>{unit}</span>
+                      <button type="button" class="stepper__btn" data-step="1" aria-label={`${t.sheet.more}: ${name}`}>
+                        <Icon name="plus" size={18} />
+                      </button>
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
+
+            <div class="sheet__total">
+              <span class="sheet__total-label">{t.sheet.total}</span>
+              <output class="sheet__sum" data-total aria-live="polite">0 zł</output>
+              <span class="sheet__min" data-min hidden>{t.sheet.minApplied}</span>
+            </div>
+            <p class="sheet__note">{t.sheet.note}</p>
+            <div class="sheet__alt">
+              <a class="btn btn--paper" href={site.phoneHref}><Icon name="call" size={18} />{t.call}</a>
+              <a class="btn btn--paper" href={site.whatsappHref} rel="noopener" target="_blank"><Icon name="whatsapp" size={18} />{t.whatsapp}</a>
+            </div>
+            <p class="sheet__or"><span>{t.sheet.or}</span></p>
+
+            <div class="sheet__fields">
+              <label class="field field--on-ink">
+                <span class="field__label">{t.sheet.name}</span>
+                <input name="name" autocomplete="given-name" required maxlength="80" />
+              </label>
+              <label class="field field--on-ink">
+                <span class="field__label">{t.sheet.phone}</span>
+                <input name="phone" type="tel" autocomplete="tel" inputmode="tel" required maxlength="30" />
+              </label>
+            </div>
+            <label class="hp" aria-hidden="true">Company<input name="company" tabindex="-1" autocomplete="off" /></label>
+            <button class="btn btn--paper btn--block" type="submit" data-submit>
+              <span>{t.sheet.submit}</span>
+              <Icon name="arrow" size={20} />
+            </button>
+            <p class="form-status" role="status" data-status></p>
+          </form>
+          <div class="sheet__done" data-done hidden tabindex="-1">
+            <Icon name="check" size={44} />
+            <p class="sheet__done-title">{t.form.successTitle}</p>
+            <p>{t.form.success}</p>
+          </div>
+
+          <p class="sheet__fine">{t.sheet.fine}</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section steps-sec" id="jak-to-dziala" aria-labelledby="steps-title">
+      <div class="wrap">
+        <h2 class="h2" id="steps-title">{t.steps.title}</h2>
+        <Steps t={t} />
+      </div>
+    </section>
+
+    <section class="section stains-sec" id="plamy" aria-labelledby="stains-title">
+      <div class="wrap stains-sec__grid">
+        <div class="stains-sec__head">
+          <h2 class="h2" id="stains-title">{t.stains.title}</h2>
+          <p class="lead">{t.stains.lead}</p>
+        </div>
+        <ul class="stains">
+          {t.stains.items.map((label, i) => (
+            <li class="stains__item">
+              <Stain kind={i} />
+              <span>{label}</span>
+            </li>
+          ))}
+        </ul>
+        <aside class="warnbox" aria-labelledby="honest-title">
+          <Icon name="warn" size={44} class="warnbox__icon" />
+          <h3 class="warnbox__title" id="honest-title">{t.stains.honestTitle}</h3>
+          <p>{t.stains.honest}</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section promise" aria-labelledby="promise-title">
+      <div class="wrap promise__grid">
+        <div class="promise__copy">
+          <h2 class="h2 promise__title" id="promise-title">{t.guarantee.title}</h2>
+          <p class="lead">{t.guarantee.text}</p>
+        </div>
+        <div class="spec">
+          <h3 class="spec__title">{t.guarantee.specTitle}</h3>
+          <dl>
+            {t.guarantee.spec.map(([k, v]) => (
+              <div class="spec__row"><dt>{k}</dt><dd>{v}</dd></div>
+            ))}
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <section class="section area" aria-labelledby="area-title">
+      <div class="wrap">
+        <div class="area__head">
+          <h2 class="h2" id="area-title">{t.area.title}</h2>
+          <p class="lead">{t.area.lead}</p>
+        </div>
+        <ul class="districts">
+          {districts.map((d) => (
+            <li><span lang="pl">{d}</span><span class="districts__dots" aria-hidden="true"></span><span class="districts__fee">{t.area.free}</span></li>
+          ))}
+        </ul>
+        <p class="area__out"><Icon name="pin" size={22} /> {t.area.outside}</p>
+      </div>
+    </section>
+
+    <section class="section faq" id="pytania" aria-labelledby="faq-title">
+      <div class="wrap faq__grid">
+        <h2 class="h2" id="faq-title">{t.faq.title}</h2>
+        <div class="faq__list">
+          {t.faq.items.map((f, i) => (
+            <details class="faq__item" open={i === 0}>
+              <summary><span>{f.q}</span><Icon name="plus" size={22} class="faq__icon" /></summary>
+              <p>{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="kontakt" aria-labelledby="contact-title">
+      <div class="wrap contact__grid">
+        <div class="contact__info">
+          <h2 class="h2" id="contact-title">{t.contact.title}</h2>
+          <p class="lead">{t.contact.lead}</p>
+          <dl class="contact__lines">
+            <div><dt>{t.contact.phoneLabel}</dt><dd><a class="contact__big" href={site.phoneHref}>{site.phoneDisplay}</a></dd></div>
+            <div><dt>WhatsApp</dt><dd><a href={site.whatsappHref} rel="noopener" target="_blank">{site.phoneDisplay}</a></dd></div>
+            <div><dt>{t.contact.emailLabel}</dt><dd><a href={`mailto:${site.email}`}>{site.email}</a></dd></div>
+            <div><dt>{t.contact.hoursLabel}</dt><dd>{t.contact.hours}</dd></div>
+          </dl>
+        </div>
+
+        <div class="paper-form">
+          <h3 class="paper-form__title">{t.contact.formTitle}</h3>
+          <form data-lead data-source="contact" novalidate>
+            <div class="paper-form__row">
+              <label class="field">
+                <span class="field__label">{t.sheet.name}</span>
+                <input name="name" autocomplete="name" required maxlength="80" />
+              </label>
+              <label class="field">
+                <span class="field__label">{t.sheet.phone}</span>
+                <input name="phone" type="tel" autocomplete="tel" inputmode="tel" required maxlength="30" />
+              </label>
+            </div>
+            <label class="field">
+              <span class="field__label">{t.contact.email}</span>
+              <input name="email" type="email" autocomplete="email" maxlength="120" />
+            </label>
+            <label class="field">
+              <span class="field__label">{t.contact.service}</span>
+              <select name="service">
+                <option value="">{t.contact.servicePick}</option>
+                {prices.map((p) => <option value={t.sheet.items[p.id]}>{t.sheet.items[p.id]}</option>)}
+                <option value={t.contact.serviceOther}>{t.contact.serviceOther}</option>
+              </select>
+            </label>
+            <label class="field">
+              <span class="field__label">{t.contact.message}</span>
+              <textarea name="message" rows="4" maxlength="1500"></textarea>
+            </label>
+            <label class="hp" aria-hidden="true">Company<input name="company" tabindex="-1" autocomplete="off" /></label>
+            <button class="btn btn--ink btn--block" type="submit" data-submit>
+              <span>{t.contact.submit}</span>
+              <Icon name="arrow" size={20} />
+            </button>
+            <p class="form-status" role="status" data-status></p>
+            <p class="paper-form__privacy">{t.form.privacy}</p>
+          </form>
+          <div class="paper-form__done" data-done hidden tabindex="-1">
+            <Icon name="check" size={44} />
+            <p class="sheet__done-title">{t.form.successTitle}</p>
+            <p>{t.form.success}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap foot__in">
+      <p><strong>{site.name}</strong> · {t.footer.tagline}</p>
+      <p>© {new Date().getFullYear()} bezbrudu.pl. {t.footer.rights}</p>
+    </div>
+  </footer>
+
+  <nav class="bar" aria-label={t.contact.title}>
+    <a href={site.phoneHref}><Icon name="call" size={22} /><span>{t.bar.call}</span></a>
+    <a href={site.whatsappHref} rel="noopener" target="_blank"><Icon name="whatsapp" size={22} /><span>{t.bar.whatsapp}</span></a>
+    <a href="#cena" class="bar__main"><Icon name="arrow" size={22} /><span>{t.bar.price}</span></a>
+  </nav>
+
+  <script type="application/json" id="ui" set:html={JSON.stringify(ui)} />
+  <script>
+    import '../scripts/main.ts';
+  </script>
+</Base>

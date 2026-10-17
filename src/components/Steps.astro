@@ -1,0 +1,78 @@
+---
+import type { Dict } from '../data/i18n';
+interface Props { t: Dict }
+const { t } = Astro.props;
+// Four instruction panels: the sofa's state changes from panel to panel. Halftone = dirt, white = clean.
+---
+<svg width="0" height="0" class="defs" aria-hidden="true" focusable="false">
+  <defs>
+    <pattern id="tone-steps" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <circle cx="3" cy="3" r="1.7" />
+    </pattern>
+    <pattern id="tone-steps-heavy" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <circle cx="3" cy="3" r="2.4" />
+    </pattern>
+  </defs>
+</svg>
+<ol class="steps">
+  <li class="step">
+    <span class="step__n" aria-hidden="true">1</span>
+    <svg class="step__art" viewBox="0 0 220 160" aria-hidden="true" focusable="false">
+      <path class="fab" d="M12 70a10 10 0 0 1 10-10h120a10 10 0 0 1 10 10v66H12z" />
+      <ellipse class="tone" cx="72" cy="104" rx="34" ry="20" />
+      <path d="M12 70a10 10 0 0 1 10-10h120a10 10 0 0 1 10 10v66H12z" />
+      <rect class="fab" x="128" y="18" width="70" height="128" rx="10" />
+      <rect x="128" y="18" width="70" height="128" rx="10" />
+      <rect class="fab" x="136" y="34" width="54" height="92" rx="2" />
+      <rect x="136" y="34" width="54" height="92" rx="2" />
+      <ellipse class="tone" cx="163" cy="84" rx="18" ry="11" />
+      <path class="thin" d="M152 60h-6v-6 M174 60h6v-6 M152 108h-6v6 M174 108h6v6" />
+      <path d="M156 134h14" />
+    </svg>
+    <p class="step__cap"><strong>{t.steps.items[0][0]}.</strong> {t.steps.items[0][1]}</p>
+  </li>
+  <li class="step">
+    <span class="step__n" aria-hidden="true">2</span>
+    <svg class="step__art" viewBox="0 0 220 160" aria-hidden="true" focusable="false">
+      <path class="fab" d="M30 10h96v136l-8-6-8 6-8-6-8 6-8-6-8 6-8-6-8 6-8-6-8 6-8-6-8 6z" />
+      <path d="M30 10h96v136l-8-6-8 6-8-6-8 6-8-6-8 6-8-6-8 6-8-6-8 6-8-6-8 6z" />
+      <text class="step__txt" x="42" y="40">1×</text>
+      <path class="thin" d="M66 36h46 M42 58h70 M42 78h70" />
+      <path d="M42 112h70" />
+      <path class="thick" d="M84 126h28" />
+      <rect class="fab" x="132" y="64" width="72" height="66" rx="4" />
+      <rect x="132" y="64" width="72" height="66" rx="4" />
+      <path d="M132 80h72 M148 56v16 M188 56v16" />
+      <path class="thick" d="M154 104l10 10 20-20" />
+    </svg>
+    <p class="step__cap"><strong>{t.steps.items[1][0]}.</strong> {t.steps.items[1][1]}</p>
+  </li>
+  <li class="step">
+    <span class="step__n" aria-hidden="true">3</span>
+    <svg class="step__art" viewBox="0 0 220 160" aria-hidden="true" focusable="false">
+      <rect class="fab" x="12" y="62" width="196" height="84" rx="12" />
+      <rect class="tone" x="12" y="62" width="196" height="84" rx="12" />
+      <rect class="fab" x="90" y="62" width="40" height="84" />
+      <rect x="12" y="62" width="196" height="84" rx="12" />
+      <path class="thin" d="M24 132h172" />
+      <path class="fab-line" d="M104 104L150 6 M114 106L160 8" />
+      <path class="fab" d="M84 120h52l-6-16H90z" />
+      <path d="M84 120h52l-6-16H90z M90 115h40" />
+    </svg>
+    <p class="step__cap"><strong>{t.steps.items[2][0]}.</strong> {t.steps.items[2][1]}</p>
+  </li>
+  <li class="step">
+    <span class="step__n" aria-hidden="true">4</span>
+    <svg class="step__art" viewBox="0 0 220 160" aria-hidden="true" focusable="false">
+      <g transform="translate(6 52) scale(0.3)">
+        <path class="fab" d="M70 178V72a32 32 0 0 1 32-32h396a32 32 0 0 1 32 32v106z M28 282V152a36 36 0 0 1 72 0v130z M500 282V152a36 36 0 0 1 72 0v130z M100 170h400v112H100z" />
+        <path d="M70 178V72a32 32 0 0 1 32-32h396a32 32 0 0 1 32 32v106z M28 282V152a36 36 0 0 1 72 0v130z M500 282V152a36 36 0 0 1 72 0v130z M100 170h400v62H100z M100 232h400v50H100z M233 170v62 M367 170v62 M40 282l-4 28h14l2-28 M560 282l4 28h-14l-2-28" />
+      </g>
+      <circle class="fab" cx="176" cy="38" r="28" />
+      <circle cx="176" cy="38" r="28" />
+      <path d="M176 22v16l11 7" />
+      <path class="thin" d="M8 148h204" stroke-dasharray="2 6" />
+    </svg>
+    <p class="step__cap"><strong>{t.steps.items[3][0]}.</strong> {t.steps.items[3][1]}</p>
+  </li>
+</ol>
