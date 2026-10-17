@@ -51,6 +51,8 @@ Travel fee, charged once per visit, by distance from Ursynów:
 - +70 zł: Białołęka, Bielany, Praga-Północ, Rembertów, Targówek, Wesoła, Żoliborz
 - Other towns: quoted on request
 
+First-order discount: cleaning the drawn sofa on the home page to 100% issues a one-time code (CZYSTO-XXXXX, −10% on the service, travel excluded, valid 90 days). Codes live in Cloudflare KV; a lead reports each code as valid, already used or unknown.
+
 Undecided: business address (JSON-LD has none), Telegram bot credentials (set by the owner as Worker secrets).
 
 ## Brand Commitments

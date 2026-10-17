@@ -24,6 +24,10 @@ Manual deploy from this machine: `npx wrangler login`, then `npm run deploy`.
 
 Live at https://bezbrudu.com.pl (`www.` redirects to it, workers.dev is off).
 
+## Discount codes
+
+Cleaning the sofa to 100% calls `POST /api/promo`, which issues a one-time code (`CZYSTO-XXXXX`) and stores it in the KV namespace bound as `PROMO` (`wrangler.jsonc`). A lead with a code is marked in Telegram as valid, already used or unknown; a valid code is marked used only after the lead reaches Telegram. Prefix, percent and validity are in `src/data/promo.json`.
+
 ## Changing the domain (e.g. to bezbrudu.pl later)
 
 1. `site` in `astro.config.mjs`: canonical URLs, hreflang, sitemap, robots and the contact e-mail all follow it.

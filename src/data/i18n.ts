@@ -23,7 +23,7 @@ export interface Dict {
     drawingLabel: string;
     pins: [string, string][];
   };
-  game: { start: string; tap: string; going: string; done: string; goal: string; use: string; keyboard: string };
+  game: { start: string; tap: string; going: string; done: string; doneNoCode: string; goal: string; use: string; keyboard: string };
   sheet: {
     title: string;
     sub: string;
@@ -108,7 +108,8 @@ const pl: Dict = {
     start: `Wyczyść kanapę do 100% i odbierz −${promo.percent}% na pierwsze zamówienie`,
     tap: 'Dotknij kanapy i czyść palcem',
     going: 'Jeszcze trochę, zostały plamy',
-    done: `Gotowe! Kod ${promo.code} jest już w formularzu`,
+    done: 'Gotowe! Twój kod {code} jest już w formularzu',
+    doneNoCode: `Gotowe! Napisz lub powiedz, że kanapa wyczyszczona, a doliczymy −${promo.percent}%`,
     goal: `100% = −${promo.percent}%`,
     use: 'Do wyceny',
     keyboard: 'Wyczyść kanapę',
@@ -136,7 +137,7 @@ const pl: Dict = {
     travelPick: 'Wybierz dzielnicę',
     travelOther: 'Inna miejscowość (zapytamy)',
     code: 'Kod rabatowy',
-    codeNote: 'Kod działa tylko przy wysłaniu formularza. Rabat na usługę, bez dojazdu.',
+    codeNote: 'Kod jest jednorazowy i działa tylko przy wysłaniu formularza. Rabat na usługę, bez dojazdu.',
     discount: 'Rabat',
     note: `Minimum ${site.minOrder} zł za usługę, plus dojazd.`,
     name: 'Imię',
@@ -247,7 +248,8 @@ const en: Dict = {
     start: `Clean the sofa to 100% and get ${promo.percent}% off your first order`,
     tap: 'Tap the sofa and scrub with your finger',
     going: 'Keep going, a few stains left',
-    done: `Done! Code ${promo.code} is already in the form`,
+    done: 'Done! Your code {code} is already in the form',
+    doneNoCode: `Done! Mention the clean sofa when you contact us and we’ll take ${promo.percent}% off`,
     goal: `100% = −${promo.percent}%`,
     use: 'To the quote',
     keyboard: 'Clean the sofa',
@@ -275,7 +277,7 @@ const en: Dict = {
     travelPick: 'Choose your district',
     travelOther: 'Another town (we’ll quote)',
     code: 'Discount code',
-    codeNote: 'The code only works when you send the form. Discount on the service, not travel.',
+    codeNote: 'The code is single-use and only works when you send the form. Discount on the service, not travel.',
     discount: 'Discount',
     note: `Minimum ${site.minOrder} zł for the service, plus travel.`,
     name: 'Name',
@@ -386,7 +388,8 @@ const ru: Dict = {
     start: `Очистите диван до 100% и получите −${promo.percent}% на первый заказ`,
     tap: 'Коснитесь дивана и чистите пальцем',
     going: 'Ещё немного, остались пятна',
-    done: `Готово! Код ${promo.code} уже в форме`,
+    done: 'Готово! Ваш код {code} уже в форме',
+    doneNoCode: `Готово! Напишите или скажите, что почистили диван, и мы сделаем −${promo.percent}%`,
     goal: `100% = −${promo.percent}%`,
     use: 'К расчёту',
     keyboard: 'Почистить диван',
@@ -414,7 +417,7 @@ const ru: Dict = {
     travelPick: 'Выберите район',
     travelOther: 'Другой город (уточним)',
     code: 'Промокод',
-    codeNote: 'Код действует только при отправке формы. Скидка на услугу, без выезда.',
+    codeNote: 'Код одноразовый и действует только при отправке формы. Скидка на услугу, без выезда.',
     discount: 'Скидка',
     note: `Минимум ${site.minOrder} zł за услугу, плюс выезд.`,
     name: 'Имя',
@@ -525,7 +528,8 @@ const uk: Dict = {
     start: `Очистіть диван до 100% і отримайте −${promo.percent}% на перше замовлення`,
     tap: 'Торкніться дивана й чистіть пальцем',
     going: 'Ще трохи, залишилися плями',
-    done: `Готово! Код ${promo.code} вже у формі`,
+    done: 'Готово! Ваш код {code} вже у формі',
+    doneNoCode: `Готово! Напишіть або скажіть, що почистили диван, і ми зробимо −${promo.percent}%`,
     goal: `100% = −${promo.percent}%`,
     use: 'До розрахунку',
     keyboard: 'Почистити диван',
@@ -553,7 +557,7 @@ const uk: Dict = {
     travelPick: 'Оберіть район',
     travelOther: 'Інше місто (уточнимо)',
     code: 'Промокод',
-    codeNote: 'Код діє лише під час надсилання форми. Знижка на послугу, без виїзду.',
+    codeNote: 'Код одноразовий і діє лише під час надсилання форми. Знижка на послугу, без виїзду.',
     discount: 'Знижка',
     note: `Мінімум ${site.minOrder} zł за послугу, плюс виїзд.`,
     name: 'Ім’я',

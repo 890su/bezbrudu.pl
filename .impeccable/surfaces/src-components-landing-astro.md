@@ -16,11 +16,11 @@ Memorable moment: scrubbing the halftone dirt off the line-drawn sofa leaves a c
 
 THESIS: The page is a furniture instruction sheet for getting a clean sofa: wordless line drawings, numbered steps, a parts list that is the price list. It refuses the category default of white + mint gradients, bubbles, sparkles and stock photos of a smiling worker.
 
-OWN-WORLD: Near-neutral paper (#F5F5F0), black 2px line ink (#121212), committed cobalt fields (#0B5FD9) that own whole regions (parts-list sheet, contact, footer), dirt only as warm-brown halftone dots (#8A6A3B) whose density is the state. Unbounded for display, Onest for text, tabular numerals. Outline-only drawings, square-ish corners (4px), hairline rules like a manual, circled step numerals, "1×" quantities, warning-box callouts.
+OWN-WORLD: Near-neutral paper (#F5F5F0), black 2px line ink (#121212), committed teal fields (#0B6E77) that own whole regions (parts-list sheet, contact, footer), dirt only as warm-brown halftone dots (#8A6A3B) whose density is the state. Unbounded for display, Onest for text, tabular numerals. Outline-only drawings, square-ish corners (4px), hairline rules like a manual, circled step numerals, "1×" quantities, warning-box callouts.
 
 STORY: The visitor sees their own dirty sofa drawn, wipes a clean stripe across it, reads the price of their exact items, and sends the list or calls. Below: the four-step instruction, what stains we take on (honestly), the guarantee, the area, FAQ, contact.
 
-FIRST VIEWPORT: Desktop: left 7/12 holds the H1 (Unbounded, ~4.5rem) and below it the large line-drawn sofa covered in halftone dirt with leader-line callouts (2–4 h, extraction, free travel); a drag/auto stroke clears a stripe. Right 5/12 is a full-height cobalt parts-list sheet: item rows with steppers, running total, primary "Send for quote" button, call and WhatsApp below. Mobile: H1, sofa, then the sheet.
+FIRST VIEWPORT: Desktop: left 7/12 holds the H1 (Unbounded, ~4.5rem) and below it the large line-drawn sofa covered in halftone dirt with leader-line callouts (2–4 h, extraction, free travel); a drag/auto stroke clears a stripe. Right 5/12 is a full-height teal parts-list sheet: item rows with steppers, running total, primary "Send for quote" button, call and WhatsApp below. Mobile: H1, sofa, then the sheet.
 
 FORM: Furniture-assembly instruction sheet (position 4 of 7), raised by screentone tone-as-material, labels pinned to the object, two-ink discipline, active empty paper. seed: none (unavailable)
 Signature interaction: pointer/touch scrub erasing the halftone dirt layer (canvas mask) with an automatic first stroke; reduced motion shows a static half-cleaned state.

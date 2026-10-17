@@ -1,1 +1,1 @@
-{ "code": "CZYSTO10", "percent": 10 }
+{ "prefix": "CZYSTO-", "percent": 10, "validDays": 90 }

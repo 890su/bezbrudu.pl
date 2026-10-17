@@ -15,7 +15,7 @@ export const site = {
 };
 
 // First-order discount unlocked by cleaning the sofa on the home page. Service only, travel excluded.
-// Shared with the Worker, which marks the code in the lead.
+// Shared with the Worker, which issues one code per cleaned sofa and checks it in the lead.
 export { default as promo } from './promo.json';
 
 export type Unit = 'pcs' | 'm2';

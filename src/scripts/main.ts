@@ -1,4 +1,4 @@
-import { initScrub, storedPromo } from './scrub';
+import { initScrub, storedPromo, storePromo } from './scrub';
 
 interface Ui {
   lang: string;
@@ -8,7 +8,7 @@ interface Ui {
   items: Record<string, string>;
   travel: string;
   free: string;
-  code: string;
+  prefix: string;
   percent: number;
   discount: string;
   sending: string;
@@ -60,7 +60,9 @@ const discountLine = document.querySelector<HTMLElement>('[data-discount-line]')
 const sheetCode = document.querySelector<HTMLInputElement>('.sheet [data-code]');
 const codeInputs = [...document.querySelectorAll<HTMLInputElement>('[data-code]')];
 
-const codeOk = (v: string | undefined) => (v ?? '').trim().toUpperCase() === ui.code;
+// Shape check only; the Worker decides whether a code was really issued and is unused.
+const codePattern = new RegExp(`^${ui.prefix}[2-9A-HJKMNP-Z]{5}$`);
+const codeOk = (v: string | undefined) => codePattern.test((v ?? '').trim().toUpperCase());
 
 function travelChoice() {
   const opt = travelEl?.selectedOptions[0];
@@ -102,15 +104,47 @@ function recalc() {
 }
 travelEl?.addEventListener('change', recalc);
 
-// Cleaning the sofa to 100% drops the code into every form; typing it by hand works too.
-function fillCode() {
+// Cleaning the sofa to 100% gets a one-time code from the Worker and drops it into every form.
+const scrubRoot = document.querySelector<HTMLElement>('[data-scrub]');
+
+function fillCode(code: string) {
   for (const input of codeInputs) {
-    if (!input.value.trim()) input.value = ui.code;
+    input.value = code;
     input.closest('.code-field')?.classList.add('is-filled');
   }
   recalc();
 }
-document.addEventListener('bb:cleaned', fillCode);
+
+async function getCode() {
+  const kept = storedPromo();
+  if (kept) return kept;
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      const res = await fetch('/api/promo', { method: 'POST' });
+      if (res.ok) {
+        const { code } = await res.json();
+        if (typeof code === 'string' && codeOk(code)) {
+          storePromo(code);
+          return code;
+        }
+      }
+    } catch {
+      /* retry once, then fall back to the no-code message */
+    }
+  }
+  return '';
+}
+
+document.addEventListener('bb:cleaned', async (e) => {
+  const say = (e as CustomEvent<{ say: (msg: string) => void }>).detail.say;
+  const code = await getCode();
+  if (code) {
+    fillCode(code);
+    say((scrubRoot?.dataset.done ?? '').replace('{code}', code));
+  } else {
+    say(scrubRoot?.dataset.doneNoCode ?? '');
+  }
+});
 for (const input of codeInputs) {
   input.addEventListener('input', () => {
     input.value = input.value.toUpperCase();
@@ -137,7 +171,7 @@ for (const part of parts) {
   input.addEventListener('focus', () => input.select());
 }
 recalc();
-if (storedPromo()) fillCode();
+if (storedPromo()) fillCode(storedPromo());
 
 function listSummary() {
   const lines: string[] = [];

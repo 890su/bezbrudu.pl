@@ -37,7 +37,7 @@ const leaders = [
   { x: 460, y: 40, sx: 412 },
 ];
 ---
-<figure class="scrub" data-scrub data-start={t.game.start} data-tap={t.game.tap} data-going={t.game.going} data-done={t.game.done}>
+<figure class="scrub" data-scrub data-start={t.game.start} data-tap={t.game.tap} data-going={t.game.going} data-done={t.game.done} data-done-no-code={t.game.doneNoCode}>
   <div class="scrub__stage" aria-hidden="true">
     <svg class="scrub__fill" viewBox="0 0 600 340" preserveAspectRatio="xMidYMid meet">
       {shapes.map((d) => <path d={d} />)}

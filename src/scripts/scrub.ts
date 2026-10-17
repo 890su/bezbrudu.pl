@@ -7,7 +7,7 @@ const SPACING = 7;
 const NOZZLE = 54; // stroke width in drawing units
 // Real cleaned share that already counts as 100%: the last dots along contours are fiddly to reach.
 const DONE_AT = 0.9;
-const STORE_KEY = 'bb_promo';
+const STORE_KEY = 'bb_promo_code';
 
 // Same silhouette as HeroSofa.astro (fill shapes only).
 const SILHOUETTE = [
@@ -47,11 +47,20 @@ function density(x: number, y: number) {
   return Math.min(d, 0.95);
 }
 
-export function storedPromo(): boolean {
+// The code the Worker issued for this browser, if the sofa was already cleaned here.
+export function storedPromo(): string {
   try {
-    return localStorage.getItem(STORE_KEY) === '1';
+    return localStorage.getItem(STORE_KEY) ?? '';
   } catch {
-    return false;
+    return '';
+  }
+}
+
+export function storePromo(code: string) {
+  try {
+    localStorage.setItem(STORE_KEY, code);
+  } catch {
+    /* private mode: the code still fills for this visit */
   }
 }
 
@@ -72,7 +81,6 @@ export function initScrub(root: HTMLElement) {
     start: root.dataset.start ?? '',
     tap: root.dataset.tap ?? '',
     going: root.dataset.going ?? '',
-    done: root.dataset.done ?? '',
   };
   const touchFirst = window.matchMedia('(pointer: coarse)').matches;
   const clip = new Path2D();
@@ -283,16 +291,12 @@ export function initScrub(root: HTMLElement) {
     root.classList.add('is-done');
     root.classList.toggle('is-done-quiet', quiet);
     showPct(100);
-    say(text.done);
+    say('…');
     useLink!.hidden = false;
     allBtn!.hidden = true;
     placeBubble();
-    try {
-      localStorage.setItem(STORE_KEY, '1');
-    } catch {
-      /* private mode: the code still fills for this visit */
-    }
-    document.dispatchEvent(new CustomEvent('bb:cleaned'));
+    // main.ts fetches (or restores) the code and answers through the bubble.
+    document.dispatchEvent(new CustomEvent('bb:cleaned', { detail: { say: (msg: string) => { say(msg); placeBubble(); } } }));
   }
 
   // Keyboard and switch users get the same reward without dragging.

@@ -1,7 +1,7 @@
 // POST /api/lead → Telegram message.
 // Set TG_BOT_TOKEN and TG_CHAT_ID as secrets on the Worker (Settings → Variables and Secrets).
 
-import promo from '../src/data/promo.json' with { type: 'json' };
+import { promo, checkPromo, markPromoUsed } from './promo.js';
 
 const MAX = { name: 80, phone: 30, email: 120, service: 120, message: 1500, item: 120 };
 
@@ -53,12 +53,14 @@ export async function handleLead(request, env) {
     lines.push('', '<b>Lista:</b>', ...lead.items.map((i) => `• ${esc(i)}`));
     if (lead.total) lines.push(`<b>Razem od:</b> ${esc(lead.total)}`);
   }
-  if (lead.code) {
-    lines.push(
-      lead.code === promo.code
-        ? `<b>Kod rabatowy:</b> ${esc(lead.code)} (−${promo.percent}% na usługę, pierwsze zamówienie)`
-        : `<b>Kod (nieznany):</b> ${esc(lead.code)}`,
-    );
+  const codeStatus = await checkPromo(env, lead.code);
+  if (codeStatus) {
+    const note = {
+      valid: `✅ ważny, −${promo.percent}% na usługę (pierwsze zamówienie)`,
+      used: '⚠️ już wykorzystany wcześniej, rabat nie przysługuje',
+      unknown: '❌ nie wydaliśmy takiego kodu, rabat nie przysługuje',
+    }[codeStatus];
+    lines.push(`<b>Kod rabatowy:</b> ${esc(lead.code)} · ${note}`);
   }
   if (lead.message) lines.push('', `<b>Wiadomość:</b> ${esc(lead.message)}`);
   lines.push('', new Date().toLocaleString('pl-PL', { timeZone: 'Europe/Warsaw' }));
@@ -70,5 +72,6 @@ export async function handleLead(request, env) {
   });
 
   if (!tg.ok) return json({ ok: false, error: 'telegram' }, 502);
+  if (codeStatus === 'valid') await markPromoUsed(env, lead.code, lead.phone);
   return json({ ok: true });
 }

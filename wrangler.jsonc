@@ -8,6 +8,10 @@
     "binding": "ASSETS",
     "run_worker_first": true
   },
+  "kv_namespaces": [
+    // Issued first-order discount codes: CZYSTO-XXXXX → { issued, used }
+    { "binding": "PROMO", "id": "fdffd1ca014d40eabfdbbd51dea60c31" }
+  ],
   "routes": [
     { "pattern": "bezbrudu.com.pl", "custom_domain": true },
     { "pattern": "www.bezbrudu.com.pl", "custom_domain": true }
