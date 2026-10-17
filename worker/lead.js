@@ -1,5 +1,5 @@
-// Cloudflare Pages Function: POST /api/lead → Telegram message.
-// Set TG_BOT_TOKEN and TG_CHAT_ID in Pages → Settings → Variables and Secrets (as secrets).
+// POST /api/lead → Telegram message.
+// Set TG_BOT_TOKEN and TG_CHAT_ID as secrets on the Worker (Settings → Variables and Secrets).
 
 const MAX = { name: 80, phone: 30, email: 120, service: 120, message: 1500, item: 120 };
 
@@ -8,7 +8,7 @@ const clean = (v, max) => (typeof v === 'string' ? v.trim().slice(0, max) : '');
 const json = (body, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json; charset=utf-8' } });
 
-export async function onRequestPost({ request, env }) {
+export async function handleLead(request, env) {
   let data;
   try {
     data = await request.json();

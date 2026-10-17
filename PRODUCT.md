@@ -8,7 +8,7 @@ web
 
 ## Stack
 
-Delegated (2026-10-16): the user allowed a stack change; hosting is Cloudflare Pages or Workers. Chosen: Astro static output with one page per language (`/`, `/en/`, `/ru/`, `/uk/`) for SEO, self-hosted fonts, and a Cloudflare Pages Function (`functions/api/lead.js`) that sends leads to Telegram so the bot token stays server-side. The previous static site is kept in `bezbrudu.pl/` for reference.
+Delegated (2026-10-16): the user allowed a stack change; hosting is Cloudflare. Chosen: Astro static output with one page per language (`/`, `/en/`, `/ru/`, `/uk/`) for SEO and self-hosted fonts, deployed as a Cloudflare Worker with static assets from GitHub; the Worker (`worker/`) handles `/api/lead` and sends leads to Telegram so the bot token stays server-side. The previous static site is kept in `bezbrudu.pl/` for reference.
 
 ## Users
 
