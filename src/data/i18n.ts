@@ -1,4 +1,6 @@
-import type { Lang } from './site';
+import { prices, site, type Lang } from './site';
+
+const P = Object.fromEntries(prices.map((p) => [p.id, p.price])) as Record<string, number>;
 
 type Faq = { q: string; a: string };
 
@@ -36,6 +38,9 @@ export interface Dict {
     more: string;
     total: string;
     minApplied: string;
+    travel: string;
+    travelPick: string;
+    travelOther: string;
     note: string;
     name: string;
     phone: string;
@@ -79,8 +84,8 @@ export interface Dict {
 const pl: Dict = {
   htmlLang: 'pl',
   ogLocale: 'pl_PL',
-  metaTitle: 'Pranie kanap i materacy w Warszawie od 139 zł | Bez Brudu',
-  metaDesc: 'Pranie tapicerki, narożników i materacy u Ciebie w domu. Ekstrakcja gorącą wodą, schnięcie 2–4 h, dojazd po Warszawie gratis. Sprawdź cennik online.',
+  metaTitle: `Pranie kanap i materacy w Warszawie od ${P.sofa} zł | Bez Brudu`,
+  metaDesc: 'Pranie tapicerki, narożników i materacy u Ciebie w domu. Ekstrakcja gorącą wodą, schnięcie 2–4 h, dojazd na Ursynowie gratis. Sprawdź cennik online.',
   skip: 'Przejdź do treści',
   nav: { prices: 'Cennik', how: 'Jak to działa', stains: 'Plamy', faq: 'Pytania', contact: 'Kontakt' },
   menu: 'Menu',
@@ -122,7 +127,10 @@ const pl: Dict = {
     more: 'Więcej',
     total: 'Razem od',
     minApplied: 'minimalne zamówienie',
-    note: 'Minimum 150 zł. Dojazd po Warszawie gratis.',
+    travel: 'Dojazd',
+    travelPick: 'Wybierz dzielnicę',
+    travelOther: 'Inna miejscowość (zapytamy)',
+    note: `Minimum ${site.minOrder} zł za usługę, plus dojazd.`,
     name: 'Imię',
     phone: 'Telefon',
     submit: 'Wyślij listę, oddzwonimy',
@@ -163,26 +171,26 @@ const pl: Dict = {
       ['Schnięcie', '2–4 godziny'],
       ['Środki', 'Dobrane do tkaniny i rodzaju plamy'],
       ['Gdzie', 'U Ciebie, bez wynoszenia mebli'],
-      ['Dojazd', 'Gratis w Warszawie'],
+      ['Dojazd', 'Ursynów gratis, dalej 30–70 zł'],
       ['Godziny', 'Pn–pt 8:00–20:00, sb 9:00–18:00'],
       ['Języki', 'Polski, English, русский, українська'],
     ],
   },
   area: {
-    title: 'Dojeżdżamy do każdej dzielnicy',
-    lead: 'Dojazd po Warszawie nic nie kosztuje.',
-    free: '0 zł',
-    outside: 'Poza Warszawą, do 30 km: zapytaj, koszt dojazdu podamy z góry.',
+    title: 'Ile kosztuje dojazd',
+    lead: 'Na Ursynowie przyjeżdżamy za darmo. Dalej cena zależy od odległości.',
+    free: 'gratis',
+    outside: 'Nie ma Twojej miejscowości na liście? Zapytaj, koszt dojazdu podamy z góry.',
   },
   faq: {
     title: 'Pytania przed praniem',
     items: [
-      { q: 'Ile kosztuje pranie kanapy?', a: 'Kanapa 2–3-osobowa od 139 zł, narożnik od 189 zł. Dokładną cenę podamy po zdjęciu, bo zależy od rozmiaru, tkaniny i zabrudzenia. Minimalne zamówienie to 150 zł.' },
+      { q: 'Ile kosztuje pranie kanapy?', a: `Kanapa 2–3-osobowa od ${P.sofa} zł, narożnik od ${P.corner} zł. Dokładną cenę podamy po zdjęciu, bo zależy od rozmiaru, tkaniny i zabrudzenia. Minimalne zamówienie to ${site.minOrder} zł.` },
       { q: 'Jak długo schnie tapicerka?', a: 'Zwykle 2–4 godziny. Szybciej, jeśli przewietrzysz pokój albo włączysz ogrzewanie.' },
       { q: 'A co z dziećmi, zwierzętami i alergikami?', a: 'Dobieramy środki do tkaniny i rodzaju plamy, a po wyschnięciu z mebla można normalnie korzystać. Jeśli w domu jest alergik, małe dziecko albo zwierzę, powiedz nam przy wycenie: dobierzemy środki z myślą o tym.' },
       { q: 'Co muszę przygotować?', a: 'Dostęp do mebla, gniazdko elektryczne i kran. Resztę sprzętu przywozimy.' },
       { q: 'Czy każda plama zejdzie?', a: 'Większość tak. Farba, atrament, wybielacz i bardzo stare plamy mogą zostawić ślad. Ocenimy to na zdjęciu albo na miejscu, przed rozpoczęciem.' },
-      { q: 'Czy dojazd jest płatny?', a: 'W Warszawie nie. Poza miastem, do 30 km, podamy koszt dojazdu z góry.' },
+      { q: 'Ile kosztuje dojazd?', a: 'Ursynów bez opłaty. Mokotów, Wilanów, Włochy i Piaseczno: 30 zł. Dalsze dzielnice, Pruszków, Janki i Konstancin: 50 zł. Białołęka, Bielany i inne najdalsze: 70 zł. Koszt dojazdu doliczamy raz, niezależnie od liczby mebli.' },
     ],
   },
   contact: {
@@ -207,8 +215,8 @@ const pl: Dict = {
 const en: Dict = {
   htmlLang: 'en',
   ogLocale: 'en_GB',
-  metaTitle: 'Sofa & Mattress Cleaning in Warsaw from 139 zł | Bez Brudu',
-  metaDesc: 'Upholstery, corner sofa and mattress cleaning at your home in Warsaw. Hot-water extraction, dry in 2–4 h, free travel within Warsaw. See prices online.',
+  metaTitle: `Sofa & Mattress Cleaning in Warsaw from ${P.sofa} zł | Bez Brudu`,
+  metaDesc: 'Upholstery, corner sofa and mattress cleaning at your home in Warsaw. Hot-water extraction, dry in 2–4 h, free travel in Ursynów. See prices online.',
   skip: 'Skip to content',
   nav: { prices: 'Prices', how: 'How it works', stains: 'Stains', faq: 'FAQ', contact: 'Contact' },
   menu: 'Menu',
@@ -250,7 +258,10 @@ const en: Dict = {
     more: 'More',
     total: 'Total from',
     minApplied: 'minimum order',
-    note: 'Minimum 150 zł. Free travel within Warsaw.',
+    travel: 'Travel',
+    travelPick: 'Choose your district',
+    travelOther: 'Another town (we’ll quote)',
+    note: `Minimum ${site.minOrder} zł for the service, plus travel.`,
     name: 'Name',
     phone: 'Phone',
     submit: 'Send the list, we’ll call back',
@@ -291,26 +302,26 @@ const en: Dict = {
       ['Drying', '2–4 hours'],
       ['Products', 'Matched to the fabric and the stain'],
       ['Where', 'At your place, nothing to carry out'],
-      ['Travel', 'Free within Warsaw'],
+      ['Travel', 'Free in Ursynów, 30–70 zł elsewhere'],
       ['Hours', 'Mon–Fri 8:00–20:00, Sat 9:00–18:00'],
       ['Languages', 'Polski, English, русский, українська'],
     ],
   },
   area: {
-    title: 'We come to every district',
-    lead: 'Travel within Warsaw costs nothing.',
-    free: '0 zł',
-    outside: 'Outside Warsaw, up to 30 km: ask us, we’ll quote travel upfront.',
+    title: 'What travel costs',
+    lead: 'Travel in Ursynów is free. Further out, the price depends on the distance.',
+    free: 'free',
+    outside: 'Your town isn’t listed? Ask us and we’ll quote travel upfront.',
   },
   faq: {
     title: 'Questions before cleaning',
     items: [
-      { q: 'How much does sofa cleaning cost?', a: 'A 2–3 seat sofa from 139 zł, a corner sofa from 189 zł. We confirm the exact price from a photo, as it depends on size, fabric and how dirty it is. Minimum order is 150 zł.' },
+      { q: 'How much does sofa cleaning cost?', a: `A 2–3 seat sofa from ${P.sofa} zł, a corner sofa from ${P.corner} zł. We confirm the exact price from a photo, as it depends on size, fabric and how dirty it is. Minimum order is ${site.minOrder} zł.` },
       { q: 'How long does upholstery take to dry?', a: 'Usually 2–4 hours. Faster if you air the room or turn on the heating.' },
       { q: 'What about children, pets and allergies?', a: 'We match products to the fabric and the stain, and once dry the furniture can be used as usual. If someone at home has allergies, or you have a small child or a pet, tell us when you ask for a quote and we’ll choose products with that in mind.' },
       { q: 'What do I need to prepare?', a: 'Access to the furniture, a power socket and a tap. We bring everything else.' },
       { q: 'Will every stain come out?', a: 'Most will. Paint, ink, bleach and very old stains may leave a trace. We assess it from a photo or on site, before we start.' },
-      { q: 'Do you charge for travel?', a: 'Not within Warsaw. Outside the city, up to 30 km, we quote travel upfront.' },
+      { q: 'How much is travel?', a: 'Free in Ursynów. Mokotów, Wilanów, Włochy and Piaseczno: 30 zł. Further districts, Pruszków, Janki and Konstancin: 50 zł. Białołęka, Bielany and the farthest areas: 70 zł. Travel is charged once, however many items we clean.' },
     ],
   },
   contact: {
@@ -335,8 +346,8 @@ const en: Dict = {
 const ru: Dict = {
   htmlLang: 'ru',
   ogLocale: 'ru_RU',
-  metaTitle: 'Химчистка диванов и матрасов в Варшаве от 139 zł | Bez Brudu',
-  metaDesc: 'Химчистка мягкой мебели, угловых диванов и матрасов у вас дома в Варшаве. Экстракция горячей водой, сохнет 2–4 ч, выезд по Варшаве бесплатно. Цены на сайте.',
+  metaTitle: `Химчистка диванов и матрасов в Варшаве от ${P.sofa} zł | Bez Brudu`,
+  metaDesc: 'Химчистка мягкой мебели, угловых диванов и матрасов у вас дома в Варшаве. Экстракция горячей водой, сохнет 2–4 ч, выезд на Урсынув бесплатно. Цены на сайте.',
   skip: 'Перейти к содержанию',
   nav: { prices: 'Цены', how: 'Как это работает', stains: 'Пятна', faq: 'Вопросы', contact: 'Контакты' },
   menu: 'Меню',
@@ -378,7 +389,10 @@ const ru: Dict = {
     more: 'Больше',
     total: 'Итого от',
     minApplied: 'минимальный заказ',
-    note: 'Минимум 150 zł. Выезд по Варшаве бесплатно.',
+    travel: 'Выезд',
+    travelPick: 'Выберите район',
+    travelOther: 'Другой город (уточним)',
+    note: `Минимум ${site.minOrder} zł за услугу, плюс выезд.`,
     name: 'Имя',
     phone: 'Телефон',
     submit: 'Отправить список, перезвоним',
@@ -419,26 +433,26 @@ const ru: Dict = {
       ['Высыхание', '2–4 часа'],
       ['Средства', 'Подбираем под ткань и тип пятна'],
       ['Где', 'У вас дома, мебель не выносим'],
-      ['Выезд', 'Бесплатно по Варшаве'],
+      ['Выезд', 'Урсынув бесплатно, дальше 30–70 zł'],
       ['Часы', 'Пн–пт 8:00–20:00, сб 9:00–18:00'],
       ['Языки', 'Polski, English, русский, українська'],
     ],
   },
   area: {
-    title: 'Приезжаем в любой район',
-    lead: 'Выезд по Варшаве ничего не стоит.',
-    free: '0 zł',
-    outside: 'За Варшавой, до 30 км: спросите, стоимость выезда назовём заранее.',
+    title: 'Сколько стоит выезд',
+    lead: 'На Урсынув приезжаем бесплатно. Дальше цена зависит от расстояния.',
+    free: 'бесплатно',
+    outside: 'Вашего города нет в списке? Спросите, стоимость выезда назовём заранее.',
   },
   faq: {
     title: 'Вопросы перед чисткой',
     items: [
-      { q: 'Сколько стоит химчистка дивана?', a: 'Диван на 2–3 места от 139 zł, угловой от 189 zł. Точную цену назовём по фото: она зависит от размера, ткани и загрязнения. Минимальный заказ 150 zł.' },
+      { q: 'Сколько стоит химчистка дивана?', a: `Диван на 2–3 места от ${P.sofa} zł, угловой от ${P.corner} zł. Точную цену назовём по фото: она зависит от размера, ткани и загрязнения. Минимальный заказ ${site.minOrder} zł.` },
       { q: 'Сколько сохнет обивка?', a: 'Обычно 2–4 часа. Быстрее, если проветрить комнату или включить отопление.' },
       { q: 'А если дома дети, животные или аллергики?', a: 'Подбираем средства под ткань и тип пятна, после высыхания мебелью можно пользоваться как обычно. Если дома аллергик, маленький ребёнок или животное, скажите при оценке: подберём средства с учётом этого.' },
       { q: 'Что нужно подготовить?', a: 'Доступ к мебели, розетку и кран. Всё остальное привезём.' },
       { q: 'Все пятна уйдут?', a: 'Большинство да. Краска, чернила, отбеливатель и очень старые пятна могут оставить след. Оценим по фото или на месте, до начала работы.' },
-      { q: 'Выезд платный?', a: 'По Варшаве нет. За городом, до 30 км, назовём стоимость выезда заранее.' },
+      { q: 'Сколько стоит выезд?', a: 'Урсынув бесплатно. Мокотув, Вилянув, Влохи и Пясечно: 30 zł. Более дальние районы, Прушкув, Янки и Констанцин: 50 zł. Бялоленка, Беляны и самые дальние районы: 70 zł. Выезд оплачивается один раз, сколько бы мебели мы ни чистили.' },
     ],
   },
   contact: {
@@ -463,8 +477,8 @@ const ru: Dict = {
 const uk: Dict = {
   htmlLang: 'uk',
   ogLocale: 'uk_UA',
-  metaTitle: 'Хімчистка диванів і матраців у Варшаві від 139 zł | Bez Brudu',
-  metaDesc: 'Хімчистка м’яких меблів, кутових диванів і матраців у вас удома у Варшаві. Екстракція гарячою водою, сохне 2–4 год, виїзд по Варшаві безкоштовно. Ціни на сайті.',
+  metaTitle: `Хімчистка диванів і матраців у Варшаві від ${P.sofa} zł | Bez Brudu`,
+  metaDesc: 'Хімчистка м’яких меблів, кутових диванів і матраців у вас удома у Варшаві. Екстракція гарячою водою, сохне 2–4 год, виїзд на Урсинів безкоштовно. Ціни на сайті.',
   skip: 'Перейти до змісту',
   nav: { prices: 'Ціни', how: 'Як це працює', stains: 'Плями', faq: 'Питання', contact: 'Контакти' },
   menu: 'Меню',
@@ -506,7 +520,10 @@ const uk: Dict = {
     more: 'Більше',
     total: 'Разом від',
     minApplied: 'мінімальне замовлення',
-    note: 'Мінімум 150 zł. Виїзд по Варшаві безкоштовно.',
+    travel: 'Виїзд',
+    travelPick: 'Оберіть район',
+    travelOther: 'Інше місто (уточнимо)',
+    note: `Мінімум ${site.minOrder} zł за послугу, плюс виїзд.`,
     name: 'Ім’я',
     phone: 'Телефон',
     submit: 'Надіслати список, передзвонимо',
@@ -547,26 +564,26 @@ const uk: Dict = {
       ['Висихання', '2–4 години'],
       ['Засоби', 'Підбираємо під тканину й тип плями'],
       ['Де', 'У вас удома, меблі не виносимо'],
-      ['Виїзд', 'Безкоштовно по Варшаві'],
+      ['Виїзд', 'Урсинів безкоштовно, далі 30–70 zł'],
       ['Години', 'Пн–пт 8:00–20:00, сб 9:00–18:00'],
       ['Мови', 'Polski, English, русский, українська'],
     ],
   },
   area: {
-    title: 'Приїжджаємо в будь-який район',
-    lead: 'Виїзд по Варшаві нічого не коштує.',
-    free: '0 zł',
-    outside: 'За Варшавою, до 30 км: запитайте, вартість виїзду назвемо заздалегідь.',
+    title: 'Скільки коштує виїзд',
+    lead: 'На Урсинів приїжджаємо безкоштовно. Далі ціна залежить від відстані.',
+    free: 'безкоштовно',
+    outside: 'Вашого міста немає у списку? Запитайте, вартість виїзду назвемо заздалегідь.',
   },
   faq: {
     title: 'Питання перед чищенням',
     items: [
-      { q: 'Скільки коштує хімчистка дивана?', a: 'Диван на 2–3 місця від 139 zł, кутовий від 189 zł. Точну ціну назвемо за фото: вона залежить від розміру, тканини й забруднення. Мінімальне замовлення 150 zł.' },
+      { q: 'Скільки коштує хімчистка дивана?', a: `Диван на 2–3 місця від ${P.sofa} zł, кутовий від ${P.corner} zł. Точну ціну назвемо за фото: вона залежить від розміру, тканини й забруднення. Мінімальне замовлення ${site.minOrder} zł.` },
       { q: 'Скільки сохне оббивка?', a: 'Зазвичай 2–4 години. Швидше, якщо провітрити кімнату або увімкнути опалення.' },
       { q: 'А якщо вдома діти, тварини чи алергіки?', a: 'Підбираємо засоби під тканину й тип плями, після висихання меблями можна користуватися як зазвичай. Якщо вдома алергік, маленька дитина чи тварина, скажіть під час оцінки: підберемо засоби з урахуванням цього.' },
       { q: 'Що потрібно підготувати?', a: 'Доступ до меблів, розетку й кран. Усе інше привеземо.' },
       { q: 'Усі плями зійдуть?', a: 'Більшість так. Фарба, чорнило, відбілювач і дуже старі плями можуть залишити слід. Оцінимо за фото або на місці, до початку роботи.' },
-      { q: 'Виїзд платний?', a: 'По Варшаві ні. За містом, до 30 км, назвемо вартість виїзду заздалегідь.' },
+      { q: 'Скільки коштує виїзд?', a: 'Урсинів безкоштовно. Мокотув, Віланув, Влохи й Пясечно: 30 zł. Дальші райони, Прушкув, Янки й Констанцин: 50 zł. Бялоленка, Беляни й найвіддаленіші райони: 70 zł. Виїзд оплачується один раз, скільки б меблів ми не чистили.' },
     ],
   },
   contact: {

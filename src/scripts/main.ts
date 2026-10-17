@@ -6,6 +6,8 @@ interface Ui {
   m2: string;
   min: number;
   items: Record<string, string>;
+  travel: string;
+  free: string;
   sending: string;
   error: string;
   errPhone: string;
@@ -49,6 +51,13 @@ document.querySelectorAll<HTMLElement>('[data-scrub]').forEach(initScrub);
 const parts = [...document.querySelectorAll<HTMLElement>('[data-part]')];
 const totalEl = document.querySelector<HTMLOutputElement>('[data-total]');
 const minEl = document.querySelector<HTMLElement>('[data-min]');
+const travelEl = document.querySelector<HTMLSelectElement>('[data-travel]');
+const travelLine = document.querySelector<HTMLElement>('[data-travel-line]');
+
+function travelChoice() {
+  const opt = travelEl?.selectedOptions[0];
+  return { place: travelEl?.value ?? '', fee: Number(opt?.dataset.fee ?? 0) };
+}
 
 function clampQty(input: HTMLInputElement) {
   const max = Number(input.max) || 99;
@@ -67,10 +76,16 @@ function recalc() {
     part.querySelector<HTMLButtonElement>('[data-step="1"]')!.disabled = qty >= Number(input.max);
   }
   const applied = sum > 0 && sum < ui.min;
-  const shown = applied ? ui.min : sum;
+  const { place, fee } = travelChoice();
+  const shown = sum > 0 ? Math.max(sum, ui.min) + fee : 0;
   if (totalEl) totalEl.textContent = `${money.format(shown)} zł`;
   if (minEl) minEl.hidden = !applied;
+  if (travelLine) {
+    travelLine.hidden = !(sum > 0 && place);
+    travelLine.textContent = `${ui.travel}: ${fee ? `+${fee} zł` : ui.free}`;
+  }
 }
+travelEl?.addEventListener('change', recalc);
 
 for (const part of parts) {
   const input = part.querySelector<HTMLInputElement>('input')!;
@@ -99,6 +114,8 @@ function listSummary() {
     const unit = part.dataset.unit === 'm2' ? ui.m2 : ui.pcs;
     lines.push(`${ui.items[part.dataset.id!]}: ${qty} ${unit}`);
   }
+  const { place, fee } = travelChoice();
+  if (place) lines.push(`${ui.travel}: ${place}${fee ? ` (+${fee} zł)` : ''}`);
   return lines;
 }
 

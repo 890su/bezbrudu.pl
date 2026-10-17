@@ -2,7 +2,7 @@
 import '@fontsource-variable/unbounded/wght.css';
 import '@fontsource-variable/onest/wght.css';
 import '../styles/global.css';
-import { site, langs, langPath, type Lang } from '../data/site';
+import { site, prices, langs, langPath, type Lang } from '../data/site';
 import { dicts } from '../data/i18n';
 
 interface Props { lang: Lang }
@@ -20,7 +20,7 @@ const business = {
   email: site.email,
   areaServed: { '@type': 'City', name: 'Warszawa' },
   openingHours: ['Mo-Fr 08:00-20:00', 'Sa 09:00-18:00'],
-  priceRange: '29–189 PLN',
+  priceRange: `${Math.min(...prices.map((p) => p.price))}–${Math.max(...prices.map((p) => p.price))} PLN`,
   knowsLanguage: ['pl', 'en', 'ru', 'uk'],
 };
 const faq = {

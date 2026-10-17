@@ -286,6 +286,14 @@ button { cursor: pointer; }
 .sheet__total-label { font-size: 0.95rem; color: var(--on-blue-2); }
 .sheet__sum { font-family: var(--display); font-weight: 600; font-size: clamp(2rem, 1.6rem + 1.2vw, 2.6rem); letter-spacing: -0.04em; line-height: 1; font-variant-numeric: tabular-nums; }
 .sheet__min { font-size: 0.85rem; color: var(--on-blue-2); }
+.travel-pick { margin-top: 14px; }
+.field.travel-pick select {
+  min-height: 46px; padding: 8px 32px 8px 0; background-color: transparent; color: var(--on-blue);
+  border: 0; border-bottom: 2px solid var(--on-blue); border-radius: 0; font-size: 1rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+}
+.field.travel-pick select option, .field.travel-pick select optgroup { color: var(--ink); background: var(--white); }
+.field.travel-pick select:focus-visible { outline: 3px solid var(--paper); outline-offset: 3px; }
 .sheet__note { margin-top: 8px; font-size: 0.88rem; color: var(--on-blue-2); }
 
 .sheet__fields { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 4px; }
@@ -381,10 +389,12 @@ button { cursor: pointer; }
 .area { padding-top: 0; }
 .stains-sec + .promise { border-top: 1.5px solid var(--ink); }
 .area__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 12px 40px; margin-bottom: 36px; padding-top: clamp(72px, 9vw, 136px); border-top: 1.5px solid var(--ink); }
-.districts { columns: 3; column-gap: clamp(32px, 4vw, 64px); }
-.districts li { display: flex; align-items: baseline; break-inside: avoid; padding: 7px 0; font-size: 1rem; }
-.districts__dots { flex: 1; margin: 0 10px; border-bottom: 2px dotted var(--ink); opacity: 0.45; transform: translateY(-4px); }
-.districts__fee { font-weight: 600; font-variant-numeric: tabular-nums; }
+.zones { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-block: 1.5px solid var(--ink); }
+.zone { padding: 22px clamp(16px, 2vw, 28px) 26px 0; }
+.zone + .zone { border-left: 1.5px solid var(--ink); padding-left: clamp(16px, 2vw, 28px); }
+.zone__fee { font-family: var(--display); font-weight: 600; font-size: clamp(1.4rem, 1.1rem + 0.9vw, 2rem); letter-spacing: -0.04em; line-height: 1; margin-bottom: 14px; font-variant-numeric: tabular-nums; }
+.zone:first-child .zone__fee { color: var(--blue); }
+.zone__list li { padding: 6px 0; border-top: 1px solid var(--rule); font-size: 0.98rem; }
 .area__out { display: flex; gap: 10px; align-items: center; margin-top: 28px; color: var(--ink-2); }
 .area__out .icon { flex: none; color: var(--ink); }
 
@@ -457,7 +467,9 @@ button { cursor: pointer; }
   .sheet__head, .sheet__form, .sheet__done, .sheet__alt, .sheet__fine { max-width: 640px; }
   .promise__grid, .contact__grid, .faq__grid { grid-template-columns: minmax(0, 1fr); }
   .faq__grid .h2 { position: static; }
-  .districts { columns: 2; }
+  .zones { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .zone:nth-child(3) { border-left: 0; padding-left: 0; }
+  .zone:nth-child(n + 3) { border-top: 1.5px solid var(--ink); }
 
   .bar {
     position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
@@ -481,9 +493,6 @@ button { cursor: pointer; }
   .stains__item:nth-child(n + 5) { transform: none; }
   .stain { max-width: 112px; }
   .paper-form__row, .sheet__fields { grid-template-columns: 1fr; }
-  .districts { columns: 2; column-gap: 20px; }
-  .districts li { font-size: 0.92rem; }
-  .districts__dots { margin: 0 6px; }
 }
 
 @media (max-width: 600px) {

@@ -24,21 +24,26 @@ export interface PriceItem {
   max: number;
 }
 
-// Set on 2026-10-16 at or below the Warsaw median (bs1.pl, warszawa-pranie-dywanow.pl, mobiwash.pl, kb.pl).
+// Set on 2026-10-17 at or slightly above the Warsaw average (bs1.pl, warszawa-pranie-dywanow.pl, mobiwash.pl, kb.pl).
 export const prices: PriceItem[] = [
-  { id: 'sofa', price: 139, unit: 'pcs', icon: 'sofa', max: 9 },
-  { id: 'corner', price: 189, unit: 'pcs', icon: 'corner', max: 9 },
-  { id: 'armchair', price: 69, unit: 'pcs', icon: 'armchair', max: 12 },
-  { id: 'chair', price: 29, unit: 'pcs', icon: 'chair', max: 24 },
-  { id: 'mattress1', price: 79, unit: 'pcs', icon: 'mattress', max: 9 },
-  { id: 'mattress2', price: 129, unit: 'pcs', icon: 'mattress2', max: 9 },
-  { id: 'carpet', price: 15, unit: 'm2', icon: 'carpet', max: 300 },
+  { id: 'sofa', price: 169, unit: 'pcs', icon: 'sofa', max: 9 },
+  { id: 'corner', price: 229, unit: 'pcs', icon: 'corner', max: 9 },
+  { id: 'armchair', price: 79, unit: 'pcs', icon: 'armchair', max: 12 },
+  { id: 'chair', price: 35, unit: 'pcs', icon: 'chair', max: 24 },
+  { id: 'mattress1', price: 109, unit: 'pcs', icon: 'mattress', max: 9 },
+  { id: 'mattress2', price: 169, unit: 'pcs', icon: 'mattress2', max: 9 },
+  { id: 'carpet', price: 20, unit: 'm2', icon: 'carpet', max: 300 },
 ];
 
-export const districts = [
-  'Bemowo', 'Białołęka', 'Bielany', 'Mokotów', 'Ochota', 'Praga-Południe',
-  'Praga-Północ', 'Rembertów', 'Śródmieście', 'Targówek', 'Ursus', 'Ursynów',
-  'Wawer', 'Wesoła', 'Wilanów', 'Włochy', 'Wola', 'Żoliborz',
+// Travel fee by distance from Ursynów: the district itself, its neighbours, one ring further, the far side.
+export const travel: { fee: number; places: string[] }[] = [
+  { fee: 0, places: ['Ursynów'] },
+  { fee: 30, places: ['Mokotów', 'Wilanów', 'Włochy', 'Piaseczno'] },
+  {
+    fee: 50,
+    places: ['Bemowo', 'Ochota', 'Praga-Południe', 'Śródmieście', 'Ursus', 'Wawer', 'Wola', 'Janki', 'Konstancin-Jeziorna', 'Pruszków'],
+  },
+  { fee: 70, places: ['Białołęka', 'Bielany', 'Praga-Północ', 'Rembertów', 'Targówek', 'Wesoła', 'Żoliborz'] },
 ];
 
 export const langs = ['pl', 'en', 'ru', 'uk'] as const;

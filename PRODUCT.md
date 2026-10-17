@@ -20,7 +20,7 @@ Bez Brudu cleans upholstered furniture, mattresses and carpets on site at the cu
 
 ## Positioning
 
-On-site extraction cleaning in the customer's own flat in Warsaw, with a transparent price list no higher than the Warsaw market average, free travel within Warsaw, a re-clean guarantee, and service in four languages (PL/EN/RU/UA), which most local competitors do not offer.
+On-site extraction cleaning in the customer's own flat in Warsaw, with a transparent price list at the Warsaw market average, a published travel fee by district, a re-clean guarantee, and service in four languages (PL/EN/RU/UA), which most local competitors do not offer.
 
 ## Operating Context
 
@@ -33,15 +33,23 @@ On-site extraction cleaning in the customer's own flat in Warsaw, with a transpa
 
 Services: sofa/couch, corner sofa (narożnik), armchair, chairs, mattress (single/double, one or both sides), carpet/rug/fitted carpet on site.
 
-Prices set on 2026-10-16 at or below the Warsaw median (market reference: bs1.pl, warszawa-pranie-dywanow.pl, mobiwash.pl, kb.pl):
+Prices set on 2026-10-17 at or slightly above the Warsaw average (market reference: bs1.pl, warszawa-pranie-dywanow.pl, mobiwash.pl, kb.pl):
 
-- Sofa 2–3 seats: from 139 zł
-- Corner sofa: from 189 zł (large/U-shaped: individual quote)
-- Armchair: from 69 zł
-- Chair: from 29 zł
-- Mattress single: from 79 zł (one side); double: from 129 zł (one side)
-- Carpet / fitted carpet on site: from 15 zł/m²
-- Free travel within Warsaw; minimum order 150 zł
+- Sofa 2–3 seats: from 169 zł
+- Corner sofa: from 229 zł (large/U-shaped: individual quote)
+- Armchair: from 79 zł
+- Chair: from 35 zł
+- Mattress single: from 109 zł (one side); double: from 169 zł (one side)
+- Carpet / fitted carpet on site: from 20 zł/m²
+- Minimum order 150 zł for the service
+
+Travel fee, charged once per visit, by distance from Ursynów:
+
+- Free: Ursynów
+- +30 zł: Mokotów, Wilanów, Włochy, Piaseczno
+- +50 zł: Bemowo, Ochota, Praga-Południe, Śródmieście, Ursus, Wawer, Wola, Janki, Konstancin-Jeziorna, Pruszków
+- +70 zł: Białołęka, Bielany, Praga-Północ, Rembertów, Targówek, Wesoła, Żoliborz
+- Other towns: quoted on request
 
 Undecided: business address (JSON-LD has none), Telegram bot credentials (set by the owner as Worker secrets).
 

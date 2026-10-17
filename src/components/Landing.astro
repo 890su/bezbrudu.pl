@@ -4,7 +4,7 @@ import Icon from './Icon.astro';
 import HeroSofa from './HeroSofa.astro';
 import Stain from './Stain.astro';
 import Steps from './Steps.astro';
-import { site, prices, districts, langs, langPath, langLabel, langName, type Lang } from '../data/site';
+import { site, prices, travel, langs, langPath, langLabel, langName, type Lang } from '../data/site';
 import { dicts } from '../data/i18n';
 
 interface Props { lang: Lang }
@@ -19,6 +19,8 @@ const ui = {
   m2: t.sheet.m2,
   min: site.minOrder,
   items: t.sheet.items,
+  travel: t.sheet.travel,
+  free: t.area.free,
   sending: t.form.sending,
   error: t.form.error,
   errPhone: t.form.errPhone,
@@ -110,10 +112,24 @@ const ui = {
               })}
             </ul>
 
+            <label class="field field--on-ink travel-pick">
+              <span class="field__label">{t.sheet.travel}</span>
+              <select name="travel" data-travel>
+                <option value="" data-fee="0">{t.sheet.travelPick}</option>
+                {travel.map((z) => (
+                  <optgroup label={z.fee ? `+${z.fee} zł` : t.area.free}>
+                    {z.places.map((pl) => <option value={pl} data-fee={z.fee}>{pl}{z.fee ? ` (+${z.fee} zł)` : ''}</option>)}
+                  </optgroup>
+                ))}
+                <option value={t.sheet.travelOther} data-fee="0">{t.sheet.travelOther}</option>
+              </select>
+            </label>
+
             <div class="sheet__total">
               <span class="sheet__total-label">{t.sheet.total}</span>
               <output class="sheet__sum" data-total aria-live="polite">0 zł</output>
               <span class="sheet__min" data-min hidden>{t.sheet.minApplied}</span>
+              <span class="sheet__min" data-travel-line hidden></span>
             </div>
             <p class="sheet__note">{t.sheet.note}</p>
             <div class="sheet__alt">
@@ -202,11 +218,16 @@ const ui = {
           <h2 class="h2" id="area-title">{t.area.title}</h2>
           <p class="lead">{t.area.lead}</p>
         </div>
-        <ul class="districts">
-          {districts.map((d) => (
-            <li><span lang="pl">{d}</span><span class="districts__dots" aria-hidden="true"></span><span class="districts__fee">{t.area.free}</span></li>
+        <div class="zones">
+          {travel.map((z) => (
+            <section class="zone" aria-label={z.fee ? `+${z.fee} zł` : t.area.free}>
+              <p class="zone__fee">{z.fee ? `+${z.fee} zł` : t.area.free}</p>
+              <ul class="zone__list" lang="pl">
+                {z.places.map((pl) => <li>{pl}</li>)}
+              </ul>
+            </section>
           ))}
-        </ul>
+        </div>
         <p class="area__out"><Icon name="pin" size={22} /> {t.area.outside}</p>
       </div>
     </section>
