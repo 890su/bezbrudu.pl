@@ -54,7 +54,7 @@ export interface RentalDict {
 
 const pl: RentalDict = {
   metaTitle: `Wynajem odkurzacza piorącego Warszawa – Kärcher od ${R.day} zł`,
-  metaDesc: `Wypożyczalnia odkurzaczy piorących z dowozem w Warszawie: Kärcher Puzzi 10/1 wieczorem, chemia dobrana do plamy, instrukcja wideo. Od ${R.day} zł za dobę. Nie wyjdzie? Doczyścimy.`,
+  metaDesc: `Wypożyczalnia odkurzaczy piorących z dowozem w Warszawie: Kärcher Puzzi wieczorem, chemia do plam, instrukcja wideo. Od ${R.day} zł za dobę.`,
   title: 'Wynajem odkurzacza piorącego z dowozem',
   lead: 'Wypierz kanapę sam, jak profesjonalista. Przywozimy Kärcher Puzzi wieczorem, z chemią dobraną do plamy i instrukcją wideo. Nie wyjdzie? Przyjedziemy i doczyścimy, a koszt wynajmu odliczymy.',
   kitLabel: 'Rysunek zestawu do wynajęcia: odkurzacz piorący, ssawki, proszek, spryskiwacz i telefon z instrukcją',
@@ -134,8 +134,8 @@ const pl: RentalDict = {
 };
 
 const en: RentalDict = {
-  metaTitle: `Carpet Cleaner Rental Warsaw – Kärcher from ${R.day} zł | Bez Brudu`,
-  metaDesc: `Carpet and upholstery cleaner rental with delivery in Warsaw: Kärcher Puzzi 10/1 in the evening, products matched to your stain, video guide. From ${R.day} zł a day. Not working out? We finish it.`,
+  metaTitle: `Carpet Cleaner Rental Warsaw – Kärcher from ${R.day} zł`,
+  metaDesc: `Carpet and upholstery cleaner rental in Warsaw, delivered in the evening: Kärcher Puzzi, stain products, video guide. From ${R.day} zł a day.`,
   title: 'Carpet cleaner rental with delivery',
   lead: 'Clean your sofa yourself, like a pro. We bring a Kärcher Puzzi in the evening, with products matched to your stain and a video guide. Not working out? We come, finish the job and deduct the rental.',
   kitLabel: 'Drawing of the rental kit: extractor, nozzles, powder, spray bottle and a phone with the guide',

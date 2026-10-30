@@ -1,8 +1,7 @@
 ---
-import '@fontsource-variable/unbounded/wght.css';
-import '@fontsource-variable/onest/wght.css';
+import '../styles/fonts.css';
 import '../styles/global.css';
-import { site, prices, langs, pagePath, type Lang, type Page } from '../data/site';
+import { site, langs, pagePath, type Lang, type Page } from '../data/site';
 import { dicts } from '../data/i18n';
 
 interface Props {
@@ -18,53 +17,101 @@ const t = dicts[lang];
 const title = Astro.props.title ?? t.metaTitle;
 const desc = Astro.props.desc ?? t.metaDesc;
 const faqItems = Astro.props.faq ?? t.faq.items;
-const canonical = new URL(pagePath(page, lang), site.url).href;
+const abs = (path: string) => new URL(path, site.url).href;
+const canonical = abs(pagePath(page, lang));
+const ogImage = abs(`/og/${page}-${lang}.png`);
+// Subset fonts (scripts/subset-fonts.py): fetch the scripts this language renders before CSS asks for them.
+const fontScripts = ['latin', ...(lang === 'pl' ? ['latin-ext'] : lang === 'en' ? [] : ['cyrillic'])];
+const preloads = ['unbounded', 'onest'].flatMap((f) => fontScripts.map((sc) => `/fonts/${f}-${sc}.woff2`));
 
-const business = {
+// One identity for the business, referenced by @id from every page and from Service markup.
+// No public street address yet, so it is an Organization serving Warsaw rather than a LocalBusiness.
+const orgId = `${site.url}/#org`;
+const org = {
   '@context': 'https://schema.org',
-  '@type': 'HomeAndConstructionBusiness',
+  '@type': 'Organization',
+  '@id': orgId,
   name: site.name,
-  description: t.metaDesc,
-  url: new URL(pagePath('home', lang), site.url).href,
-  telephone: site.phoneHref.replace('tel:', ''),
+  url: `${site.url}/`,
+  logo: abs('/favicon-192.png'),
+  image: abs('/og/home-pl.png'),
   email: site.email,
+  telephone: site.phoneHref.replace('tel:', ''),
   areaServed: { '@type': 'City', name: 'Warszawa' },
-  openingHours: ['Mo-Fr 08:00-20:00', 'Sa 09:00-18:00'],
-  priceRange: `${Math.min(...prices.map((p) => p.price))}–${Math.max(...prices.map((p) => p.price))} PLN`,
   knowsLanguage: ['pl', 'en', 'ru', 'uk'],
+  contactPoint: {
+    '@type': 'ContactPoint',
+    telephone: site.phoneHref.replace('tel:', ''),
+    contactType: 'customer service',
+    areaServed: 'PL',
+    availableLanguage: ['Polish', 'English', 'Russian', 'Ukrainian'],
+  },
 };
+// WebSite only on the home page of each language.
+const website =
+  page === 'home'
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        '@id': `${site.url}/#website`,
+        name: site.name,
+        url: `${site.url}/`,
+        inLanguage: t.htmlLang,
+        publisher: { '@id': orgId },
+      }
+    : null;
 const faq = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
+  '@id': `${canonical}#faq`,
   mainEntity: faqItems.map((f) => ({
     '@type': 'Question',
     name: f.q,
     acceptedAnswer: { '@type': 'Answer', text: f.a },
   })),
 };
+// JSON.stringify does not escape "<": do it so no value can close the script element.
+const ld = (d: unknown) => JSON.stringify(d).replace(/</g, '\\u003c');
 ---
 <!doctype html>
 <html lang={t.htmlLang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {preloads.map((href) => <link rel="preload" href={href} as="font" type="font/woff2" crossorigin />)}
     <title>{title}</title>
     <meta name="description" content={desc} />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
     <link rel="canonical" href={canonical} />
-    {langs.map((l) => <link rel="alternate" hreflang={dicts[l].htmlLang} href={new URL(pagePath(page, l), site.url).href} />)}
-    <link rel="alternate" hreflang="x-default" href={new URL(pagePath(page, 'pl'), site.url).href} />
+    {langs.map((l) => <link rel="alternate" hreflang={dicts[l].htmlLang} href={abs(pagePath(page, l))} />)}
+    <link rel="alternate" hreflang="x-default" href={abs(pagePath(page, 'pl'))} />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
     <meta property="og:url" content={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={desc} />
     <meta property="og:locale" content={t.ogLocale} />
+    {langs.filter((l) => l !== lang).map((l) => <meta property="og:locale:alternate" content={dicts[l].ogLocale} />)}
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={title} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={desc} />
+    <meta name="twitter:image" content={ogImage} />
     <meta name="theme-color" content="#F5F5F0" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <script type="application/ld+json" set:html={JSON.stringify(business)} />
-    <script type="application/ld+json" set:html={JSON.stringify(faq)} />
-    {(Astro.props.ld ?? []).map((d) => <script type="application/ld+json" set:html={JSON.stringify(d)} />)}
+    <link rel="icon" href="/favicon-48.png" type="image/png" sizes="48x48" />
+    <link rel="icon" href="/favicon-192.png" type="image/png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   </head>
   <body>
     <slot />
+    <script type="application/ld+json" set:html={ld(org)} />
+    {website && <script type="application/ld+json" set:html={ld(website)} />}
+    <script type="application/ld+json" set:html={ld(faq)} />
+    {(Astro.props.ld ?? []).map((d) => <script type="application/ld+json" set:html={ld(d)} />)}
   </body>
 </html>

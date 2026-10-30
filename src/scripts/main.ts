@@ -23,6 +23,18 @@ interface Ui {
 const ui: Ui = JSON.parse(document.getElementById('ui')?.textContent ?? '{}');
 const money = new Intl.NumberFormat(ui.lang === 'uk' ? 'uk' : ui.lang, { maximumFractionDigits: 0 });
 
+/* Sections below the fold use content-visibility; an in-page jump needs real heights,
+   so the first anchor click (or a hash in the URL) switches it off before the browser scrolls. */
+const fullLayout = () => document.documentElement.classList.add('cv-off');
+if (location.hash) fullLayout();
+document.addEventListener(
+  'click',
+  (e) => {
+    if ((e.target as Element).closest('a[href*="#"]')) fullLayout();
+  },
+  true,
+);
+
 /* Header: hairline after scrolling, mobile menu */
 const top = document.querySelector<HTMLElement>('[data-top]');
 const menuBtn = document.querySelector<HTMLButtonElement>('[data-menu]');

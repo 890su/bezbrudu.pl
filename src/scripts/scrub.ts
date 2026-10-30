@@ -117,18 +117,20 @@ export function initScrub(root: HTMLElement) {
     ctx!.save();
     ctx!.clip(clip);
     ctx!.fillStyle = getComputedStyle(root).getPropertyValue('--dirt').trim() || '#8a6a3b';
-    // Screen at 45°, like a printed halftone.
+    // Screen at 45°, like a printed halftone. All dots go into one path and one fill:
+    // thousands of separate fill() calls cost a long main-thread task on phones.
+    const dots = new Path2D();
     for (let gy = -H; gy < H * 2; gy += SPACING) {
       for (let gx = -W; gx < W * 2; gx += SPACING) {
         const x = (gx - gy) * 0.7071 + W / 2;
         const y = (gx + gy) * 0.7071;
         if (x < 0 || x > W || y < 0 || y > H) continue;
         const r = (SPACING / 2) * Math.sqrt(density(x, y)) * 1.05;
-        ctx!.beginPath();
-        ctx!.arc(x, y, r, 0, Math.PI * 2);
-        ctx!.fill();
+        dots.moveTo(x + r, y);
+        dots.arc(x, y, r, 0, Math.PI * 2);
       }
     }
+    ctx!.fill(dots);
     ctx!.restore();
     initialInk = countInk() || 1;
     updateMeter();
@@ -138,7 +140,7 @@ export function initScrub(root: HTMLElement) {
     const { width, height } = canvas!;
     const data = ctx!.getImageData(0, 0, width, height).data;
     let n = 0;
-    const stride = 4 * 3; // every third pixel is plenty
+    const stride = 4 * 7; // every seventh pixel is plenty for a percentage
     for (let i = 3; i < data.length; i += stride) if (data[i] > 40) n++;
     return n;
   }

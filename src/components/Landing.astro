@@ -118,7 +118,7 @@ const ui = {
               <input name="code" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="20" data-code aria-describedby="code-note-sheet" />
             </label>
             <p class="code-note" id="code-note-sheet">{t.sheet.codeNote}</p>
-            <label class="hp" aria-hidden="true">Company<input name="company" tabindex="-1" autocomplete="off" /></label>
+            <div class="hp" aria-hidden="true"><label>Company<input name="company" tabindex="-1" autocomplete="off" /></label></div>
             <button class="btn btn--paper btn--block" type="submit" data-submit>
               <span>{t.sheet.submit}</span>
               <Icon name="arrow" size={20} />
@@ -276,7 +276,7 @@ const ui = {
               <input name="code" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="20" data-code aria-describedby="code-note-contact" />
             </label>
             <p class="code-note" id="code-note-contact">{t.sheet.codeNote}</p>
-            <label class="hp" aria-hidden="true">Company<input name="company" tabindex="-1" autocomplete="off" /></label>
+            <div class="hp" aria-hidden="true"><label>Company<input name="company" tabindex="-1" autocomplete="off" /></label></div>
             <button class="btn btn--ink btn--block" type="submit" data-submit>
               <span>{t.contact.submit}</span>
               <Icon name="arrow" size={20} />

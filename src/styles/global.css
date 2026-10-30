@@ -639,3 +639,7 @@ button { cursor: pointer; }
   .top__call { order: 2; margin-left: auto; }
   .top__menu { order: 3; margin-left: 0; }
 }
+
+/* Below-the-fold sections skip layout and paint until they approach the viewport. */
+main > section:not(.hero) { content-visibility: auto; contain-intrinsic-size: auto 900px; }
+.cv-off main > section { content-visibility: visible; }

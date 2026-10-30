@@ -50,11 +50,12 @@ const pageUrl = new URL(pagePath('rental', lang), site.url).href;
 const serviceLd = {
   '@context': 'https://schema.org',
   '@type': 'Service',
+  '@id': `${pageUrl}#service`,
   name: r.title,
   description: r.metaDesc,
   serviceType: 'Equipment rental',
   areaServed: { '@type': 'City', name: 'Warszawa' },
-  provider: { '@type': 'HomeAndConstructionBusiness', name: site.name, url: site.url, telephone: site.phoneHref.replace('tel:', '') },
+  provider: { '@id': `${site.url}/#org` },
   url: pageUrl,
   offers: [
     { '@type': 'Offer', name: b.day, price: rental.day, priceCurrency: 'PLN', url: pageUrl },
@@ -142,7 +143,7 @@ const slots = [
             </label>
             <label class="field field--on-ink">
               <span class="field__label">{b.address}</span>
-              <input name="address" autocomplete="street-address" maxlength="120" />
+              <input name="address" autocomplete="address-line1" maxlength="120" />
             </label>
 
             <div class="sheet__total">
@@ -167,7 +168,7 @@ const slots = [
                 <input name="phone" type="tel" autocomplete="tel" inputmode="tel" required maxlength="30" />
               </label>
             </div>
-            <label class="hp" aria-hidden="true">Company<input name="company" tabindex="-1" autocomplete="off" /></label>
+            <div class="hp" aria-hidden="true"><label>Company<input name="company" tabindex="-1" autocomplete="off" /></label></div>
             <button class="btn btn--paper btn--block" type="submit" data-submit>
               <span>{b.submit}</span>
               <Icon name="arrow" size={20} />

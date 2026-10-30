@@ -76,6 +76,7 @@ const leaders = [
     ))}
   </ol>
   <p class="bubble" data-scrub-bubble role="status">{t.game.start}</p>
+  <p class="visually-hidden">{t.hero.drawingLabel}</p>
   <figcaption class="game">
     <span class="game__label">{t.hero.clean}</span>
     <span class="game__track" aria-hidden="true">
@@ -86,5 +87,4 @@ const leaders = [
     <a class="btn btn--ink game__use" href="#cena" data-scrub-use hidden>{t.game.use}</a>
     <button type="button" class="game__kbd" data-scrub-all>{t.game.keyboard}</button>
   </figcaption>
-  <p class="visually-hidden">{t.hero.drawingLabel}</p>
 </figure>

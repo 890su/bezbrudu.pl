@@ -16,3 +16,6 @@ bezbrudu.pl/
 
 .DS_Store
 Thumbs.db
+
+# Lighthouse runs and page dumps from audits
+reports/
