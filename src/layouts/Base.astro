@@ -11,6 +11,7 @@ interface Props {
   title?: string;
   desc?: string;
   faq?: { q: string; a: string }[];
+  ld?: Record<string, unknown>[];
 }
 const { lang, page = 'home' } = Astro.props;
 const t = dicts[lang];
@@ -61,6 +62,7 @@ const faq = {
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <script type="application/ld+json" set:html={JSON.stringify(business)} />
     <script type="application/ld+json" set:html={JSON.stringify(faq)} />
+    {(Astro.props.ld ?? []).map((d) => <script type="application/ld+json" set:html={JSON.stringify(d)} />)}
   </head>
   <body>
     <slot />

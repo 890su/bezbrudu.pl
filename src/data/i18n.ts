@@ -85,7 +85,7 @@ export interface Dict {
 const pl: Dict = {
   htmlLang: 'pl',
   ogLocale: 'pl_PL',
-  metaTitle: `Pranie kanap i materacy w Warszawie od ${P.sofa} zł | Bez Brudu`,
+  metaTitle: `Pranie tapicerki, kanap i materacy Warszawa od ${P.sofa} zł`,
   metaDesc: 'Pranie tapicerki, narożników i materacy u Ciebie w domu. Ekstrakcja gorącą wodą, schnięcie 2–4 h, dojazd na Ursynowie gratis. Sprawdź cennik online.',
   skip: 'Przejdź do treści',
   nav: { prices: 'Cennik', rental: 'Wynajem', how: 'Jak to działa', stains: 'Plamy', faq: 'Pytania', contact: 'Kontakt' },
@@ -95,7 +95,7 @@ const pl: Dict = {
   call: 'Zadzwoń',
   whatsapp: 'WhatsApp',
   hero: {
-    title: 'Pranie kanap i materacy u Ciebie w domu',
+    title: 'Pranie kanap i materacy w Warszawie',
     lead: 'Przyjeżdżamy z ekstraktorem, pierzemy na miejscu, a po 2–4 godzinach siadasz na suchej kanapie. Cenę sprawdzisz obok, bez dzwonienia.',
     clean: 'Czysto',
     drawingLabel: 'Rysunek kanapy z plamami, które można zetrzeć',
@@ -230,7 +230,7 @@ const pl: Dict = {
 const en: Dict = {
   htmlLang: 'en',
   ogLocale: 'en_GB',
-  metaTitle: `Sofa & Mattress Cleaning in Warsaw from ${P.sofa} zł | Bez Brudu`,
+  metaTitle: `Upholstery, Sofa & Mattress Cleaning Warsaw from ${P.sofa} zł`,
   metaDesc: 'Upholstery, corner sofa and mattress cleaning at your home in Warsaw. Hot-water extraction, dry in 2–4 h, free travel in Ursynów. See prices online.',
   skip: 'Skip to content',
   nav: { prices: 'Prices', rental: 'Rental', how: 'How it works', stains: 'Stains', faq: 'FAQ', contact: 'Contact' },
@@ -240,7 +240,7 @@ const en: Dict = {
   call: 'Call',
   whatsapp: 'WhatsApp',
   hero: {
-    title: 'Sofa and mattress cleaning at your home',
+    title: 'Sofa and mattress cleaning in Warsaw',
     lead: 'We come with an extractor, clean on the spot, and 2–4 hours later you sit on a dry sofa. Check the price right here, no phone call needed.',
     clean: 'Clean',
     drawingLabel: 'Drawing of a stained sofa you can wipe clean',
@@ -375,7 +375,7 @@ const en: Dict = {
 const ru: Dict = {
   htmlLang: 'ru',
   ogLocale: 'ru_RU',
-  metaTitle: `Химчистка диванов и матрасов в Варшаве от ${P.sofa} zł | Bez Brudu`,
+  metaTitle: `Химчистка мягкой мебели, диванов и матрасов в Варшаве от ${P.sofa} zł`,
   metaDesc: 'Химчистка мягкой мебели, угловых диванов и матрасов у вас дома в Варшаве. Экстракция горячей водой, сохнет 2–4 ч, выезд на Урсынув бесплатно. Цены на сайте.',
   skip: 'Перейти к содержанию',
   nav: { prices: 'Цены', rental: 'Прокат', how: 'Как это работает', stains: 'Пятна', faq: 'Вопросы', contact: 'Контакты' },
@@ -385,7 +385,7 @@ const ru: Dict = {
   call: 'Позвонить',
   whatsapp: 'WhatsApp',
   hero: {
-    title: 'Химчистка диванов и матрасов у вас дома',
+    title: 'Химчистка диванов и матрасов в Варшаве',
     lead: 'Приезжаем с экстрактором, чистим на месте, а через 2–4 часа вы садитесь на сухой диван. Цену можно посчитать прямо здесь, без звонка.',
     clean: 'Чисто',
     drawingLabel: 'Рисунок дивана с пятнами, которые можно стереть',
@@ -520,7 +520,7 @@ const ru: Dict = {
 const uk: Dict = {
   htmlLang: 'uk',
   ogLocale: 'uk_UA',
-  metaTitle: `Хімчистка диванів і матраців у Варшаві від ${P.sofa} zł | Bez Brudu`,
+  metaTitle: `Хімчистка мʼяких меблів, диванів і матраців у Варшаві від ${P.sofa} zł`,
   metaDesc: 'Хімчистка м’яких меблів, кутових диванів і матраців у вас удома у Варшаві. Екстракція гарячою водою, сохне 2–4 год, виїзд на Урсинів безкоштовно. Ціни на сайті.',
   skip: 'Перейти до змісту',
   nav: { prices: 'Ціни', rental: 'Прокат', how: 'Як це працює', stains: 'Плями', faq: 'Питання', contact: 'Контакти' },
@@ -530,7 +530,7 @@ const uk: Dict = {
   call: 'Зателефонувати',
   whatsapp: 'WhatsApp',
   hero: {
-    title: 'Хімчистка диванів і матраців у вас удома',
+    title: 'Хімчистка диванів і матраців у Варшаві',
     lead: 'Приїжджаємо з екстрактором, чистимо на місці, а за 2–4 години ви сідаєте на сухий диван. Ціну можна порахувати просто тут, без дзвінка.',
     clean: 'Чисто',
     drawingLabel: 'Малюнок дивана з плямами, які можна стерти',

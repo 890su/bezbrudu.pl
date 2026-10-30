@@ -47,14 +47,16 @@ export interface RentalDict {
   serviceTitle: string;
   serviceText: string;
   serviceCta: string;
+  areaTitle: string;
+  areaText: string;
   contactTitle: string;
 }
 
 const pl: RentalDict = {
-  metaTitle: `Wynajem odkurzacza piorącego Kärcher w Warszawie od ${R.day} zł | Bez Brudu`,
-  metaDesc: 'Kärcher Puzzi 10/1 z dowozem wieczorem, chemią dobraną do plamy i instrukcją wideo. Nie wyjdzie? Doczyścimy, a koszt wynajmu odliczymy. Warszawa i okolice.',
-  title: 'Wypierz kanapę sam, jak profesjonalista',
-  lead: 'Przywozimy Kärcher Puzzi wieczorem, z chemią dobraną do plamy i instrukcją wideo. Nie wyjdzie? Przyjedziemy i doczyścimy, a koszt wynajmu odliczymy.',
+  metaTitle: `Wynajem odkurzacza piorącego Warszawa – Kärcher od ${R.day} zł`,
+  metaDesc: `Wypożyczalnia odkurzaczy piorących z dowozem w Warszawie: Kärcher Puzzi 10/1 wieczorem, chemia dobrana do plamy, instrukcja wideo. Od ${R.day} zł za dobę. Nie wyjdzie? Doczyścimy.`,
+  title: 'Wynajem odkurzacza piorącego z dowozem',
+  lead: 'Wypierz kanapę sam, jak profesjonalista. Przywozimy Kärcher Puzzi wieczorem, z chemią dobraną do plamy i instrukcją wideo. Nie wyjdzie? Przyjedziemy i doczyścimy, a koszt wynajmu odliczymy.',
   kitLabel: 'Rysunek zestawu do wynajęcia: odkurzacz piorący, ssawki, proszek, spryskiwacz i telefon z instrukcją',
   kit: [
     ['Kärcher Puzzi 10/1', 'profesjonalny odkurzacz piorący, zbiornik 10 l'],
@@ -126,14 +128,16 @@ const pl: RentalDict = {
   serviceTitle: 'Wolisz, żebyśmy zrobili to za Ciebie?',
   serviceText: 'Pranie kanapy u Ciebie w domu, schnie 2–4 godziny. Cenę sprawdzisz od razu.',
   serviceCta: 'Cennik prania',
+  areaTitle: 'Wypożyczalnia odkurzaczy piorących w Warszawie',
+  areaText: 'Wypożyczalnię mamy na Ursynowie, a Kärchera dowozimy do domu w całej Warszawie i okolicach: na Mokotów, Wilanów, do Włoch i Piaseczna, na Ochotę, Wolę, Śródmieście, Pragę, Bemowo, Ursus i Wawer, do Pruszkowa, Janek i Konstancina, a także na Białołękę, Bielany, Targówek i Żoliborz. Dowóz i odbiór liczymy raz, według odległości:',
   contactTitle: 'Zadzwoń albo napisz',
 };
 
 const en: RentalDict = {
-  metaTitle: `Kärcher Carpet & Upholstery Cleaner Rental in Warsaw from ${R.day} zł | Bez Brudu`,
-  metaDesc: 'Kärcher Puzzi 10/1 delivered in the evening, with products matched to your stain and a video guide. Not working out? We finish the job and deduct the rental. Warsaw.',
-  title: 'Clean your sofa yourself, like a pro',
-  lead: 'We bring a Kärcher Puzzi in the evening, with products matched to your stain and a video guide. Not working out? We come, finish the job and deduct the rental.',
+  metaTitle: `Carpet Cleaner Rental Warsaw – Kärcher from ${R.day} zł | Bez Brudu`,
+  metaDesc: `Carpet and upholstery cleaner rental with delivery in Warsaw: Kärcher Puzzi 10/1 in the evening, products matched to your stain, video guide. From ${R.day} zł a day. Not working out? We finish it.`,
+  title: 'Carpet cleaner rental with delivery',
+  lead: 'Clean your sofa yourself, like a pro. We bring a Kärcher Puzzi in the evening, with products matched to your stain and a video guide. Not working out? We come, finish the job and deduct the rental.',
   kitLabel: 'Drawing of the rental kit: extractor, nozzles, powder, spray bottle and a phone with the guide',
   kit: [
     ['Kärcher Puzzi 10/1', 'professional spray extractor, 10 l tank'],
@@ -205,14 +209,16 @@ const en: RentalDict = {
   serviceTitle: 'Rather we did it for you?',
   serviceText: 'Sofa cleaning at your home, dry in 2–4 hours. See the price right away.',
   serviceCta: 'Cleaning prices',
+  areaTitle: 'Carpet cleaner rental across Warsaw',
+  areaText: 'We are based in Ursynów and deliver the Kärcher to your door across Warsaw and nearby towns: Mokotów, Wilanów, Włochy and Piaseczno, Ochota, Wola, Śródmieście, Praga, Bemowo, Ursus and Wawer, Pruszków, Janki and Konstancin, as well as Białołęka, Bielany, Targówek and Żoliborz. Delivery and collection are charged once, by distance:',
   contactTitle: 'Call or message us',
 };
 
 const ru: RentalDict = {
-  metaTitle: `Прокат моющего пылесоса Kärcher в Варшаве от ${R.day} zł | Bez Brudu`,
-  metaDesc: 'Kärcher Puzzi 10/1 с доставкой вечером, химией под ваше пятно и видеоинструкцией. Не получится? Дочистим сами и вычтем прокат. Варшава и окрестности.',
-  title: 'Почистите диван сами, как профессионал',
-  lead: 'Привозим Kärcher Puzzi вечером, с химией под ваше пятно и видеоинструкцией. Не получится? Приедем, дочистим и вычтем стоимость проката.',
+  metaTitle: `Прокат моющего пылесоса в Варшаве – Kärcher от ${R.day} zł`,
+  metaDesc: `Прокат моющего пылесоса с доставкой по Варшаве: Kärcher Puzzi 10/1 вечером, химия под ваше пятно, видеоинструкция. От ${R.day} zł в сутки. Не получится? Дочистим.`,
+  title: 'Прокат моющего пылесоса с доставкой',
+  lead: 'Почистите диван сами, как профессионал. Привозим Kärcher Puzzi вечером, с химией под ваше пятно и видеоинструкцией. Не получится? Приедем, дочистим и вычтем стоимость проката.',
   kitLabel: 'Рисунок набора для проката: моющий пылесос, насадки, порошок, распылитель и телефон с инструкцией',
   kit: [
     ['Kärcher Puzzi 10/1', 'профессиональный моющий пылесос, бак 10 л'],
@@ -284,14 +290,16 @@ const ru: RentalDict = {
   serviceTitle: 'Хотите, чтобы мы сделали это за вас?',
   serviceText: 'Химчистка дивана у вас дома, сохнет 2–4 часа. Цену увидите сразу.',
   serviceCta: 'Цены на химчистку',
+  areaTitle: 'Прокат моющего пылесоса по всей Варшаве',
+  areaText: 'Мы на Урсынуве и привозим Kärcher домой по всей Варшаве и окрестностям: на Мокотув, Вилянув, во Влохи и Пясечно, на Охоту, Волю, Средместье, Прагу, Бемово, Урсус и Вавер, в Прушкув, Янки и Констанцин, а также на Бялоленку, Беляны, Таргувек и Жолибож. Доставку и забор считаем один раз, по расстоянию:',
   contactTitle: 'Позвоните или напишите',
 };
 
 const uk: RentalDict = {
-  metaTitle: `Прокат мийного пилососа Kärcher у Варшаві від ${R.day} zł | Bez Brudu`,
-  metaDesc: 'Kärcher Puzzi 10/1 з доставкою ввечері, хімією під вашу пляму та відеоінструкцією. Не вийде? Дочистимо самі й віднімемо прокат. Варшава та околиці.',
-  title: 'Почистіть диван самі, як професіонал',
-  lead: 'Привозимо Kärcher Puzzi ввечері, з хімією під вашу пляму та відеоінструкцією. Не вийде? Приїдемо, дочистимо й віднімемо вартість прокату.',
+  metaTitle: `Прокат мийного пилососа у Варшаві – Kärcher від ${R.day} zł`,
+  metaDesc: `Прокат мийного пилососа з доставкою по Варшаві: Kärcher Puzzi 10/1 ввечері, хімія під вашу пляму, відеоінструкція. Від ${R.day} zł за добу. Не вийде? Дочистимо.`,
+  title: 'Прокат мийного пилососа з доставкою',
+  lead: 'Почистіть диван самі, як професіонал. Привозимо Kärcher Puzzi ввечері, з хімією під вашу пляму та відеоінструкцією. Не вийде? Приїдемо, дочистимо й віднімемо вартість прокату.',
   kitLabel: 'Малюнок набору для прокату: мийний пилосос, насадки, порошок, розпилювач і телефон з інструкцією',
   kit: [
     ['Kärcher Puzzi 10/1', 'професійний мийний пилосос, бак 10 л'],
@@ -363,6 +371,8 @@ const uk: RentalDict = {
   serviceTitle: 'Хочете, щоб ми зробили це за вас?',
   serviceText: 'Хімчистка дивана у вас удома, сохне 2–4 години. Ціну побачите одразу.',
   serviceCta: 'Ціни на хімчистку',
+  areaTitle: 'Прокат мийного пилососа по всій Варшаві',
+  areaText: 'Ми на Урсинові й привозимо Kärcher додому по всій Варшаві та околицях: на Мокотув, Віланув, у Влохи й Пясечно, на Охоту, Волю, Середмістя, Прагу, Бемово, Урсус і Вавер, у Прушкув, Янки й Констанцин, а також на Бялоленку, Беляни, Таргувек і Жолібож. Доставку й забір рахуємо один раз, за відстанню:',
   contactTitle: 'Зателефонуйте або напишіть',
 };
 

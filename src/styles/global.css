@@ -629,3 +629,13 @@ button { cursor: pointer; }
 .sheet .field__label { color: var(--on-blue-2); }
 .sheet__fields .travel-pick { margin-top: 0; }
 .sheet__form > .field { margin-top: 14px; }
+
+.area__text { max-width: 72ch; margin: -12px 0 32px; }
+.uses + .area .area__head { border-top: 0; padding-top: 0; }
+.uses + .area { padding-top: clamp(72px, 9vw, 136px); border-top: 1.5px solid var(--ink); }
+
+/* Small screens: phone first, menu at the far right edge */
+@media (max-width: 1080px) {
+  .top__call { order: 2; margin-left: auto; }
+  .top__menu { order: 3; margin-left: 0; }
+}
