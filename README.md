@@ -28,6 +28,10 @@ Live at https://bezbrudu.com.pl (`www.` redirects to it, workers.dev is off).
 
 Cleaning the sofa to 100% calls `POST /api/promo`, which issues a one-time code (`CZYSTO-XXXXX`) and stores it in the KV namespace bound as `PROMO` (`wrangler.jsonc`). A lead with a code is marked in Telegram as valid, already used or unknown; a valid code is marked used only after the lead reaches Telegram. Prefix, percent and validity are in `src/data/promo.json`.
 
+## Rental page
+
+`/wynajem/` (EN `/en/rental/`, RU `/ru/prokat/`, UK `/uk/prokat/`): do-it-yourself Kärcher Puzzi 10/1 rental with evening delivery on one route. Prices, deposit, extras and cutoff live in `rental` in `src/data/site.ts`; texts in `src/data/rental-i18n.ts`; booking logic in `src/scripts/rental.ts`. Bookings reach Telegram as "Rezerwacja wynajmu" through the same `/api/lead`. Page URLs for every language are in `routes` (`src/data/site.ts`), which also drives the language switch, hreflang and the sitemap.
+
 ## Changing the domain (e.g. to bezbrudu.pl later)
 
 1. `site` in `astro.config.mjs`: canonical URLs, hreflang, sitemap, robots and the contact e-mail all follow it.

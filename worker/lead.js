@@ -22,7 +22,7 @@ export async function handleLead(request, env) {
   if (data.company) return json({ ok: true });
 
   const lead = {
-    source: data.source === 'calculator' ? 'calculator' : 'contact',
+    source: ['calculator', 'contact', 'rental'].includes(data.source) ? data.source : 'contact',
     lang: ['pl', 'en', 'ru', 'uk'].includes(data.lang) ? data.lang : 'pl',
     name: clean(data.name, MAX.name),
     phone: clean(data.phone, MAX.phone),
@@ -42,7 +42,7 @@ export async function handleLead(request, env) {
   }
 
   const lines = [
-    `<b>Nowe zapytanie</b> · ${lead.source === 'calculator' ? 'kalkulator' : 'formularz'} · ${lead.lang.toUpperCase()}`,
+    `<b>${lead.source === 'rental' ? 'Rezerwacja wynajmu' : 'Nowe zapytanie'}</b> · ${{ calculator: 'kalkulator', contact: 'formularz', rental: 'wynajem' }[lead.source]} · ${lead.lang.toUpperCase()}`,
     '',
     `<b>Imię:</b> ${esc(lead.name)}`,
     `<b>Telefon:</b> ${esc(lead.phone)}`,
@@ -51,7 +51,7 @@ export async function handleLead(request, env) {
   if (lead.service) lines.push(`<b>Usługa:</b> ${esc(lead.service)}`);
   if (lead.items.length) {
     lines.push('', '<b>Lista:</b>', ...lead.items.map((i) => `• ${esc(i)}`));
-    if (lead.total) lines.push(`<b>Razem od:</b> ${esc(lead.total)}`);
+    if (lead.total) lines.push(`<b>${lead.source === 'rental' ? 'Razem' : 'Razem od'}:</b> ${esc(lead.total)}`);
   }
   const codeStatus = await checkPromo(env, lead.code);
   if (codeStatus) {

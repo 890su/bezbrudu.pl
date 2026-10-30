@@ -1,4 +1,5 @@
 import { initScrub, storedPromo, storePromo } from './scrub';
+import { initRental, rentalSummary } from './rental';
 
 interface Ui {
   lang: string;
@@ -15,6 +16,8 @@ interface Ui {
   error: string;
   errPhone: string;
   errName: string;
+  errDate?: string;
+  rental?: { pkg: string; date: string; address: string; addons: string; total: string };
 }
 
 const ui: Ui = JSON.parse(document.getElementById('ui')?.textContent ?? '{}');
@@ -49,6 +52,9 @@ document.addEventListener('keydown', (e) => {
 
 /* Scrubbable sofa */
 document.querySelectorAll<HTMLElement>('[data-scrub]').forEach(initScrub);
+
+/* Rental booking sheet (rental page only) */
+if (ui.rental) initRental(ui as Parameters<typeof initRental>[0]);
 
 /* Parts list = price calculator */
 const parts = [...document.querySelectorAll<HTMLElement>('[data-part]')];
@@ -234,8 +240,18 @@ document.querySelectorAll<HTMLFormElement>('form[data-lead]').forEach((form) => 
       email: data.email?.trim() || '',
       service: data.service || '',
       message: data.message?.trim() || '',
-      items: form.dataset.source === 'calculator' ? listSummary() : [],
-      total: form.dataset.source === 'calculator' ? totalEl?.textContent ?? '' : '',
+      items:
+        form.dataset.source === 'calculator'
+          ? listSummary()
+          : form.dataset.source === 'rental' && ui.rental
+            ? rentalSummary(form, ui as Parameters<typeof rentalSummary>[1])
+            : [],
+      total:
+        form.dataset.source === 'calculator'
+          ? totalEl?.textContent ?? ''
+          : form.dataset.source === 'rental'
+            ? form.querySelector('[data-rental-total]')?.textContent ?? ''
+            : '',
       code: data.code?.trim().toUpperCase() || '',
       company: data.company || '',
     };

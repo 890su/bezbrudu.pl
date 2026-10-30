@@ -50,9 +50,33 @@ export const travel: { fee: number; places: string[] }[] = [
   { fee: 70, places: ['Białołęka', 'Bielany', 'Praga-Północ', 'Rembertów', 'Targówek', 'Wesoła', 'Żoliborz'] },
 ];
 
+// Do-it-yourself rental of a Kärcher Puzzi 10/1, delivered in the evening on one route.
+export const rental = {
+  day: 79,
+  weekend: 139,
+  deposit: 200,
+  powderDay: 200,
+  powderWeekend: 300,
+  extraPowder: 12, // zł per 100 g
+  cutoff: '14:00',
+  guaranteeDays: 7,
+  addons: [
+    { id: 'dryer', price: 29 },
+    { id: 'pets', price: 29 },
+  ] as const,
+};
+
 export const langs = ['pl', 'en', 'ru', 'uk'] as const;
 export type Lang = (typeof langs)[number];
 
-export const langPath = (l: Lang) => (l === 'pl' ? '/' : `/${l}/`);
+export type Page = 'home' | 'rental';
+
+// Localised URLs for every page; the language switch keeps the visitor on the same page.
+export const routes: Record<Page, Record<Lang, string>> = {
+  home: { pl: '/', en: '/en/', ru: '/ru/', uk: '/uk/' },
+  rental: { pl: '/wynajem/', en: '/en/rental/', ru: '/ru/prokat/', uk: '/uk/prokat/' },
+};
+export const pagePath = (page: Page, l: Lang) => routes[page][l];
+export const langPath = (l: Lang) => routes.home[l];
 export const langLabel: Record<Lang, string> = { pl: 'PL', en: 'EN', ru: 'RU', uk: 'UA' };
 export const langName: Record<Lang, string> = { pl: 'Polski', en: 'English', ru: 'Русский', uk: 'Українська' };

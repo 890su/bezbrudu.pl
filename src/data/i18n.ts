@@ -1,4 +1,4 @@
-import { prices, promo, site, type Lang } from './site';
+import { prices, promo, rental, site, type Lang } from './site';
 
 const P = Object.fromEntries(prices.map((p) => [p.id, p.price])) as Record<string, number>;
 
@@ -10,7 +10,8 @@ export interface Dict {
   metaTitle: string;
   metaDesc: string;
   skip: string;
-  nav: { prices: string; how: string; stains: string; faq: string; contact: string };
+  nav: { prices: string; rental: string; how: string; stains: string; faq: string; contact: string };
+  diy: { title: string; text: string; cta: string };
   menu: string;
   close: string;
   langLabel: string;
@@ -78,7 +79,7 @@ export interface Dict {
     submit: string;
   };
   footer: { tagline: string; rights: string };
-  bar: { call: string; whatsapp: string; price: string };
+  bar: { call: string; whatsapp: string; price: string; book: string };
 }
 
 const pl: Dict = {
@@ -87,7 +88,7 @@ const pl: Dict = {
   metaTitle: `Pranie kanap i materacy w Warszawie od ${P.sofa} zł | Bez Brudu`,
   metaDesc: 'Pranie tapicerki, narożników i materacy u Ciebie w domu. Ekstrakcja gorącą wodą, schnięcie 2–4 h, dojazd na Ursynowie gratis. Sprawdź cennik online.',
   skip: 'Przejdź do treści',
-  nav: { prices: 'Cennik', how: 'Jak to działa', stains: 'Plamy', faq: 'Pytania', contact: 'Kontakt' },
+  nav: { prices: 'Cennik', rental: 'Wynajem', how: 'Jak to działa', stains: 'Plamy', faq: 'Pytania', contact: 'Kontakt' },
   menu: 'Menu',
   close: 'Zamknij',
   langLabel: 'Język',
@@ -218,7 +219,12 @@ const pl: Dict = {
     submit: 'Wyślij zapytanie',
   },
   footer: { tagline: 'Pranie tapicerki, narożników i materacy w Warszawie.', rights: 'Wszelkie prawa zastrzeżone.' },
-  bar: { call: 'Zadzwoń', whatsapp: 'WhatsApp', price: 'Cena' },
+  bar: { call: 'Zadzwoń', whatsapp: 'WhatsApp', price: 'Cena', book: 'Rezerwuj' },
+  diy: {
+    title: 'Wolisz sam? Wypożycz Kärchera',
+    text: `Przywieziemy Kärcher Puzzi wieczorem, z chemią i instrukcją wideo. Od ${rental.day} zł za dobę. Nie wyjdzie? Doczyścimy, a wynajem odliczymy.`,
+    cta: 'Wynajem z dowozem',
+  },
 };
 
 const en: Dict = {
@@ -227,7 +233,7 @@ const en: Dict = {
   metaTitle: `Sofa & Mattress Cleaning in Warsaw from ${P.sofa} zł | Bez Brudu`,
   metaDesc: 'Upholstery, corner sofa and mattress cleaning at your home in Warsaw. Hot-water extraction, dry in 2–4 h, free travel in Ursynów. See prices online.',
   skip: 'Skip to content',
-  nav: { prices: 'Prices', how: 'How it works', stains: 'Stains', faq: 'FAQ', contact: 'Contact' },
+  nav: { prices: 'Prices', rental: 'Rental', how: 'How it works', stains: 'Stains', faq: 'FAQ', contact: 'Contact' },
   menu: 'Menu',
   close: 'Close',
   langLabel: 'Language',
@@ -358,7 +364,12 @@ const en: Dict = {
     submit: 'Send request',
   },
   footer: { tagline: 'Upholstery, corner sofa and mattress cleaning in Warsaw.', rights: 'All rights reserved.' },
-  bar: { call: 'Call', whatsapp: 'WhatsApp', price: 'Price' },
+  bar: { call: 'Call', whatsapp: 'WhatsApp', price: 'Price', book: 'Book' },
+  diy: {
+    title: 'Rather do it yourself? Rent a Kärcher',
+    text: `We bring a Kärcher Puzzi in the evening, with cleaning products and a video guide. From ${rental.day} zł a day. Not working out? We finish the job and deduct the rental.`,
+    cta: 'Rental with delivery',
+  },
 };
 
 const ru: Dict = {
@@ -367,7 +378,7 @@ const ru: Dict = {
   metaTitle: `Химчистка диванов и матрасов в Варшаве от ${P.sofa} zł | Bez Brudu`,
   metaDesc: 'Химчистка мягкой мебели, угловых диванов и матрасов у вас дома в Варшаве. Экстракция горячей водой, сохнет 2–4 ч, выезд на Урсынув бесплатно. Цены на сайте.',
   skip: 'Перейти к содержанию',
-  nav: { prices: 'Цены', how: 'Как это работает', stains: 'Пятна', faq: 'Вопросы', contact: 'Контакты' },
+  nav: { prices: 'Цены', rental: 'Прокат', how: 'Как это работает', stains: 'Пятна', faq: 'Вопросы', contact: 'Контакты' },
   menu: 'Меню',
   close: 'Закрыть',
   langLabel: 'Язык',
@@ -498,7 +509,12 @@ const ru: Dict = {
     submit: 'Отправить запрос',
   },
   footer: { tagline: 'Химчистка мягкой мебели, угловых диванов и матрасов в Варшаве.', rights: 'Все права защищены.' },
-  bar: { call: 'Звонок', whatsapp: 'WhatsApp', price: 'Цена' },
+  bar: { call: 'Звонок', whatsapp: 'WhatsApp', price: 'Цена', book: 'Бронь' },
+  diy: {
+    title: 'Хотите сами? Возьмите Kärcher',
+    text: `Привезём Kärcher Puzzi вечером, с химией и видеоинструкцией. От ${rental.day} zł в сутки. Не получится? Дочистим сами и вычтем стоимость проката.`,
+    cta: 'Прокат с доставкой',
+  },
 };
 
 const uk: Dict = {
@@ -507,7 +523,7 @@ const uk: Dict = {
   metaTitle: `Хімчистка диванів і матраців у Варшаві від ${P.sofa} zł | Bez Brudu`,
   metaDesc: 'Хімчистка м’яких меблів, кутових диванів і матраців у вас удома у Варшаві. Екстракція гарячою водою, сохне 2–4 год, виїзд на Урсинів безкоштовно. Ціни на сайті.',
   skip: 'Перейти до змісту',
-  nav: { prices: 'Ціни', how: 'Як це працює', stains: 'Плями', faq: 'Питання', contact: 'Контакти' },
+  nav: { prices: 'Ціни', rental: 'Прокат', how: 'Як це працює', stains: 'Плями', faq: 'Питання', contact: 'Контакти' },
   menu: 'Меню',
   close: 'Закрити',
   langLabel: 'Мова',
@@ -638,7 +654,12 @@ const uk: Dict = {
     submit: 'Надіслати запит',
   },
   footer: { tagline: 'Хімчистка м’яких меблів, кутових диванів і матраців у Варшаві.', rights: 'Усі права захищені.' },
-  bar: { call: 'Дзвінок', whatsapp: 'WhatsApp', price: 'Ціна' },
+  bar: { call: 'Дзвінок', whatsapp: 'WhatsApp', price: 'Ціна', book: 'Бронь' },
+  diy: {
+    title: 'Хочете самі? Візьміть Kärcher',
+    text: `Привеземо Kärcher Puzzi ввечері, з хімією та відеоінструкцією. Від ${rental.day} zł за добу. Не вийде? Дочистимо самі й віднімемо вартість прокату.`,
+    cta: 'Прокат з доставкою',
+  },
 };
 
 // Typographic tidy-up: no one-letter word at a line end (PL/RU/UK rule), no break inside "2–4".
@@ -656,3 +677,4 @@ function deep<T>(v: T): T {
 }
 
 export const dicts: Record<Lang, Dict> = { pl: deep(pl), en: deep(en), ru: deep(ru), uk: deep(uk) };
+export { deep as tidyDeep };

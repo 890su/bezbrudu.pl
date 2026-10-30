@@ -53,6 +53,8 @@ Travel fee, charged once per visit, by distance from Ursynów:
 
 First-order discount: cleaning the drawn sofa on the home page to 100% issues a one-time code (CZYSTO-XXXXX, −10% on the service, travel excluded, valid 90 days). Codes live in Cloudflare KV; a lead reports each code as valid, already used or unknown.
 
+DIY rental (page `/wynajem/`, added 2026-10-30): a dedicated Kärcher Puzzi 10/1 (to be bought; the owner's Puzzi 100 stays for the cleaning service), delivered and collected on one evening route (18–21, or morning 8–10; weekends also daytime). Day 79 zł, weekend 139 zł, extras: upholstery dryer +29 zł, pet odour kit +29 zł; same travel zones as the service; deposit 200 zł by BLIK; same-day orders until 14:00. Guarantee: if the result disappoints, within 7 days the team cleans the item and deducts the rental from the service price. Market check (Warsaw, Oct 2026): 10+ rental firms at 39–80 zł/day; none sells the result, support in other languages or a guarantee.
+
 Undecided: business address (JSON-LD has none), Telegram bot credentials (set by the owner as Worker secrets).
 
 ## Brand Commitments

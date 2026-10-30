@@ -1,0 +1,21 @@
+---
+import Icon from './Icon.astro';
+import { site, type Lang } from '../data/site';
+import { dicts } from '../data/i18n';
+
+interface Props { lang: Lang; mainHref: string; mainLabel: string }
+const { lang, mainHref, mainLabel } = Astro.props;
+const t = dicts[lang];
+---
+<footer class="foot">
+  <div class="wrap foot__in">
+    <p><strong>{site.name}</strong> · {t.footer.tagline}</p>
+    <p>© {new Date().getFullYear()} {site.host}. {t.footer.rights}</p>
+  </div>
+</footer>
+
+<nav class="bar" aria-label={t.contact.title}>
+  <a href={site.phoneHref}><Icon name="call" size={22} /><span>{t.bar.call}</span></a>
+  <a href={site.whatsappHref} rel="noopener" target="_blank"><Icon name="whatsapp" size={22} /><span>{t.bar.whatsapp}</span></a>
+  <a href={mainHref} class="bar__main"><Icon name="arrow" size={22} /><span>{mainLabel}</span></a>
+</nav>

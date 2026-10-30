@@ -1,0 +1,55 @@
+---
+import Icon from './Icon.astro';
+import { site, langs, pagePath, langLabel, langName, type Lang, type Page } from '../data/site';
+import { dicts } from '../data/i18n';
+
+interface Props { lang: Lang; page: Page }
+const { lang, page } = Astro.props;
+const t = dicts[lang];
+const home = pagePath('home', lang);
+// Anchors live on the home page; from other pages they jump back to it.
+const onHome = page === 'home';
+const at = (id: string) => (onHome ? `#${id}` : `${home}#${id}`);
+const rentalHref = pagePath('rental', lang);
+---
+<a class="skip" href="#main">{t.skip}</a>
+
+<header class="top" data-top>
+  <div class="wrap top__in">
+    <a class="logo" href={home} aria-label={site.name}>
+      <svg class="logo__mark" viewBox="0 0 48 48" aria-hidden="true">
+        <rect width="48" height="48" rx="6" />
+        <path d="M9 25v-9a4 4 0 0 1 4-4h22a4 4 0 0 1 4 4v9 M5 25a3 3 0 0 1 6 0v10H5z M37 25a3 3 0 0 1 6 0v10h-6z M11 28h26v7H11z M8 35v4 M40 35v4" />
+        <path class="logo__stripe" d="M24 12v23" />
+      </svg>
+      <span class="logo__word">bez brudu</span>
+    </a>
+
+    <button class="top__menu" type="button" aria-expanded="false" aria-controls="site-nav" data-menu>
+      <Icon name="menu" size={24} />
+      <span class="visually-hidden">{t.menu}</span>
+    </button>
+
+    <nav class="nav" id="site-nav" aria-label={t.menu} data-nav>
+      <ul class="nav__links">
+        <li><a href={at('cena')}>{t.nav.prices}</a></li>
+        <li><a href={rentalHref} aria-current={page === 'rental' ? 'page' : undefined}>{t.nav.rental}</a></li>
+        <li><a href={at('jak-to-dziala')}>{t.nav.how}</a></li>
+        <li><a href="#pytania">{t.nav.faq}</a></li>
+        <li><a href="#kontakt">{t.nav.contact}</a></li>
+      </ul>
+      <ul class="langs" aria-label={t.langLabel}>
+        {langs.map((l) => (
+          <li>
+            <a href={pagePath(page, l)} hreflang={dicts[l].htmlLang} lang={dicts[l].htmlLang} title={langName[l]} aria-current={l === lang ? 'true' : undefined}>{langLabel[l]}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <a class="btn btn--ink top__call" href={site.phoneHref}>
+      <Icon name="call" size={18} />
+      <span>{site.phoneDisplay}</span>
+    </a>
+  </div>
+</header>

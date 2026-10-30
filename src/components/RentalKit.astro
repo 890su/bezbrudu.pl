@@ -1,0 +1,70 @@
+---
+import type { RentalDict } from '../data/rental-i18n';
+interface Props { r: RentalDict }
+const { r } = Astro.props;
+
+// Exploded view of the rental kit in a 600 × 340 drawing space, like a parts page in a manual.
+const fills = [
+  // 1 Puzzi body, lid, front panel
+  'M84 296l14-160a10 10 0 0 1 10-9h128a10 10 0 0 1 10 9l14 160z',
+  'M104 127v-14a8 8 0 0 1 8-8h120a8 8 0 0 1 8 8v14z',
+  // 5 spray bottle
+  'M302 214v-74a14 14 0 0 1 14-14h20a14 14 0 0 1 14 14v74a8 8 0 0 1-8 8h-32a8 8 0 0 1-8-8z',
+  'M316 126v-14h20v14z',
+  // 6 phone
+  'M394 80h50a6 6 0 0 1 6 6v84a6 6 0 0 1-6 6h-50a6 6 0 0 1-6-6V86a6 6 0 0 1 6-6z',
+  // 2 upholstery nozzle head
+  'M330 288h56l-6-18h-44z',
+  // 3 floor nozzle head
+  'M436 290h80l-8-16h-64z',
+  // 4 powder box
+  'M524 168h66v76a6 6 0 0 1-6 6h-54a6 6 0 0 1-6-6z',
+];
+const lines = [
+  ...fills,
+  'M140 105V74a6 6 0 0 1 6-6h52a6 6 0 0 1 6 6v31', // handle
+  'M136 168h72v44h-72z', // front label panel
+  'M150 186h44 M150 196h28',
+  'M110 296m-12 0a12 12 0 1 0 24 0a12 12 0 1 0-24 0',
+  'M234 296m-12 0a12 12 0 1 0 24 0a12 12 0 1 0-24 0',
+  'M248 210c40 0 52 6 68 28s24 32 42 32', // hose to upholstery nozzle
+  'M336 112h22l8 8 M346 126l14 14', // trigger
+  'M408 112l22 16-22 16z', // play icon on phone
+  'M412 168h14',
+  'M476 274V96 M464 96h24', // floor wand
+  'M524 186h66 M538 168v-12h38v12', // powder lid
+];
+const tone = 'M532 198h50v44h-50z';
+const pins = [
+  { n: 1, x: 172, y: 146 },
+  { n: 2, x: 404, y: 256 },
+  { n: 3, x: 500, y: 124 },
+  { n: 4, x: 557, y: 220 },
+  { n: 5, x: 326, y: 176 },
+  { n: 6, x: 422, y: 62 },
+];
+---
+<figure class="kit">
+  <svg class="kit__art" viewBox="0 0 600 340" role="img" aria-label={r.kitLabel}>
+    <defs>
+      <pattern id="kit-tone" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+        <circle cx="3" cy="3" r="1.6" />
+      </pattern>
+    </defs>
+    <path class="kit__floor" d="M20 310h560" />
+    {fills.map((d) => <path class="kit__fill" d={d} />)}
+    <path class="kit__tone" d={tone} />
+    {lines.map((d) => <path class="kit__line" d={d} />)}
+    {pins.map((p) => (
+      <g class="kit__pin" transform={`translate(${p.x} ${p.y})`}>
+        <circle r="13" />
+        <text y="5" text-anchor="middle">{p.n}</text>
+      </g>
+    ))}
+  </svg>
+  <ol class="pins kit__legend">
+    {r.kit.map(([title, text], i) => (
+      <li><span class="pins__n" aria-hidden="true">{i + 1}</span><strong>{title}</strong> <span>{text}</span></li>
+    ))}
+  </ol>
+</figure>

@@ -4,13 +4,14 @@ import Icon from './Icon.astro';
 import HeroSofa from './HeroSofa.astro';
 import Stain from './Stain.astro';
 import Steps from './Steps.astro';
-import { site, prices, travel, promo, langs, langPath, langLabel, langName, type Lang } from '../data/site';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+import { site, prices, travel, promo, pagePath, type Lang } from '../data/site';
 import { dicts } from '../data/i18n';
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const t = dicts[lang];
-const home = langPath(lang);
 const fmt = new Intl.NumberFormat(t.htmlLang);
 
 const ui = {
@@ -32,47 +33,7 @@ const ui = {
 
 ---
 <Base lang={lang}>
-  <a class="skip" href="#main">{t.skip}</a>
-
-  <header class="top" data-top>
-    <div class="wrap top__in">
-      <a class="logo" href={home} aria-label={site.name}>
-        <svg class="logo__mark" viewBox="0 0 48 48" aria-hidden="true">
-          <rect width="48" height="48" rx="6" />
-          <path d="M9 25v-9a4 4 0 0 1 4-4h22a4 4 0 0 1 4 4v9 M5 25a3 3 0 0 1 6 0v10H5z M37 25a3 3 0 0 1 6 0v10h-6z M11 28h26v7H11z M8 35v4 M40 35v4" />
-          <path class="logo__stripe" d="M24 12v23" />
-        </svg>
-        <span class="logo__word">bez brudu</span>
-      </a>
-
-      <button class="top__menu" type="button" aria-expanded="false" aria-controls="site-nav" data-menu>
-        <Icon name="menu" size={24} />
-        <span class="visually-hidden">{t.menu}</span>
-      </button>
-
-      <nav class="nav" id="site-nav" aria-label={t.menu} data-nav>
-        <ul class="nav__links">
-          <li><a href="#cena">{t.nav.prices}</a></li>
-          <li><a href="#jak-to-dziala">{t.nav.how}</a></li>
-          <li><a href="#plamy">{t.nav.stains}</a></li>
-          <li><a href="#pytania">{t.nav.faq}</a></li>
-          <li><a href="#kontakt">{t.nav.contact}</a></li>
-        </ul>
-        <ul class="langs" aria-label={t.langLabel}>
-          {langs.map((l) => (
-            <li>
-              <a href={langPath(l)} hreflang={dicts[l].htmlLang} lang={dicts[l].htmlLang} title={langName[l]} aria-current={l === lang ? 'true' : undefined}>{langLabel[l]}</a>
-            </li>
-          ))}
-        </ul>
-      </nav>
-
-      <a class="btn btn--ink top__call" href={site.phoneHref}>
-        <Icon name="call" size={18} />
-        <span>{site.phoneDisplay}</span>
-      </a>
-    </div>
-  </header>
+  <Header lang={lang} page="home" />
 
   <main id="main">
     <section class="hero">
@@ -241,6 +202,19 @@ const ui = {
       </div>
     </section>
 
+    <section class="diy" aria-labelledby="diy-title">
+      <div class="wrap diy__in">
+        <div>
+          <h2 class="h2 diy__title" id="diy-title">{t.diy.title}</h2>
+          <p class="lead">{t.diy.text}</p>
+        </div>
+        <a class="btn btn--ink diy__cta" href={pagePath('rental', lang)}>
+          <span>{t.diy.cta}</span>
+          <Icon name="arrow" size={20} />
+        </a>
+      </div>
+    </section>
+
     <section class="section faq" id="pytania" aria-labelledby="faq-title">
       <div class="wrap faq__grid">
         <h2 class="h2" id="faq-title">{t.faq.title}</h2>
@@ -320,18 +294,7 @@ const ui = {
     </section>
   </main>
 
-  <footer class="foot">
-    <div class="wrap foot__in">
-      <p><strong>{site.name}</strong> · {t.footer.tagline}</p>
-      <p>© {new Date().getFullYear()} {site.host}. {t.footer.rights}</p>
-    </div>
-  </footer>
-
-  <nav class="bar" aria-label={t.contact.title}>
-    <a href={site.phoneHref}><Icon name="call" size={22} /><span>{t.bar.call}</span></a>
-    <a href={site.whatsappHref} rel="noopener" target="_blank"><Icon name="whatsapp" size={22} /><span>{t.bar.whatsapp}</span></a>
-    <a href="#cena" class="bar__main"><Icon name="arrow" size={22} /><span>{t.bar.price}</span></a>
-  </nav>
+  <Footer lang={lang} mainHref="#cena" mainLabel={t.bar.price} />
 
   <script type="application/json" id="ui" set:html={JSON.stringify(ui)} />
   <script>

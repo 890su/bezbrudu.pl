@@ -2,20 +2,29 @@
 import '@fontsource-variable/unbounded/wght.css';
 import '@fontsource-variable/onest/wght.css';
 import '../styles/global.css';
-import { site, prices, langs, langPath, type Lang } from '../data/site';
+import { site, prices, langs, pagePath, type Lang, type Page } from '../data/site';
 import { dicts } from '../data/i18n';
 
-interface Props { lang: Lang }
-const { lang } = Astro.props;
+interface Props {
+  lang: Lang;
+  page?: Page;
+  title?: string;
+  desc?: string;
+  faq?: { q: string; a: string }[];
+}
+const { lang, page = 'home' } = Astro.props;
 const t = dicts[lang];
-const canonical = new URL(langPath(lang), site.url).href;
+const title = Astro.props.title ?? t.metaTitle;
+const desc = Astro.props.desc ?? t.metaDesc;
+const faqItems = Astro.props.faq ?? t.faq.items;
+const canonical = new URL(pagePath(page, lang), site.url).href;
 
 const business = {
   '@context': 'https://schema.org',
   '@type': 'HomeAndConstructionBusiness',
   name: site.name,
   description: t.metaDesc,
-  url: canonical,
+  url: new URL(pagePath('home', lang), site.url).href,
   telephone: site.phoneHref.replace('tel:', ''),
   email: site.email,
   areaServed: { '@type': 'City', name: 'Warszawa' },
@@ -26,7 +35,7 @@ const business = {
 const faq = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
-  mainEntity: t.faq.items.map((f) => ({
+  mainEntity: faqItems.map((f) => ({
     '@type': 'Question',
     name: f.q,
     acceptedAnswer: { '@type': 'Answer', text: f.a },
@@ -38,15 +47,15 @@ const faq = {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{t.metaTitle}</title>
-    <meta name="description" content={t.metaDesc} />
+    <title>{title}</title>
+    <meta name="description" content={desc} />
     <link rel="canonical" href={canonical} />
-    {langs.map((l) => <link rel="alternate" hreflang={dicts[l].htmlLang} href={new URL(langPath(l), site.url).href} />)}
-    <link rel="alternate" hreflang="x-default" href={site.url + '/'} />
+    {langs.map((l) => <link rel="alternate" hreflang={dicts[l].htmlLang} href={new URL(pagePath(page, l), site.url).href} />)}
+    <link rel="alternate" hreflang="x-default" href={new URL(pagePath(page, 'pl'), site.url).href} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
-    <meta property="og:title" content={t.metaTitle} />
-    <meta property="og:description" content={t.metaDesc} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={desc} />
     <meta property="og:locale" content={t.ogLocale} />
     <meta name="theme-color" content="#F5F5F0" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />

@@ -1,0 +1,268 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from './Icon.astro';
+import Stain from './Stain.astro';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+import RentalKit from './RentalKit.astro';
+import { site, travel, rental, pagePath, type Lang } from '../data/site';
+import { dicts } from '../data/i18n';
+import { rentalDicts } from '../data/rental-i18n';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = dicts[lang];
+const r = rentalDicts[lang];
+const b = r.book;
+const fmt = new Intl.NumberFormat(t.htmlLang);
+
+const ui = {
+  lang,
+  pcs: t.sheet.pcs,
+  m2: t.sheet.m2,
+  min: site.minOrder,
+  items: t.sheet.items,
+  travel: t.sheet.travel,
+  free: t.area.free,
+  prefix: '',
+  percent: 0,
+  discount: t.sheet.discount,
+  sending: t.form.sending,
+  error: t.form.error,
+  errPhone: t.form.errPhone,
+  errName: t.form.errName,
+  errDate: b.errDate,
+  rental: {
+    pkg: b.pkgLabel,
+    day: b.day,
+    weekend: b.weekend,
+    date: b.date,
+    address: b.address,
+    addons: b.addonsLabel,
+    total: b.total,
+  },
+};
+
+const stepIcons = ['calendar', 'van', 'phone', 'check'];
+const useStains = [5, 3, 2, 6];
+const packages = [
+  { id: 'day', name: b.day, note: b.dayNote, price: rental.day },
+  { id: 'weekend', name: b.weekend, note: b.weekendNote, price: rental.weekend },
+];
+const slots = [
+  { pkg: 'day', label: b.slots.evening },
+  { pkg: 'day', label: b.slots.morning },
+  { pkg: 'weekend', label: b.slots.friEvening },
+  { pkg: 'weekend', label: b.slots.satDay },
+];
+---
+<Base lang={lang} page="rental" title={r.metaTitle} desc={r.metaDesc} faq={r.faq}>
+  <Header lang={lang} page="rental" />
+
+  <main id="main">
+    <section class="hero">
+      <div class="wrap hero__grid">
+        <div class="hero__copy">
+          <h1 class="hero__title">{r.title}</h1>
+          <p class="hero__lead">{r.lead}</p>
+          <RentalKit r={r} />
+        </div>
+
+        <aside class="sheet" id="rezerwacja" aria-labelledby="book-title">
+          <div class="sheet__head">
+            <h2 class="sheet__title" id="book-title">{b.title}</h2>
+            <p class="sheet__sub">{b.sub}</p>
+          </div>
+          <form class="sheet__form" data-lead data-source="rental" data-rental novalidate>
+            <fieldset class="pkg">
+              <legend class="field__label">{b.pkgLabel}</legend>
+              {packages.map((p, i) => (
+                <label class="pkg__opt">
+                  <input type="radio" name="pkg" value={p.id} data-price={p.price} data-name={p.name} checked={i === 0} />
+                  <span class="pkg__name">{p.name}</span>
+                  <span class="pkg__price">{fmt.format(p.price)} zł</span>
+                  <span class="pkg__note">{p.note}</span>
+                </label>
+              ))}
+            </fieldset>
+
+            <div class="sheet__fields">
+              <label class="field field--on-ink">
+                <span class="field__label">{b.date}</span>
+                <input type="date" name="date" required data-date />
+              </label>
+              <label class="field field--on-ink travel-pick">
+                <span class="field__label">{b.slot}</span>
+                <select name="slot" data-slot>
+                  {slots.map((s) => <option value={s.label} data-pkg={s.pkg} hidden={s.pkg !== 'day'}>{s.label}</option>)}
+                </select>
+              </label>
+            </div>
+
+            <fieldset class="addons">
+              <legend class="field__label">{b.addonsLabel}</legend>
+              {rental.addons.map((a) => (
+                <label class="check">
+                  <input type="checkbox" name={`addon_${a.id}`} value={b.addons[a.id]} data-price={a.price} />
+                  <span class="check__box" aria-hidden="true"><Icon name="check" size={16} stroke={3} /></span>
+                  <span class="check__label">{b.addons[a.id]}</span>
+                  <span class="check__price">+{a.price} zł</span>
+                </label>
+              ))}
+            </fieldset>
+
+            <label class="field field--on-ink travel-pick">
+              <span class="field__label">{b.travel}</span>
+              <select name="travel" data-travel>
+                <option value="" data-fee="0">{t.sheet.travelPick}</option>
+                {travel.map((z) => (
+                  <optgroup label={z.fee ? `+${z.fee} zł` : t.area.free}>
+                    {z.places.map((pl) => <option value={pl} data-fee={z.fee}>{pl}{z.fee ? ` (+${z.fee} zł)` : ''}</option>)}
+                  </optgroup>
+                ))}
+                <option value={t.sheet.travelOther} data-fee="0">{t.sheet.travelOther}</option>
+              </select>
+            </label>
+            <label class="field field--on-ink">
+              <span class="field__label">{b.address}</span>
+              <input name="address" autocomplete="street-address" maxlength="120" />
+            </label>
+
+            <div class="sheet__total">
+              <span class="sheet__total-label">{b.total}</span>
+              <output class="sheet__sum" data-rental-total aria-live="polite">{fmt.format(rental.day)} zł</output>
+            </div>
+            <p class="sheet__note">{b.deposit}</p>
+
+            <div class="sheet__alt">
+              <a class="btn btn--paper" href={site.phoneHref}><Icon name="call" size={18} />{t.call}</a>
+              <a class="btn btn--paper" href={site.whatsappHref} rel="noopener" target="_blank"><Icon name="whatsapp" size={18} />{t.whatsapp}</a>
+            </div>
+            <p class="sheet__or"><span>{t.sheet.or}</span></p>
+
+            <div class="sheet__fields">
+              <label class="field field--on-ink">
+                <span class="field__label">{t.sheet.name}</span>
+                <input name="name" autocomplete="given-name" required maxlength="80" />
+              </label>
+              <label class="field field--on-ink">
+                <span class="field__label">{t.sheet.phone}</span>
+                <input name="phone" type="tel" autocomplete="tel" inputmode="tel" required maxlength="30" />
+              </label>
+            </div>
+            <label class="hp" aria-hidden="true">Company<input name="company" tabindex="-1" autocomplete="off" /></label>
+            <button class="btn btn--paper btn--block" type="submit" data-submit>
+              <span>{b.submit}</span>
+              <Icon name="arrow" size={20} />
+            </button>
+            <p class="form-status" role="status" data-status></p>
+          </form>
+          <div class="sheet__done" data-done hidden tabindex="-1">
+            <Icon name="check" size={44} />
+            <p class="sheet__done-title">{b.successTitle}</p>
+            <p>{b.success}</p>
+          </div>
+          <p class="sheet__fine">{b.fine}</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section steps-sec" id="jak-to-dziala" aria-labelledby="rsteps-title">
+      <div class="wrap">
+        <h2 class="h2" id="rsteps-title">{r.stepsTitle}</h2>
+        <ol class="steps steps--icons">
+          {r.steps.map(([title, text], i) => (
+            <li class="step">
+              <span class="step__n" aria-hidden="true">{i + 1}</span>
+              <Icon name={stepIcons[i]} size={96} stroke={2.2} class="step__icon" />
+              <p class="step__cap"><strong>{title}.</strong> {text}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <section class="section uses" aria-labelledby="uses-title">
+      <div class="wrap">
+        <h2 class="h2" id="uses-title">{r.usesTitle}</h2>
+        <ul class="uses__list">
+          {r.uses.map(([title, text], i) => (
+            <li class="uses__item">
+              <Stain kind={useStains[i]} />
+              <div>
+                <h3 class="uses__title">{title}</h3>
+                <p>{text}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section class="section promise" aria-labelledby="rpromise-title">
+      <div class="wrap promise__grid">
+        <div class="promise__copy">
+          <h2 class="h2 promise__title" id="rpromise-title">{r.guaranteeTitle}</h2>
+          <p class="lead">{r.guaranteeText}</p>
+        </div>
+        <div class="spec">
+          <h3 class="spec__title">{r.specTitle}</h3>
+          <dl>
+            {r.spec.map(([k, v]) => (
+              <div class="spec__row"><dt>{k}</dt><dd>{v}</dd></div>
+            ))}
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <section class="section faq" id="pytania" aria-labelledby="rfaq-title">
+      <div class="wrap faq__grid">
+        <h2 class="h2" id="rfaq-title">{r.faqTitle}</h2>
+        <div class="faq__list">
+          {r.faq.map((f, i) => (
+            <details class="faq__item" open={i === 0}>
+              <summary><span>{f.q}</span><Icon name="plus" size={22} class="faq__icon" /></summary>
+              <p>{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="diy" aria-labelledby="service-title">
+      <div class="wrap diy__in">
+        <div>
+          <h2 class="h2 diy__title" id="service-title">{r.serviceTitle}</h2>
+          <p class="lead">{r.serviceText}</p>
+        </div>
+        <a class="btn btn--ink diy__cta" href={`${pagePath('home', lang)}#cena`}>
+          <span>{r.serviceCta}</span>
+          <Icon name="arrow" size={20} />
+        </a>
+      </div>
+    </section>
+
+    <section class="contact" id="kontakt" aria-labelledby="rcontact-title">
+      <div class="wrap contact__grid">
+        <div class="contact__info">
+          <h2 class="h2" id="rcontact-title">{r.contactTitle}</h2>
+          <p class="lead">{t.contact.lead}</p>
+        </div>
+        <dl class="contact__lines">
+          <div><dt>{t.contact.phoneLabel}</dt><dd><a class="contact__big" href={site.phoneHref}>{site.phoneDisplay}</a></dd></div>
+          <div><dt>WhatsApp</dt><dd><a href={site.whatsappHref} rel="noopener" target="_blank">{site.phoneDisplay}</a></dd></div>
+          <div><dt>{t.contact.emailLabel}</dt><dd><a href={`mailto:${site.email}`}>{site.email}</a></dd></div>
+          <div><dt>{t.contact.hoursLabel}</dt><dd>{t.contact.hours}</dd></div>
+        </dl>
+      </div>
+    </section>
+  </main>
+
+  <Footer lang={lang} mainHref="#rezerwacja" mainLabel={t.bar.book} />
+
+  <script type="application/json" id="ui" set:html={JSON.stringify(ui)} />
+  <script>
+    import '../scripts/main.ts';
+  </script>
+</Base>
